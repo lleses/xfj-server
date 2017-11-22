@@ -39,11 +39,20 @@ a:hover{color:#999999;text-decoration:none}
 						<label class="weui_label">账号类型</label>
 					</div>
 					<div class="weui_cell_bd weui_cell_primary">
-						<select id="wxUserType" onchange="selectOnchange(this)">
-							<option value="0">社会单位</option>
-							<option value="1">平台巡查员</option>
-							<option value="2">平台管理员</option>
-						</select>
+						<c:choose>
+							<c:when test="${type=='1'}">
+								<select id="wxUserType" onchange="selectOnchange(this)">
+									<option value="0">社会单位</option>
+								</select>
+							</c:when>
+							<c:otherwise>
+								<select id="wxUserType" onchange="selectOnchange(this)">
+									<option value="0">社会单位</option>
+									<option value="1">平台巡查员</option>
+									<option value="2">平台管理员</option>
+								</select>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<div class="weui_cell" id="username_div" style="display: none;">
