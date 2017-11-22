@@ -70,7 +70,7 @@ public class XunchaAppController {
 		Xuncha xuncha = xunchaService.find(id);
 		if (xuncha != null) {
 			List<XunchaImg> list = xunchaService.getImgs(xuncha.getId());
-			String imgs = "";
+			String imgs = null;
 			for (XunchaImg xunchaImg : list) {
 				imgs += "," + xunchaImg.getPicName();
 			}
@@ -85,7 +85,6 @@ public class XunchaAppController {
 		map.put("xuncha", xuncha);
 		String json = StringUtils.json(map);
 		return json;
-
 	}
 
 	@RequestMapping("add")
