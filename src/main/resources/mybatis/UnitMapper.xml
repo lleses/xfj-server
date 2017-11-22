@@ -174,46 +174,7 @@
 		</where>
 	</select>
 	
-	<!-- 检测监管单位(巡查单位)是否存在 -->
-	<select id="getByYzm" resultType="cn.dlj.entity.Unit">
-		select
-				unit.id 						as "id",
-				unit.name 						as "name",
-				unit.departmentId 				as "departmentId",
-				unit.townId 					as "townId",
-				unit.code 						as "code",
-				unit.license					as "license",
-				unit.address					as "address",
-				unit.type						as "type",
-				unit.safedLinkman				as "safedLinkman",
-				unit.safedTelphone				as "safedTelphone",
-				unit.manageLinkman				as "manageLinkman",
-				unit.manageTelphone				as "manageTelphone",
-				unit.nameId						as "stationId",
-				unit.belongUserId				as "belongUserId",
-				unit.isxc						as "isxc",
-				unit.addTime					as "addTime",
-				unit.modTime					as "modTime",
-				unit.userId						as "userId",
-				unit.delflag					as "delflag",
-				unit.meno						as "meno",
-				unit.bimg						as "bimg",
-				unit.area						as "area",
-				unit.iscg						as "iscg",
-				unit.isgm						as "isgm",
-				unit.yzm						as "yzm",
-				u.name							as "userName",
-				t.name							as "townName",
-				dep.name						as "departmentName",
-				unit.buildingsLayer				as "buildingsLayer"
-		from t_unit unit
-		left join t_user u on u.id=unit.userId
-		left join t_town t on t.id=unit.townId
-		left join t_department dep  on dep.id=unit.departmentId
-		<where>
-			unit.safedTelphone=#{yzm}
-		</where>
-	</select>
+	
 	
 	<!-- 获取监管单位(巡查单位)离线数据 -->
 	<select id="getList" resultType="cn.dlj.entity.UnitStr">
@@ -415,5 +376,58 @@
 		</where>
 		order by unit.addTime desc
 		limit #{first},#{pageSize}
+	</select>
+	<!-- ***************************new*********************************** -->
+	
+	<select id="getByPhone" resultType="cn.dlj.entity.Unit">
+		select
+				unit.id 						as "id",
+				unit.name 						as "name",
+				unit.departmentId 				as "departmentId",
+				unit.townId 					as "townId",
+				unit.code 						as "code",
+				unit.license					as "license",
+				unit.address					as "address",
+				unit.type						as "type",
+				unit.safedLinkman				as "safedLinkman",
+				unit.safedTelphone				as "safedTelphone",
+				unit.manageLinkman				as "manageLinkman",
+				unit.manageTelphone				as "manageTelphone",
+				unit.nameId						as "stationId",
+				unit.belongUserId				as "belongUserId",
+				unit.isxc						as "isxc",
+				unit.addTime					as "addTime",
+				unit.modTime					as "modTime",
+				unit.userId						as "userId",
+				unit.delflag					as "delflag",
+				unit.meno						as "meno",
+				unit.bimg						as "bimg",
+				unit.area						as "area",
+				unit.iscg						as "iscg",
+				unit.isgm						as "isgm",
+				unit.yzm						as "yzm",
+				u.name							as "userName",
+				t.name							as "townName",
+				dep.name						as "departmentName",
+				unit.buildingsLayer				as "buildingsLayer"
+		from t_unit unit
+		left join t_user u on u.id=unit.userId
+		left join t_town t on t.id=unit.townId
+		left join t_department dep  on dep.id=unit.departmentId
+		<where>
+			unit.safedTelphone=#{phone}
+		</where>
+	</select>
+	
+	
+	<!-- 获取监管单位(巡查单位)数据 -->
+	<select id="findByIds" resultType="cn.dlj.entity.Unit">
+		select
+				unit.id 						as "id",
+				unit.name 						as "name"
+		from t_unit unit
+		<where>
+			unit.id in (${ids})
+		</where>
 	</select>
 </mapper>
