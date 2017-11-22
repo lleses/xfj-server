@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlj.wx.dao.WxXunchaDao">
+
+	<!-- 新增 -->
+	<insert id="add" parameterType="cn.dlj.entity.WxXuncha">
+		insert into t_wx_xuncha(xunchaId,status,ct,et,role,unitName)
+		values(#{xunchaId},#{status},#{ct},#{et},#{role},#{unitName})
+	</insert>
+	
+	<update id="update" parameterType="cn.dlj.entity.WxXuncha" >
+		update t_wx_xuncha set
+			status= #{status},et=#{et},role=#{role} 
+		where xunchaId=#{xunchaId}
+	</update>
+	
+	<!-- 根据appId获取id -->
+	<select id="getById" resultType="cn.dlj.entity.WxXuncha">
+		select
+				*
+		from t_wx_xuncha
+		<where>
+			xunchaId=#{xunchaId}
+		</where>
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlj.dao.XunchaDao">
+
+	<!-- 新增 -->
+	<insert id="add" parameterType="cn.dlj.entity.Xuncha" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+		insert into t_xuncha(id,xctype,unitId,unitName,departId,departName,townId,townName,xcTime,oxcTime,xcPerson,etPerson,xcItem1,xcItem2,xcItem3,xcItem4,xcItem5,xcItem6,xcItem7,xcItem8,xcItem9,xcItem10,xcItem11,rectDate,meno,flag,addTime,modTime,userId,addIp,pxquantity,trainingA,app_xuncha_id,live_three)
+		values(#{id},#{xctype},#{unitId},#{unitName},#{departId},#{departName},#{townId},#{townName},#{xcTime},#{oxcTime},#{xcPerson},#{etPerson},#{xcItem1},#{xcItem2},#{xcItem3},#{xcItem4},#{xcItem5},#{xcItem6},#{xcItem7},#{xcItem8},#{xcItem9},#{xcItem10},#{xcItem11},null,#{meno},#{flag},#{addTime},#{modTime},#{userId},#{addIp},#{pxquantity},#{trainingA},#{appXunchaId},#{liveThree})
+	</insert>
+
+	<!-- 新增 -->
+	<insert id="add2" parameterType="cn.dlj.entity.Xuncha" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+		insert into t_xuncha(id,xctype,unitId,unitName,departId,departName,townId,townName,xcTime,oxcTime,xcPerson,etPerson,xcItem1,xcItem2,xcItem3,xcItem4,xcItem5,xcItem6,xcItem7,xcItem8,xcItem9,xcItem10,xcItem11,rectDate,meno,flag,addTime,modTime,userId,addIp,pxquantity,trainingA,app_xuncha_id,live_three,doorTime1,doorTime2,doorNum)
+		values(#{id},#{xctype},#{unitId},#{unitName},#{departId},#{departName},#{townId},#{townName},#{xcTime},#{oxcTime},#{xcPerson},#{etPerson},#{xcItem1},#{xcItem2},#{xcItem3},#{xcItem4},#{xcItem5},#{xcItem6},#{xcItem7},#{xcItem8},#{xcItem9},#{xcItem10},#{xcItem11},null,#{meno},#{flag},#{addTime},#{modTime},#{userId},#{addIp},#{pxquantity},#{trainingA},#{appXunchaId},#{liveThree},#{doorTime1},#{doorTime2},#{doorNum})
+	</insert>
+	
+	<!-- 更新rd的图片 -->
+	<update id="updateXc" parameterType="cn.dlj.entity.Xuncha" >
+		update t_xuncha set
+			oxcTime= #{oxcTime},
+			xcPerson= #{xcPerson},
+			etPerson= #{etPerson},
+			xcItem1= #{xcItem1},
+			xcItem2= #{xcItem2},
+			xcItem3= #{xcItem3},
+			xcItem4= #{xcItem4},
+			xcItem5= #{xcItem5},
+			xcItem6= #{xcItem6},
+			xcItem7= #{xcItem7},
+			xcItem8= #{xcItem8},
+			xcItem9= #{xcItem9},
+			xcItem10= #{xcItem10},
+			xcItem11= #{xcItem11},
+			meno= #{meno},
+			flag= #{flag},
+			modTime= #{modTime},
+			pxquantity= #{pxquantity},
+			trainingA= #{trainingA},
+			doorTime1= #{doorTime1},
+			doorTime2= #{doorTime2},
+			doorNum= #{doorNum},
+			live_three= #{liveThree}
+		where id=#{id}
+	</update>
+	
+	
+	<!-- 新增img -->
+	<insert id="addImg" parameterType="cn.dlj.entity.XunchaImg" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+		insert into t_xunchaimg(id,xunchaId,picName,intro,longitude,latitude,flag,addTime)
+		values(#{id},#{xunchaId},#{picName},#{intro},#{longitude},#{latitude},#{flag},#{addTime})
+	</insert>
+	
+	<!-- 删除监管单位归属建筑物信息 -->
+	<delete id="delXunchaImg">
+		delete from t_xunchaimg where xunchaId = #{xunchaId}
+	</delete>
+	
+	<!-- 新增历史记录 -->
+	<insert id="addFlag" parameterType="java.util.Map">
+		insert into t_xunchaflag(xunchaId,townId,townName,departId,departName,userId,userName,addTime,addIp,flag,live_three)
+		values(#{xunchaId},#{townId},#{townName},#{departId},#{departName},#{userId},#{userName},#{addTime},#{addIp},#{flag},#{liveThree})
+	</insert>
+	
+	<!-- 新增rd -->
+	<insert id="addRd" parameterType="java.util.Map">
+		insert into t_xunchard(xunchaId,xctype,unitId,unitName,departId,departName,townId,townName,code,license,address,type,safedLinkman,safedTelphone,manageLinkman,manageTelphone,area,crewSize,buildingsLayer,unitMeno,xcTime,oxcTime,xcPerson,etPerson,xcItem1,xcItem2,xcItem3,xcItem4,xcItem5,xcItem6,xcItem7,xcItem8,xcItem9,xcItem10,xcItem11,xcItem12,rectDate,meno,flag,imgIds,addTime,userId,userName,live_three)
+		values(#{xunchaId},#{xctype},#{unitId},#{unitName},#{departId},#{departName},#{townId},#{townName},#{code},#{license},#{address},#{type},#{safedLinkman},#{safedTelphone},#{manageLinkman},#{manageTelphone},#{area},#{crewSize},#{buildingsLayer},#{unitMeno},#{xcTime},#{oxcTime},#{xcPerson},#{etPerson},#{xcItem1},#{xcItem2},#{xcItem3},#{xcItem4},#{xcItem5},#{xcItem6},#{xcItem7},#{xcItem8},#{xcItem9},#{xcItem10},#{xcItem11},#{xcItem12},null,#{meno},#{flag},#{imgIds},#{addTime},#{userId},#{userName},#{liveThree})
+	</insert>
+	
+	<!-- 更新rd的图片 -->
+	<update id="updateRdImgs" parameterType="java.util.Map" >
+		update t_xunchard set
+			imgIds= #{imgIds}
+		where xunchaId=#{id}
+	</update>
+	
+	<select id="getById" resultType="cn.dlj.entity.Xuncha">
+		select
+				id				as 	"id",
+				xctype			as	"xctype",
+				unitId			as	"unitId",
+				unitName		as	"unitName",
+				departId		as	"departId",
+				departName		as	"departName",
+				townId			as	"townId",
+				townName		as	"townName",
+				xcTime			as	"xcTime",
+				oxcTime			as	"oxcTime",
+				xcPerson		as	"xcPerson",
+				etPerson		as	"etPerson",
+				xcItem1			as	"xcItem1",
+				xcItem2			as	"xcItem2",
+				xcItem3			as	"xcItem3",
+				xcItem4			as	"xcItem4",
+				xcItem5			as	"xcItem5",
+				xcItem6			as	"xcItem6",
+				xcItem7			as	"xcItem7",
+				xcItem8			as	"xcItem8",
+				xcItem9			as	"xcItem9",
+				xcItem10		as	"xcItem10",
+				xcItem11		as	"xcItem11",
+				meno			as	"meno",
+				flag			as	"flag",
+				addTime			as	"addTime",
+				modTime			as	"modTime",
+				userId			as	"userId",
+				addIp			as	"addIp",
+				pxquantity		as	"pxquantity",
+				trainingA		as	"trainingA",
+				app_xuncha_id	as	"appXunchaId",
+				live_three		as	"liveThree"
+		from t_xuncha
+		<where>
+			id=#{id}
+		</where>
+	</select>
+	
+	<!-- 根据appId获取id -->
+	<select id="getByAppId" resultType="java.lang.Integer">
+		select
+				id 						as "id"
+		from t_xuncha
+		<where>
+			app_xuncha_id=#{appXunchaId}
+		</where>
+	</select>
+	
+	<!-- 根据名称和appid获取巡查记录 -->
+	<select id="get" resultType="cn.dlj.entity.Xuncha">
+		select
+				id 						as "id",
+				app_xuncha_id			as "appXunchaId"
+		from t_xuncha
+		<where>
+			app_xuncha_id=#{appXunchaId} and unitName=#{unitName}
+		</where>
+	</select>
+	
+	<!--****************************** wx ******************************-->
+	<!-- 根据名称和appid获取巡查记录 -->
+	<select id="getByUnitId" resultType="cn.dlj.entity.Xuncha">
+		select
+				id				as 	"id",
+				xctype			as	"xctype",
+				unitId			as	"unitId",
+				unitName		as	"unitName",
+				departId		as	"departId",
+				departName		as	"departName",
+				townId			as	"townId",
+				townName		as	"townName",
+				xcTime			as	"xcTime",
+				oxcTime			as	"oxcTime",
+				xcPerson		as	"xcPerson",
+				etPerson		as	"etPerson",
+				xcItem1			as	"xcItem1",
+				xcItem2			as	"xcItem2",
+				xcItem3			as	"xcItem3",
+				xcItem4			as	"xcItem4",
+				xcItem5			as	"xcItem5",
+				xcItem6			as	"xcItem6",
+				xcItem7			as	"xcItem7",
+				xcItem8			as	"xcItem8",
+				xcItem9			as	"xcItem9",
+				xcItem10		as	"xcItem10",
+				xcItem11		as	"xcItem11",
+				meno			as	"meno",
+				flag			as	"flag",
+				addTime			as	"addTime",
+				modTime			as	"modTime",
+				userId			as	"userId",
+				addIp			as	"addIp",
+				pxquantity		as	"pxquantity",
+				trainingA		as	"trainingA",
+				app_xuncha_id	as	"appXunchaId",
+				live_three		as	"liveThree"
+		from t_xuncha
+		<where>
+			unitId=#{unitId} and flag in('30','31','32')
+		</where>
+	</select>
+	
+	<!-- 根据名称和appid获取巡查记录 -->
+	<select id="getWxList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.entity.Xuncha">
+		select
+				id				as 	"id",
+				xctype			as	"xctype",
+				unitId			as	"unitId",
+				unitName		as	"unitName",
+				departId		as	"departId",
+				departName		as	"departName",
+				townId			as	"townId",
+				townName		as	"townName",
+				xcTime			as	"xcTime",
+				oxcTime			as	"oxcTime",
+				xcPerson		as	"xcPerson",
+				etPerson		as	"etPerson",
+				xcItem1			as	"xcItem1",
+				xcItem2			as	"xcItem2",
+				xcItem3			as	"xcItem3",
+				xcItem4			as	"xcItem4",
+				xcItem5			as	"xcItem5",
+				xcItem6			as	"xcItem6",
+				xcItem7			as	"xcItem7",
+				xcItem8			as	"xcItem8",
+				xcItem9			as	"xcItem9",
+				xcItem10		as	"xcItem10",
+				xcItem11		as	"xcItem11",
+				meno			as	"meno",
+				flag			as	"flag",
+				addTime			as	"addTime",
+				modTime			as	"modTime",
+				userId			as	"userId",
+				addIp			as	"addIp",
+				pxquantity		as	"pxquantity",
+				trainingA		as	"trainingA",
+				app_xuncha_id	as	"appXunchaId",
+				live_three		as	"liveThree"
+		from t_xuncha
+		<where>
+			 flag = '31'
+			 <if test="null!=params.unitName"> and unitName like #{params.unitName}</if>
+		</where>
+		order by xcTime desc
+		limit #{first},#{pageSize}
+	</select>
+	
+	<!-- 更新rd的图片 -->
+	<update id="updateWxXuncha">
+		update t_xuncha set flag=#{status} where id=#{xunchaId}
+	</update>
+	
+	<select id="getImgs" resultType="cn.dlj.entity.XunchaImg">
+		select
+				id,xunchaId,picName,intro,longitude,latitude,flag,addTime
+		from t_xunchaimg
+		<where>
+			xunchaId=#{xunchaId}
+		</where>
+	</select>
+	
+	<!-- 更新rd的图片 -->
+	<update id="updateXunchaXcItem">
+		update t_xuncha set
+			${xcItem}= #{XcItemNum}
+		where id=#{xunchaId}
+	</update>
+	
+	<select id="find" resultType="cn.dlj.entity.Xuncha">
+		select
+				id				as 	"id",
+				xctype			as	"xctype",
+				unitId			as	"unitId",
+				unitName		as	"unitName",
+				departId		as	"departId",
+				departName		as	"departName",
+				townId			as	"townId",
+				townName		as	"townName",
+				xcTime			as	"xcTime",
+				oxcTime			as	"oxcTime",
+				xcPerson		as	"xcPerson",
+				etPerson		as	"etPerson",
+				xcItem1			as	"xcItem1",
+				xcItem2			as	"xcItem2",
+				xcItem3			as	"xcItem3",
+				xcItem4			as	"xcItem4",
+				xcItem5			as	"xcItem5",
+				xcItem6			as	"xcItem6",
+				xcItem7			as	"xcItem7",
+				xcItem8			as	"xcItem8",
+				xcItem9			as	"xcItem9",
+				xcItem10		as	"xcItem10",
+				xcItem11		as	"xcItem11",
+				meno			as	"meno",
+				flag			as	"flag",
+				addTime			as	"addTime",
+				modTime			as	"modTime",
+				userId			as	"userId",
+				addIp			as	"addIp",
+				pxquantity		as	"pxquantity",
+				trainingA		as	"trainingA",
+				app_xuncha_id	as	"appXunchaId",
+				doorNum			as	"doorNum",
+				doorTime1		as	"doorTime1",
+				doorTime2		as	"doorTime2",
+				live_three		as	"liveThree"
+		from t_xuncha
+		<where>
+			unitId=#{unitId}
+		</where>
+		order by addTime desc
+	</select>
+</mapper>

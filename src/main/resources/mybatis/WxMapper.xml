@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlj.dao.WxDao">
+
+	<!-- 新增 -->
+	<insert id="add" parameterType="cn.dlj.entity.WxXunchaImg" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+		insert into t_wx_xunchaimg(id,xunchaId,picName,num,flag)
+		values(#{id},#{xunchaId},#{picName},#{num},#{flag})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update">
+		update t_wx_xunchaimg
+			set
+			picName= #{picName}
+		where id=#{id}
+	</update>
+	
+	<!-- 根据appId获取id -->
+	<select id="getList" resultType="cn.dlj.entity.WxXunchaImg">
+		select
+				id,xunchaId,picName,num,flag
+		from t_wx_xunchaimg
+		<where>
+			xunchaId=#{xunchaId}
+		</where>
+	</select>
+	
+	<!-- 根据appId获取id -->
+	<select id="getNum" resultType="cn.dlj.entity.WxXunchaImg">
+		select
+				id,xunchaId,picName,num,flag
+		from t_wx_xunchaimg
+		<where>
+			xunchaId=#{xunchaId} and num=#{num}
+		</where>
+	</select>
+	
+	<!-- 修改 -->
+	<update id="updateFalg">
+		update t_wx_xunchaimg
+			set
+			flag= #{flag}
+		where id=#{id}
+	</update>
+	
+	<!-- 查询巡查员待审核记录 -->
+	<select id="getWxWaitList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.entity.WxXuncha">
+		select
+				*
+		from t_wx_xuncha
+		<where>
+			 status=0 and role=1 
+			 <if test="null!=params.unitName"> and unitName like #{params.unitName} </if>
+		</where>
+		order by et desc
+		limit #{first},#{pageSize}
+	</select>
+	
+	<!-- 查询巡查员已审核记录 -->
+	<select id="getWxAlreadyList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.entity.WxXuncha">
+		select
+				*
+		from t_wx_xuncha
+		<where>
+			 status in (1,2) and role=1 
+			 <if test="null!=params.unitName"> and unitName like #{params.unitName} </if>
+		</where>
+		order by et desc
+		limit #{first},#{pageSize}
+	</select>
+	
+	<!-- 查询管理员员待审核记录 -->
+	<select id="getWxGlyWaitList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.entity.WxXuncha">
+		select
+				*
+		from t_wx_xuncha
+		<where>
+			 status=0 and role=2 
+			 <if test="null!=params.unitName"> and unitName like #{params.unitName} </if>
+		</where>
+		order by et desc
+		limit #{first},#{pageSize}
+	</select>
+	
+	<!-- 查询管理员员已审核记录 -->
+	<select id="getWxGlyAlreadyList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.entity.WxXuncha">
+		select
+				*
+		from t_wx_xuncha
+		<where>
+			 status in (1,2) and role=2 
+			 <if test="null!=params.unitName"> and unitName like #{params.unitName} </if>
+		</where>
+		order by et desc
+		limit #{first},#{pageSize}
+	</select>
+	
+</mapper>
