@@ -19,37 +19,14 @@
 <script type="text/javascript" src="/res/js/jquery-weui.min.js"></script>
 </head>
 <style>
-.weui-picker-modal .picker-items {
-font-size: 17px;
-}
-
-.toolbar .title {
-font-size: 15px;
-}
-
-.toolbar .picker-button {
-font-size: 15px;
-}
-
-.weui_cell {
-padding: 10px 0px; margin: 0px 6%;
-}
-
-input {
-border: 0px;
-}
-
-a:link {
-color: #fff; text-decoration: none;
-}
-
-a:visited {
-color: #fff; text-decoration: none;
-}
-
-a:hover {
-color: #999999; text-decoration: none;
-}
+.weui-picker-modal .picker-items{font-size:17px}
+.toolbar .title{font-size:15px}
+.toolbar .picker-button{font-size:15px}
+.weui_cell{padding:10px 0px;margin:0px 6%}
+input{border:0px}
+a:link{color:#fff;text-decoration:none}
+a:visited{color:#fff;text-decoration:none}
+a:hover{color:#999999;text-decoration:none}
 </style>
 </head>
 <body>
@@ -160,7 +137,8 @@ color: #999999; text-decoration: none;
 				} else {
 					$.alert("绑定成功",function(){
 						if(_wxUserType=="0"){
-							window.location.href="/wx/xc/to_index?unitId="+rs;
+							//window.location.href="/wx/xc/to_index?unitId="+rs;
+							window.location.href="/wx/selUnit?unitIds="+rs+"&openId="+$("#openId").val();
 						}else if(_wxUserType == "1"){
 							window.location.href="/wx/admin/xc/index";
 						}else{

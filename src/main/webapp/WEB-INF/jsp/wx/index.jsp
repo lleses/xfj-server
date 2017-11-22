@@ -73,7 +73,7 @@
 			</div>
 		</div>
 		<div id="btn" class="btn" style="padding:10px 5%; width: 90%; float: left;">
-			<a href="/wx/xc/form?unitId=${unit.id }" style="font-size: 15px;line-height: 30px;height: 30px;" class="weui_btn weui_btn_primary" onclick="checkSubmit('1')">整改问题</a>
+			<a href="/wx/xc/form?unitId=${unit.id }" style="font-size: 15px;line-height: 30px;height: 30px;" class="weui_btn weui_btn_primary">整改问题</a>
 		</div>
 	</div>
 </body>
