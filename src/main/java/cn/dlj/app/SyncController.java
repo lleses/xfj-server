@@ -124,7 +124,7 @@ public class SyncController {
 				log.error(err);
 			}
 			LogDTO logDTO = new LogDTO();
-			logDTO.setId(IdUtils.nowId32());
+			logDTO.setId(IdUtils.id32());
 			logDTO.setType(LOG_APP_TYPE);
 			logDTO.setRequest(request);
 			logDTO.setResponse(response);

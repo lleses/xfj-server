@@ -40,7 +40,7 @@ public class LogController {
 		}
 		try {
 			LogDTO log = new LogDTO();
-			log.setId(IdUtils.nowId32());
+			log.setId(IdUtils.id32());
 			log.setType(type);
 			log.setRequest(json);
 			log.setUid(uid);
