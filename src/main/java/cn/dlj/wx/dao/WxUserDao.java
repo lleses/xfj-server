@@ -1,7 +1,5 @@
 package cn.dlj.wx.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 import cn.dlj.utils.MyBatisDao;
@@ -21,6 +19,8 @@ public interface WxUserDao {
 	 * 
 	 */
 	int add(WxUser wxUser);
+
+	void update(WxUser wxUser);
 
 	WxUser getByNameAndPwd(@Param("userName") String userName, @Param("userPwd") String userPwd);
 

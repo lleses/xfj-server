@@ -25,6 +25,13 @@ public class WxUserService {
 		}
 	}
 
+	@Transactional
+	public void update(WxUser wxUser) {
+		if (wxUser.getOpenId() != null && wxUser.getId() != null) {
+			wxUserDao.update(wxUser);
+		}
+	}
+
 	public WxUser getByOpenId(String openId) {
 		if (openId != null) {
 			return wxUserDao.getByOpenId(openId);

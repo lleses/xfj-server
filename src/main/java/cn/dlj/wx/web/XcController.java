@@ -116,7 +116,9 @@ public class XcController {
 	@RequestMapping("toBind")
 	public String toBind(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String openId = ParamUtils.getStr(request, "openId");
+		String type = ParamUtils.getStr(request, "type");
 		request.setAttribute("openId", openId);
+		request.setAttribute("type", type);
 		return "wx/bind";
 	}
 
@@ -137,22 +139,31 @@ public class XcController {
 				log.error("账号绑定失败,验证码不正确");
 				return "-5";
 			}
-			String unitIds = null;
+			String unitIds = "";
 			for (Unit un : units) {
 				unitIds += "," + un.getId();
 			}
-			if (unitIds != null) {
+			if (!"".equals(unitIds)) {
 				unitIds = unitIds.substring(1);
 			}
-
-			WxUser wxUser = new WxUser();
-			wxUser.setOpenId(openId);
-			wxUser.setType(0);
-			wxUser.setUnitId(unitIds);
-			wxUser.setUserId(-1);
-			wxUser.setUserName("");
-			wxUser.setUserPwd("");
-			wxUserService.add(wxUser);
+			WxUser wxUser = wxUserService.getByOpenId(openId);
+			if (wxUser == null) {//add
+				wxUser = new WxUser();
+				wxUser.setOpenId(openId);
+				wxUser.setType(0);
+				wxUser.setUnitId(unitIds);
+				wxUser.setUserId(-1);
+				wxUser.setUserName("");
+				wxUser.setUserPwd("");
+				wxUserService.add(wxUser);
+			} else {//update
+				wxUser.setType(0);
+				wxUser.setUnitId(unitIds);
+				wxUser.setUserId(-1);
+				wxUser.setUserName("");
+				wxUser.setUserPwd("");
+				wxUserService.update(wxUser);
+			}
 			return unitIds;
 		} else {
 			if (username == null || "".equals(username.trim()) || pwd == null || "".equals(pwd.trim())) {
@@ -168,23 +179,44 @@ public class XcController {
 				log.error("账号绑定失败,账号密码不对");
 				return "-3";
 			}
-			WxUser wxUser = new WxUser();
-			wxUser.setOpenId(openId);
-			wxUser.setUnitId("-1");
-			wxUser.setUserId(user.getId());
-			wxUser.setUserName(user.getUsername());
-			wxUser.setUserPwd(user.getPwd());
-			if ("1".equals(wxUserType)) {
-				wxUser.setType(1);
-				wxUserService.add(wxUser);
-				return "1";
-			} else if ("2".equals(wxUserType)) {
-				wxUser.setType(2);
-				wxUserService.add(wxUser);
-				return "1";
-			} else {
-				log.error("账号绑定bug，请开发者检查代码");
+
+			WxUser wxUser = wxUserService.getByOpenId(openId);
+			if (wxUser == null) {//add
+				wxUser = new WxUser();
+				wxUser.setOpenId(openId);
+				wxUser.setUnitId("-1");
+				wxUser.setUserId(user.getId());
+				wxUser.setUserName(user.getUsername());
+				wxUser.setUserPwd(user.getPwd());
+				if ("1".equals(wxUserType)) {
+					wxUser.setType(1);
+					wxUserService.add(wxUser);
+					return "1";
+				} else if ("2".equals(wxUserType)) {
+					wxUser.setType(2);
+					wxUserService.add(wxUser);
+					return "2";
+				} else {
+					log.error("账号绑定bug，请开发者检查代码");
+				}
+			} else {//update
+				wxUser.setUnitId("-1");
+				wxUser.setUserId(user.getId());
+				wxUser.setUserName(user.getUsername());
+				wxUser.setUserPwd(user.getPwd());
+				if ("1".equals(wxUserType)) {
+					wxUser.setType(1);
+					wxUserService.update(wxUser);
+					return "1";
+				} else if ("2".equals(wxUserType)) {
+					wxUser.setType(2);
+					wxUserService.update(wxUser);
+					return "2";
+				} else {
+					log.error("账号绑定bug，请开发者检查代码");
+				}
 			}
+
 			log.error("账号绑定bug(2)，请开发者检查代码");
 			return "-4";
 		}

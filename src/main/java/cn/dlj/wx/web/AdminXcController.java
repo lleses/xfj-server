@@ -40,20 +40,20 @@ public class AdminXcController {
 	@Autowired
 	private WxXunchaService wxXunchaService;
 
-//	@RequestMapping("index")
-//	public String index(HttpServletRequest request) {
-//		PagingMySql paging = new PagingMySql();
-//		paging.setCurrentPage(1);
-//		paging.setPageSize(20);
-//		//巡查员(待审核)
-//		List<WxXuncha> waitList = wxService.getWxWaitList(paging);
-//		//巡查员(已审核)
-//		List<WxXuncha> alreadyList = wxService.getWxAlreadyList(paging);
-//		request.setAttribute("waitList", waitList);
-//		request.setAttribute("size", waitList.size());
-//		request.setAttribute("alreadyList", alreadyList);
-//		return "wx/admin/index";
-//	}
+	@RequestMapping("index")
+	public String index(HttpServletRequest request) {
+		PagingMySql paging = new PagingMySql();
+		paging.setCurrentPage(1);
+		paging.setPageSize(20);
+		//巡查员(待审核)
+		List<WxXuncha> waitList = wxService.getWxWaitList(paging);
+		//巡查员(已审核)
+		List<WxXuncha> alreadyList = wxService.getWxAlreadyList(paging);
+		request.setAttribute("waitList", waitList);
+		request.setAttribute("size", waitList.size());
+		request.setAttribute("alreadyList", alreadyList);
+		return "wx/admin/index";
+	}
 
 	@RequestMapping("list")
 	public String list(HttpServletRequest request) {
