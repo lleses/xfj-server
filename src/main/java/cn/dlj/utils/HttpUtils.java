@@ -1,7 +1,6 @@
 package cn.dlj.utils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -13,16 +12,11 @@ import java.util.zip.GZIPInputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
 
 /**
  * Http工具类
  * 
- * @author HeHongxin
- * @date 2014-7-29
- * 
  */
-
 public class HttpUtils {
 
 	/** 日志 */
