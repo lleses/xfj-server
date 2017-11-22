@@ -8,6 +8,18 @@
 		values(#{openId},#{unitId},#{userId},#{type},#{userName},#{userPwd})
 	</insert>
 	
+	<update id="update" parameterType="cn.dlj.wx.entity.WxUser" >
+		update t_wx_user
+			set
+			openId=#{openId},
+			unitId=#{unitId},
+			userId=#{userId},
+			type=#{type},
+			userName=#{userName},
+			userPwd=#{userPwd}
+		where id=#{id}
+	</update>
+	
 	<!-- 根据appId获取id -->
 	<select id="getByOpenId" resultType="cn.dlj.wx.entity.WxUser">
 		select
