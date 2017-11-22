@@ -85,15 +85,6 @@ public interface UnitDao {
 	Unit getById(@Param("id") Integer id);
 
 	/**
-	 * 根据id获取监管单位(巡查单位)
-	 * 
-	 * @param id
-	 *            ID
-	 * @return
-	 */
-	List<Unit> getByYzm(@Param("yzm") String yzm);
-
-	/**
 	 * 获取监管单位(巡查单位)离线数据
 	 * 
 	 * @param townId
@@ -125,8 +116,6 @@ public interface UnitDao {
 	 */
 	void addUnitBuilding(@Param("unit") Unit unit);
 
-	//------------------------------------------------wx------------------------------------------------
-
 	Unit findById(@Param("id") Integer id);
 
 	/**
@@ -142,4 +131,9 @@ public interface UnitDao {
 	List<Unit> getMyPaging(PagingMySql paging);
 
 	List<Map<String, Object>> getBuilds(@Param("uid") Integer uid);
+
+	//------------------------------------------------new------------------------------------------------
+	List<Unit> getByPhone(@Param("phone") String phone);
+
+	List<Unit> findByIds(@Param("ids") String ids);
 }

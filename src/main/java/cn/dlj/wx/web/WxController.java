@@ -21,6 +21,7 @@ import cn.dlj.service.WxService;
 import cn.dlj.service.XunchaService;
 import cn.dlj.utils.HttpUtils;
 import cn.dlj.utils.PagingMySql;
+import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.utils.WxConfig;
 import cn.dlj.wx.entity.WxUser;
@@ -72,12 +73,10 @@ public class WxController {
 			}
 			Integer type = wxUser.getType();//0:被监管单位 1:平台巡查员 2:平台管理员
 			if (type == 0) {
-				Integer unitId = wxUser.getUnitId();
-				Xuncha xuncha = xunchaService.getByUnitId(unitId);
-				Unit unit = unitService.findById(unitId);
-				request.setAttribute("xuncha", xuncha);
-				request.setAttribute("unit", unit);
-				return "wx/index";
+				String unitIds = wxUser.getUnitId();
+				List<Unit> units = unitService.findByIds(unitIds);
+				request.setAttribute("units", units);
+				return "wx/selUnit";
 			} else if (type == 1) {
 				PagingMySql paging = new PagingMySql();
 				paging.setCurrentPage(1);
@@ -107,6 +106,17 @@ public class WxController {
 			e.printStackTrace();
 		}
 		return "wx/bind";
+
+	}
+
+	@RequestMapping("selUnit")
+	public String selUnit(HttpServletRequest request) {
+		String openId = ParamUtils.getStr(request, "openId");
+		String unitIds = ParamUtils.getStr(request, "unitIds");
+		List<Unit> units = unitService.findByIds(unitIds);
+		request.setAttribute("units", units);
+		request.setAttribute("openId", openId);
+		return "wx/selUnit";
 
 	}
 

@@ -11,7 +11,7 @@ public class WxUser {
 	/** openId */
 	private String openId;
 	/** 监管单位 */
-	private Integer unitId;
+	private String unitId;
 	/** 账号Id **/
 	private Integer userId;
 	/** 0:被监管单位 1:平台巡查员 2:平台管理员  */
@@ -52,14 +52,14 @@ public class WxUser {
 	/**
 	 * 
 	 */
-	public Integer getUnitId() {
+	public String getUnitId() {
 		return unitId;
 	}
 
 	/**
 	 * 
 	 */
-	public void setUnitId(Integer unitId) {
+	public void setUnitId(String unitId) {
 		this.unitId = unitId;
 	}
 

@@ -155,23 +155,6 @@ public class UnitService {
 	 *            ID
 	 * @return
 	 */
-	public Unit getByYzm(String yzm) {
-		if (yzm != null) {
-			List<Unit> list = dao.getByYzm(yzm);
-			if (list != null && !list.isEmpty()) {
-				return list.get(0);
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * 根据id获取监管单位(巡查单位)
-	 * 
-	 * @param id
-	 *            ID
-	 * @return
-	 */
 	public Unit getById(Integer id) {
 		if (id != null) {
 			return dao.getById(id);
@@ -247,4 +230,20 @@ public class UnitService {
 		return unit;
 	}
 
+	//------------------------------------------------new------------------------------------------------
+	public List<Unit> getByPhone(String yzm) {
+		List<Unit> list = new ArrayList<>();
+		if (yzm != null && !"".equals(yzm)) {
+			list = dao.getByPhone(yzm);
+		}
+		return list;
+	}
+
+	public List<Unit> findByIds(String ids) {
+		List<Unit> list = new ArrayList<>();
+		if (ids != null && !"".equals(ids)) {
+			list = dao.findByIds(ids);
+		}
+		return list;
+	}
 }

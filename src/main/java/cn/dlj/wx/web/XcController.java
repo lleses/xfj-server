@@ -51,65 +51,6 @@ public class XcController {
 	@Autowired
 	private WxXunchaService wxXunchaService;
 
-//	@RequestMapping("index")
-//	public String index(HttpServletRequest request) {
-//		String toLogin = "wx/bind";
-//		String openId = null;
-//		try {
-//			TextMessage textMessage = CoreService.textMessage;
-//			if (textMessage == null) {
-//				log.error("textMessage 为null");
-//				return toLogin;
-//			}
-//			// 发送方帐号 OpenID
-//			openId = textMessage.getFromUserName();
-//			request.setAttribute("openId", openId);
-//			WxUser wxUser = wxUserService.getByOpenId(openId);
-//			if (wxUser == null) {
-//				log.error("wxUser 为null");
-//				return toLogin;
-//			}
-//			Integer type = wxUser.getType();//0:被监管单位 1:平台巡查员 2:平台管理员
-//			CoreService.textMessage = null;
-//			if (type == 0) {
-//				Integer unitId = wxUser.getUnitId();
-//				Xuncha xuncha = xunchaService.getByUnitId(unitId);
-//				Unit unit = unitService.findById(unitId);
-//				request.setAttribute("xuncha", xuncha);
-//				request.setAttribute("unit", unit);
-//				return "wx/index";
-//			} else if (type == 1) {
-//				PagingMySql paging = new PagingMySql();
-//				paging.setCurrentPage(1);
-//				paging.setPageSize(20);
-//				//巡查员(待审核)
-//				List<WxXuncha> waitList = wxService.getWxWaitList(paging);
-//				//巡查员(已审核)
-//				List<WxXuncha> alreadyList = wxService.getWxAlreadyList(paging);
-//				request.setAttribute("waitList", waitList);
-//				request.setAttribute("size", waitList.size());
-//				request.setAttribute("alreadyList", alreadyList);
-//				return "wx/admin/index";
-//			} else {
-//				PagingMySql paging = new PagingMySql();
-//				paging.setCurrentPage(1);
-//				paging.setPageSize(20);
-//				//巡查员(待审核)
-//				List<WxXuncha> waitList = wxService.getWxGlyWaitList(paging);
-//				//巡查员(已审核)
-//				List<WxXuncha> alreadyList = wxService.getWxGlyAlreadyList(paging);
-//				request.setAttribute("waitList", waitList);
-//				request.setAttribute("size", waitList.size());
-//				request.setAttribute("alreadyList", alreadyList);
-//				return "wx/gly/index";
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		request.setAttribute("openId", openId);
-//		return toLogin;
-//	}
-
 	@RequestMapping("to_index")
 	public String toIndex(HttpServletRequest request) {
 		Integer unitId = ParamUtils.getInt(request, "unitId");
@@ -187,23 +128,32 @@ public class XcController {
 		String pwd = ParamUtils.getStr(request, "pwd");
 		String openId = ParamUtils.getStr(request, "openId");
 		String yzm = ParamUtils.getStr(request, "yzm");
+		//0:社会单位	1:平台巡查员	2:平台管理员
 		String wxUserType = ParamUtils.getStr(request, "wxUserType");
 
-		if ("0".equals(wxUserType)) {
-			Unit unit = unitService.getByYzm(yzm);
-			if (unit == null) {
+		if ("0".equals(wxUserType)) {//社会单位
+			List<Unit> units = unitService.getByPhone(yzm);
+			if (units.isEmpty()) {
 				log.error("账号绑定失败,验证码不正确");
 				return "-5";
 			}
+			String unitIds = null;
+			for (Unit un : units) {
+				unitIds += "," + un.getId();
+			}
+			if (unitIds != null) {
+				unitIds = unitIds.substring(1);
+			}
+
 			WxUser wxUser = new WxUser();
 			wxUser.setOpenId(openId);
 			wxUser.setType(0);
-			wxUser.setUnitId(unit.getId());
+			wxUser.setUnitId(unitIds);
 			wxUser.setUserId(-1);
 			wxUser.setUserName("");
 			wxUser.setUserPwd("");
 			wxUserService.add(wxUser);
-			return unit.getId().toString();
+			return unitIds;
 		} else {
 			if (username == null || "".equals(username.trim()) || pwd == null || "".equals(pwd.trim())) {
 				log.error("账号绑定失败,账号密码不能为空");
@@ -220,7 +170,7 @@ public class XcController {
 			}
 			WxUser wxUser = new WxUser();
 			wxUser.setOpenId(openId);
-			wxUser.setUnitId(-1);
+			wxUser.setUnitId("-1");
 			wxUser.setUserId(user.getId());
 			wxUser.setUserName(user.getUsername());
 			wxUser.setUserPwd(user.getPwd());
