@@ -72,7 +72,6 @@
 				<a href="/wx/admin/xc/list?statusType=0" style="font-size: 15px;line-height: 30px;height: 30px;" class="weui_btn weui_btn_primary">审核更多</a>
 			</div>
 		</div>
-		<!-- 问题解答 -->
 		<div id="wtjd_div" style="height:420px;border-bottom: 1px solid #e9e9e9;border-left: 1px solid #e9e9e9;border-right: 1px solid #e9e9e9;float: left;width: 90%;margin: 0px 5%;text-align: center;display: none;">
 			<div id="wtjd" style="overflow-y: auto;height:350px;float: left;width: 100%;">
 				<c:forEach	items="${alreadyList }" var="alreadyList" varStatus="status">
@@ -92,6 +91,11 @@
 				<c:forEach	items="${wxChats }" var="wxChat" varStatus="status">
 					<div class="xxtx_clo2" onclick="openPopup('${wxChat.unitId }')" style="padding:10px;">
 						${status.index+1 }、${wxChat.unitName }<span style="border:1px solid red;height:30px;width:30px;color:red;padding:5px;margin-left:10px;">新</span>
+					</div>
+				</c:forEach>
+				<c:forEach	items="${wxChats2 }" var="wxChat2" varStatus="status">
+					<div class="xxtx_clo2" onclick="openPopup('${wxChat2.unitId }')" style="padding:10px;">
+						${status.index+1 }、${wxChat2.unitName }
 					</div>
 				</c:forEach>
 			</div>
