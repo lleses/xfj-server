@@ -12,9 +12,11 @@
 <title>消防微信公众号</title>
 <link type="text/css" rel="stylesheet" href="/res/css/css.css">
 <link type="text/css" rel="stylesheet" href="/res/css/weui.min.css">
+<link type="text/css" rel="stylesheet" href="/res/css/jquery-weui.min.css">
 <script type="text/javascript" src="/res/js/jquery.js"></script>
 <script type="text/javascript" src="/res/js/comm.js"></script>
 <script type="text/javascript" src="/res/js/util.js"></script>
+<script type="text/javascript" src="/res/js/jquery-weui.min.js"></script>
 </head>
 <style>
 .changeColor{background-color: #9a9da2;font-weight: bold;color: #fff;}
@@ -24,6 +26,19 @@
 .wtjd_clo1{padding: 5px 10px;border-bottom: 1px solid #e9e9e9;text-align: left;color: #6299b5;font-size: 13px;}
 .wtjd_clo2{padding: 5px 10px;border-bottom: 1px solid #e9e9e9;text-align: left;color: #888;font-size: 13px;}
 .zgsj{text-align: center;padding: 10px;border: 3px solid #009688;color: #888;width: calc(90% - 28px);float: left;margin: 0px 5%;}
+
+.wd{float:left;padding: 0px 10px;width: calc(100% - 20px);}
+.wd_time{text-align:center;width:100%;float:left;color:#ddd;padding-top:10px;}
+.wd_sub{float:left;width:100%;}
+.wd_sub_img1{float:left;width:50px;height:40px;}
+.wd_sub_s1{height:40px;float:left;text-align: left;width: calc(100% - 50px);}
+.wd_sub_s2{height:40px;float:left;line-height:40px;padding:0px 5px;color: #ddd;}
+.wd_sub_d1{float:left;width:100%;padding:5px 0px;text-align:left;color:#888888;}
+.wd_sub_img2{float:right;width:50px;height:40px;}
+.wd_sub2_s1{height:40px;float:right;line-height:40px;}
+.wd_sub2_s2{height:40px;float:right;line-height:40px;padding:0px 5px;color: #ddd;}
+.wd_sub_d2{float:left;width:100%;padding:5px 0px;text-align:right;color:#888888;}
+.newMsg{display:none;background:#E91E63;color:white;border-radius:50px;border:1px solid #E91E63;margin-left:10px;margin-top:2px;width:25px;float:left;height:25px;}
 </style>
 </head>
 <body>
@@ -38,12 +53,13 @@
 		<!-- 上次更新时间 -->
 		<div id="zgsj" class="zgsj">整改剩余时间还剩下<span id="zgsjDay" style="color:red;">5</span>天</div>
 		
-		
-		
-		
 		<div style="border: 1px solid #e9e9e9;float: left;width: 90%;margin: 10px 5% 0px 5%;text-align: center;">
 			<div onclick="swichTab('2')" id="xxtxTab" class="changeColor" style="padding: 10px 0px;float: left;width: calc(50% - 1px);border-right: 1px solid #e9e9e9;">消息提醒</div>
-			<div onclick="swichTab('1')" id="wtjdTab" style="padding: 10px 0px;float: left;width: 50%;">问题解答</div>
+			<div onclick="swichTab('1')" id="wtjdTab" style="float: left;width: 50%;">
+				<div style="float:left;width:65%;text-align:right;padding:10px 0px;">客服答疑</div>
+				<div id="newMsg" class="newMsg">新</div>
+			</div>
+			
 		</div>
 		<!-- 消息提醒 -->
 		<div id="xxtx" style="overflow-y: auto;height:300px;border-bottom: 1px solid #e9e9e9;border-left: 1px solid #e9e9e9;border-right: 1px solid #e9e9e9;float: left;width: 90%;margin: 0px 5%;text-align: center;">
@@ -53,40 +69,34 @@
 		</div>
 		<!-- 问题解答 -->
 		<div id="wtjd" style="overflow-y: auto;height:300px;border-bottom: 1px solid #e9e9e9;border-left: 1px solid #e9e9e9;border-right: 1px solid #e9e9e9;float: left;width: 90%;margin: 0px 5%;text-align: center;display: none;">
-			<div class="wtjd_clo1">
-				1、问: 出租屋是否与生产、储存、经营其他物品场所设置在同一建筑物内且不符合消防安全要求的。这个需要怎么样才可以达到标准?
-			</div>
-			<div class="wtjd_clo2">
-				答: **********
-			</div>
-			<div class="wtjd_clo1">
-				2、 疏散通道、疏散楼梯、安全出口是否未保持畅通。这个需要怎么样才可以达到标准?
-			</div>
-			<div class="wtjd_clo2">
-				答: **********
-			</div>
-			<div class="wtjd_clo1">
-				3、 房间是否采用可燃材料（如夹板、纸板）间隔。这个需要怎么样才可以达到标准?
-			</div>
-			<div class="wtjd_clo2">
-				答: **********
+		</div>
+		<div id="wtjd2" style="float:left;width:90%;margin:0px 5%;height:112px;display:none;">
+			<textarea id="txtMsg" style="outline:none;height:50px;margin:10px 0 0 0;border:1px solid #ddd;width:calc(100% - 20px);float:left;overflow:scroll;resize:none;font-size:15px;padding:10px;"></textarea>
+			<div onclick="sendMsg()" class="btn" style="padding:5px;width:30%;float:right;">
+				<a style="font-size: 15px;line-height: 30px;height: 30px;" class="weui_btn weui_btn_primary">发送</a>
 			</div>
 		</div>
+		
 		<div id="btn" class="btn" style="padding:10px 5%; width: 90%; float: left;">
 			<a href="/wx/xc/form?unitId=${unit.id }" style="font-size: 15px;line-height: 30px;height: 30px;" class="weui_btn weui_btn_primary">整改问题</a>
 		</div>
+		
 	</div>
 </body>
 <script>
 var g_xctype = "1";//1人员密集场所巡查2三少场所巡查3工业企业巡查
 var _type = '${unit.type}';
+var g_unitName = '${unit.name}';
+var g_unitId = '${unit.id}';
+var g_userId = '${unit.userId}';
+var g_newMsg = false;
 $(function(){
 	var g_hei = $(window).height()-(21+30+50+46+50+50);
 	$("#xxtx").css({
 		"height" : g_hei
 	});
 	$("#wtjd").css({
-		"height" : g_hei
+		"height" : g_hei-52
 	});
 	
 	if(!!_type && _type != "undefined" && _type != "null"){
@@ -103,19 +113,99 @@ $(function(){
 		}
 	}
 	addHtml();
+	
+	
+	var _count = '${count}';
+	if(_count != '0'){
+		g_newMsg = true;
+		$("#newMsg").show();
+	}
+	
+	var _html="";
+	<c:forEach items="${wxChats}" var="wxChat">
+		<c:choose>
+			<c:when test="${wxChat.type=='0'}">
+				_html+="<div class='wd_time'>${wxChat.ctStr}</div>";
+				_html+="<div class='wd'>";
+					_html+="<div class='wd_sub'>";
+						_html+="<img width='50' src='/res/img/weChat_1.png' class='wd_sub_img1' />";
+						_html+="<span class='wd_sub_s1' >${wxChat.unitName}</span>";
+					_html+="</div>";
+					_html+="<div class='wd_sub_d1'>${wxChat.msg}</div>";
+				_html+="</div>";
+			</c:when>
+			<c:otherwise>
+				_html+="<div class='wd_time'>${wxChat.ctStr}</div>";
+				_html+="<div class='wd'>";
+					_html+="<div class='wd_sub'>";
+						_html+="<img width='50' src='/res/img/weChat_2.png' class='wd_sub_img2' />";
+						_html+="<span class='wd_sub2_s1'>客服</span>";
+					_html+="</div>";
+					_html+="<div class='wd_sub_d2'>${wxChat.msg}</div>";
+				_html+="</div>";
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	
+	$("#wtjd").html(_html);
 })
+
+
+function sendMsg(){
+	var _txtMsg = $("#txtMsg")[0].value;
+	if($.trim(_txtMsg)==""){
+		$.alert("请填写内容后在发送");
+		return;
+	}
+	var _html = "";
+	_html+="<div class='wd_time'>${wxChat.ctStr}</div>";
+	_html+="<div class='wd'>";
+		_html+="<div class='wd_sub'>";
+			_html+="<img width='50' src='/res/img/weChat_1.png' class='wd_sub_img1' />";
+			_html+="<span class='wd_sub_s1' >"+g_unitName+"</span>";
+		_html+="</div>";
+		_html+="<div class='wd_sub_d1'>"+_txtMsg+"</div>";
+	_html+="</div>";
+	$("#wtjd").append(_html);
+	$("#txtMsg").val("");
+	
+	var param={
+			"msg":_txtMsg,
+			"unitId": g_unitId,
+			"unitName": g_unitName,
+			"userId":g_userId
+		}
+	$.post("/wx/addChatByUnit",param,function(rs){});
+}
 
 function swichTab(num){
 	if(num=="1"){
 		$("#xxtx").hide();
 		$("#xxtxTab").removeClass();
 		$("#wtjd").show();
+		$("#wtjd2").show();
 		$("#wtjdTab").addClass("changeColor");
+		if(g_newMsg){
+			g_newMsg = false;
+			$("#newMsg").hide();
+			
+			var param={
+					"unitId": g_unitId,
+					"type":'1'
+				}
+			$.post("/wx/readChat",param,function(rs){});
+		}else{
+			$("#newMsg").hide();
+		}
 	}else{
 		$("#xxtx").show();
 		$("#xxtxTab").addClass("changeColor");
 		$("#wtjd").hide();
+		$("#wtjd2").hide();
 		$("#wtjdTab").removeClass();
+		if(!g_newMsg){
+			$("#newMsg").hide();
+		}
 	}
 }
 

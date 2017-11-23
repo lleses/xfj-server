@@ -31,13 +31,13 @@
 		<div style="float:left;width:100%;background:white;">
 			<div style="height: 20px;border-bottom: 1px solid #d9d9d9;background-color: #009688;"></div>
 			<div style="float: left;color: rgba(244, 67, 54, 0.72);font-size: 13px;width: 90%;padding: 10px 5% 0px 5%;margin-bottom: 20px;">
-				<img width="50" src="../res/img/xf_icon.png" style="float: left;" />
+				<img width="50" src="/res/img/xf_icon.png" style="float: left;" />
 				<div style="float: left;height: 40px;line-height: 40px;">
 					温馨提示:请选择单位
 				</div>
 			</div>
 			<c:forEach var="unit" items="${units }">
-				<img width="50" src="../res/img/bird.png" style="float: left;margin-left: 5%;" />
+				<img width="50" src="/res/img/bird.png" style="float: left;margin-left: 5%;" />
 				<div onclick="toUrl('${unit.id}')" class="zgsj" style="border: 3px solid #9E9E9E;background: #9a9da2;color: white;border-radius: 15px;width: calc(70% - 28px);">${unit.name }</div>
 			</c:forEach>
 			<div id="btn" class="btn" style="padding:10px 5%; width: 90%; float: left;margin-bottom: 30px;">

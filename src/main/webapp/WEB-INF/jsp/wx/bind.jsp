@@ -149,9 +149,9 @@ a:hover{color:#999999;text-decoration:none}
 							//window.location.href="/wx/xc/to_index?unitId="+rs;
 							window.location.href="/wx/selUnit?unitIds="+rs+"&openId="+$("#openId").val();
 						}else if(_wxUserType == "1"){
-							window.location.href="/wx/admin/xc/index";
+							window.location.href="/wx/admin/xc/index?openId="+$("#openId").val();
 						}else{
-							window.location.href="/wx/gly/index";
+							window.location.href="/wx/gly/index?openId="+$("#openId").val();
 						}
 					});
 				}
