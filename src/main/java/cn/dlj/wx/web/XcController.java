@@ -26,7 +26,9 @@ import cn.dlj.service.WxService;
 import cn.dlj.service.XunchaService;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.WxConfig;
+import cn.dlj.wx.entity.WxChat;
 import cn.dlj.wx.entity.WxUser;
+import cn.dlj.wx.service.WxChatService;
 import cn.dlj.wx.service.WxUserService;
 import cn.dlj.wx.service.WxXunchaService;
 
@@ -50,6 +52,8 @@ public class XcController {
 	private WxUserService wxUserService;
 	@Autowired
 	private WxXunchaService wxXunchaService;
+	@Autowired
+	private WxChatService wxChatService;
 
 	@RequestMapping("to_index")
 	public String toIndex(HttpServletRequest request) {
@@ -58,6 +62,11 @@ public class XcController {
 		Unit unit = unitService.findById(unitId);
 		request.setAttribute("xuncha", xuncha);
 		request.setAttribute("unit", unit);
+
+		List<WxChat> wxChats = wxChatService.getListByUnitId(unitId);
+		int count = wxChatService.getAllCountByUnitId(unitId);
+		request.setAttribute("wxChats", wxChats);
+		request.setAttribute("count", count);
 		return "wx/index";
 	}
 

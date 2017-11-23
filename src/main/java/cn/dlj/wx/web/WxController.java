@@ -24,7 +24,9 @@ import cn.dlj.utils.PagingMySql;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.utils.WxConfig;
+import cn.dlj.wx.entity.WxChat;
 import cn.dlj.wx.entity.WxUser;
+import cn.dlj.wx.service.WxChatService;
 import cn.dlj.wx.service.WxUserService;
 
 /**
@@ -43,6 +45,8 @@ public class WxController {
 	private WxService wxService;
 	@Autowired
 	private WxUserService wxUserService;
+	@Autowired
+	private WxChatService wxChatService;
 
 	/** 入口 **/
 	@RequestMapping(value = "/check", method = RequestMethod.GET)
@@ -72,6 +76,7 @@ public class WxController {
 				return "wx/bind";
 			}
 			Integer type = wxUser.getType();//0:被监管单位 1:平台巡查员 2:平台管理员
+			Integer userId = wxUser.getUserId();
 			if (type == 0) {
 				String unitIds = wxUser.getUnitId();
 				List<Unit> units = unitService.findByIds(unitIds);
@@ -88,6 +93,9 @@ public class WxController {
 				request.setAttribute("waitList", waitList);
 				request.setAttribute("size", waitList.size());
 				request.setAttribute("alreadyList", alreadyList);
+
+				List<WxChat> wxChats = wxChatService.getListByUserId(userId);
+				request.setAttribute("wxChats", wxChats);
 				return "wx/admin/index";
 			} else {
 				PagingMySql paging = new PagingMySql();
@@ -100,6 +108,9 @@ public class WxController {
 				request.setAttribute("waitList", waitList);
 				request.setAttribute("size", waitList.size());
 				request.setAttribute("alreadyList", alreadyList);
+
+				List<WxChat> wxChats = wxChatService.getListByUserId(userId);
+				request.setAttribute("wxChats", wxChats);
 				return "wx/gly/index";
 			}
 		} catch (Exception e) {

@@ -22,6 +22,10 @@ import cn.dlj.utils.PagingMySql;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.utils.WxConfig;
+import cn.dlj.wx.entity.WxChat;
+import cn.dlj.wx.entity.WxUser;
+import cn.dlj.wx.service.WxChatService;
+import cn.dlj.wx.service.WxUserService;
 import cn.dlj.wx.service.WxXunchaService;
 
 /**
@@ -39,6 +43,10 @@ public class GlyController {
 	private WxService wxService;
 	@Autowired
 	private WxXunchaService wxXunchaService;
+	@Autowired
+	private WxUserService wxUserService;
+	@Autowired
+	private WxChatService wxChatService;
 
 	@RequestMapping("index")
 	public String index(HttpServletRequest request) {
@@ -52,6 +60,13 @@ public class GlyController {
 		request.setAttribute("waitList", waitList);
 		request.setAttribute("size", waitList.size());
 		request.setAttribute("alreadyList", alreadyList);
+
+		String openId = ParamUtils.getStr(request, "openId");
+		WxUser wxUser = wxUserService.getByOpenId(openId);
+		if (wxUser != null) {
+			List<WxChat> wxChats = wxChatService.getListByUserId(wxUser.getUserId());
+			request.setAttribute("wxChats", wxChats);
+		}
 		return "wx/gly/index";
 	}
 

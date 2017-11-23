@@ -22,6 +22,10 @@ import cn.dlj.utils.PagingMySql;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.utils.WxConfig;
+import cn.dlj.wx.entity.WxChat;
+import cn.dlj.wx.entity.WxUser;
+import cn.dlj.wx.service.WxChatService;
+import cn.dlj.wx.service.WxUserService;
 import cn.dlj.wx.service.WxXunchaService;
 
 /**
@@ -39,6 +43,10 @@ public class AdminXcController {
 	private WxService wxService;
 	@Autowired
 	private WxXunchaService wxXunchaService;
+	@Autowired
+	private WxUserService wxUserService;
+	@Autowired
+	private WxChatService wxChatService;
 
 	@RequestMapping("index")
 	public String index(HttpServletRequest request) {
@@ -52,6 +60,42 @@ public class AdminXcController {
 		request.setAttribute("waitList", waitList);
 		request.setAttribute("size", waitList.size());
 		request.setAttribute("alreadyList", alreadyList);
+
+		String openId = ParamUtils.getStr(request, "openId");
+		WxUser wxUser = wxUserService.getByOpenId(openId);
+		if (wxUser != null) {
+			List<WxChat> wxChats = wxChatService.getListByUserId(wxUser.getUserId());
+			request.setAttribute("wxChats", wxChats);
+			request.setAttribute("wxUser", wxUser);
+			Unit unit = unitService.getById(Integer.valueOf(wxUser.getUnitId()));
+			request.setAttribute("unitName", unit.getName());
+		}
+		return "wx/admin/index";
+	}
+
+	//TODO
+
+	@RequestMapping("indexTest")
+	public String indexTest(HttpServletRequest request) {
+		PagingMySql paging = new PagingMySql();
+		paging.setCurrentPage(1);
+		paging.setPageSize(20);
+		//巡查员(待审核)
+		List<WxXuncha> waitList = wxService.getWxWaitList(paging);
+		//巡查员(已审核)
+		List<WxXuncha> alreadyList = wxService.getWxAlreadyList(paging);
+		request.setAttribute("waitList", waitList);
+		request.setAttribute("size", waitList.size());
+		request.setAttribute("alreadyList", alreadyList);
+
+		List<WxChat> wxChats = wxChatService.getListByUserId(8009);
+		request.setAttribute("wxChats", wxChats);
+		WxUser wxUser = new WxUser();
+		wxUser.setUnitId("591296");
+		wxUser.setUserId(8009);
+		wxUser.setUserName("xxx4");
+		request.setAttribute("wxUser", wxUser);
+		request.setAttribute("unitName", "6453");
 		return "wx/admin/index";
 	}
 
