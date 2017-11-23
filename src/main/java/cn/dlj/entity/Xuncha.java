@@ -1,5 +1,6 @@
 package cn.dlj.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.dlj.utils.DateUtils;
@@ -98,11 +99,20 @@ public class Xuncha {
 	/** 图片basc64 **/
 	transient private String img64;
 	/** 完整图片地址 */
-	transient private String serverBimg="";
+	transient private String serverBimg = "";
 	/** app监管单位ID **/
 	transient private String uid;
 	/** app巡查ID **/
 	transient private String appXunchaId;
+
+	public String getXcTimeStr() {
+		String format = "";
+		if (xcTime != null) {
+			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+			format = simple.format(xcTime);
+		}
+		return format;
+	}
 
 	/**
 	 * 完整图片地址
@@ -720,7 +730,5 @@ public class Xuncha {
 	public void setDoorTime2(String doorTime2) {
 		this.doorTime2 = doorTime2;
 	}
-	
-	
 
 }

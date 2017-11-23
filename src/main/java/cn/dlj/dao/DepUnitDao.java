@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import cn.dlj.entity.Unit;
 import cn.dlj.entity.UnitStr;
 import cn.dlj.entity.Xuncha;
 import cn.dlj.entity.XunchaRd;
@@ -53,4 +54,5 @@ public interface DepUnitDao {
 
 	void updateRd(XunchaRd rd);
 
+	List<Xuncha> getMyPaging(PagingMySql paging);
 }

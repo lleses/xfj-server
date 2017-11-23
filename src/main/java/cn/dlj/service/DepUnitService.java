@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.dlj.dao.DepUnitDao;
+import cn.dlj.entity.Unit;
 import cn.dlj.entity.UnitStr;
 import cn.dlj.entity.Xuncha;
 import cn.dlj.entity.XunchaRd;
@@ -68,4 +69,7 @@ public class DepUnitService {
 		dao.updateRd(rd);
 	}
 
+	public List<Xuncha> getMyPaging(PagingMySql paging) {
+		return dao.getMyPaging(paging);
+	}
 }
