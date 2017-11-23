@@ -114,7 +114,7 @@
 					<a>发送</a>
 				</div>
 				<div class="close_button"  id="confirmStu" onclick="$.closePopup();" style="width: 50%;float:left;background-color:#607D8B;color:white;">
-					<a>关闭${wxUser.userId}</a>
+					<a>关闭</a>
 				</div>
 			</div>
 		</div>
