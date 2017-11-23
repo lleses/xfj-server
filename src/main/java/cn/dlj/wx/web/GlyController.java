@@ -64,7 +64,7 @@ public class GlyController {
 		String openId = ParamUtils.getStr(request, "openId");
 		WxUser wxUser = wxUserService.getByOpenId(openId);
 		if (wxUser != null) {
-			List<WxChat> wxChats = wxChatService.getListByUserId(wxUser.getUserId());
+			List<WxChat> wxChats = wxChatService.getListByUserId(wxUser.getUserId(), "0");
 			request.setAttribute("wxChats", wxChats);
 		}
 		return "wx/gly/index";

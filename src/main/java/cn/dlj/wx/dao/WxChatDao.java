@@ -18,6 +18,6 @@ public interface WxChatDao {
 
 	int getAllCountByUnitId(@Param("unitId") int unitId);
 
-	List<WxChat> getListByUserId(@Param("userId") int userId);
+	List<WxChat> getListByUserId(@Param("userId") int userId, @Param("type") String type);
 
 }

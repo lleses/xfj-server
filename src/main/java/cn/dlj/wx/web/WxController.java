@@ -94,8 +94,10 @@ public class WxController {
 				request.setAttribute("size", waitList.size());
 				request.setAttribute("alreadyList", alreadyList);
 
-				List<WxChat> wxChats = wxChatService.getListByUserId(userId);
+				List<WxChat> wxChats = wxChatService.getListByUserId(userId, "0");
 				request.setAttribute("wxChats", wxChats);
+				List<WxChat> wxChats2 = wxChatService.getListByUserId(userId, "1");
+				request.setAttribute("wxChats2", wxChats2);
 				return "wx/admin/index";
 			} else {
 				PagingMySql paging = new PagingMySql();
@@ -109,7 +111,7 @@ public class WxController {
 				request.setAttribute("size", waitList.size());
 				request.setAttribute("alreadyList", alreadyList);
 
-				List<WxChat> wxChats = wxChatService.getListByUserId(userId);
+				List<WxChat> wxChats = wxChatService.getListByUserId(userId, "0");
 				request.setAttribute("wxChats", wxChats);
 				return "wx/gly/index";
 			}

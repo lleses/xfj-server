@@ -64,38 +64,14 @@ public class AdminXcController {
 		String openId = ParamUtils.getStr(request, "openId");
 		WxUser wxUser = wxUserService.getByOpenId(openId);
 		if (wxUser != null) {
-			List<WxChat> wxChats = wxChatService.getListByUserId(wxUser.getUserId());
+			List<WxChat> wxChats = wxChatService.getListByUserId(wxUser.getUserId(), "0");
 			request.setAttribute("wxChats", wxChats);
+			List<WxChat> wxChats2 = wxChatService.getListByUserId(wxUser.getUserId(), "1");
+			request.setAttribute("wxChats2", wxChats2);
 			request.setAttribute("wxUser", wxUser);
 			Unit unit = unitService.getById(Integer.valueOf(wxUser.getUnitId()));
 			request.setAttribute("unitName", unit.getName());
 		}
-		return "wx/admin/index";
-	}
-
-	//TODO
-
-	@RequestMapping("indexTest")
-	public String indexTest(HttpServletRequest request) {
-		PagingMySql paging = new PagingMySql();
-		paging.setCurrentPage(1);
-		paging.setPageSize(20);
-		//巡查员(待审核)
-		List<WxXuncha> waitList = wxService.getWxWaitList(paging);
-		//巡查员(已审核)
-		List<WxXuncha> alreadyList = wxService.getWxAlreadyList(paging);
-		request.setAttribute("waitList", waitList);
-		request.setAttribute("size", waitList.size());
-		request.setAttribute("alreadyList", alreadyList);
-
-		List<WxChat> wxChats = wxChatService.getListByUserId(8009);
-		request.setAttribute("wxChats", wxChats);
-		WxUser wxUser = new WxUser();
-		wxUser.setUnitId("591296");
-		wxUser.setUserId(8009);
-		wxUser.setUserName("xxx4");
-		request.setAttribute("wxUser", wxUser);
-		request.setAttribute("unitName", "6453");
 		return "wx/admin/index";
 	}
 
