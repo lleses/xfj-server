@@ -98,6 +98,7 @@ public class WxController {
 				request.setAttribute("wxChats", wxChats);
 				List<WxChat> wxChats2 = wxChatService.getListByUserId(userId, "1");
 				request.setAttribute("wxChats2", wxChats2);
+				request.setAttribute("wxUser", wxUser);
 				return "wx/admin/index";
 			} else {
 				PagingMySql paging = new PagingMySql();
