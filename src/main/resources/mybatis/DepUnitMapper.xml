@@ -200,7 +200,7 @@
 				x.xcTime					as "xcTime"
 		from t_xuncha x
 		<where>
-			x.flag='13'
+			x.flag='11'
 			<if test="null!=params.unitName"> and x.unitName like #{params.unitName}</if>
 		</where>
 		order by x.xcTime desc

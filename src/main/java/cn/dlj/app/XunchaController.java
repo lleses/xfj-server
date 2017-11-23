@@ -117,7 +117,7 @@ public class XunchaController {
 		xunchaService.updateXc(xc);
 		xuncha = xc;
 		if ("30".equals(xuncha.getFlag())) {
-			xuncha.setFlag("14");
+			xuncha.setFlag("13");
 			// 历史记录
 			addFlag(xuncha, xuncha.getXcPerson());
 			// 巡查流转情况记录表
@@ -167,7 +167,7 @@ public class XunchaController {
 		map.put("userName", userName);
 		map.put("addTime", new Date());
 		map.put("addIp", null);
-		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "14");
+		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "13");
 		map.put("liveThree", appXuncha.getLiveThree());
 		xunchaService.addFlag(map);
 	}
@@ -201,7 +201,7 @@ public class XunchaController {
 		map.put("xcItem12", appXuncha.getXcItem12());
 		map.put("rectDate", new Date());
 		map.put("meno", appXuncha.getMeno());
-		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "14");
+		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "13");
 		map.put("imgIds", imgIds);
 		map.put("addTime", new Date());
 		map.put("userId", appXuncha.getUserId());
