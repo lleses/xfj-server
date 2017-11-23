@@ -124,7 +124,6 @@
 var g_xctype = "1";//1人员密集场所巡查2三少场所巡查3工业企业巡查
 var _type = '${unit.type}';
 var g_unitId = '${wxUser.unitId}';
-var g_unitName = '${unitName}';
 var g_userId = '${wxUser.userId}';
 $(function(){
 	var g_hei = $(window).height()-(21+30+50+46+30);
@@ -169,7 +168,6 @@ function sendMsg(){
 	var param={
 			"msg":_txtMsg,
 			"unitId": g_unitId,
-			"unitName": g_unitName,
 			"userId":g_userId
 		}
 	$.post("/wx/addChatByXuncha",param,function(rs){});
@@ -204,54 +202,8 @@ function openPopup(p_unitId){
 				_html+="</div>";
 			}
 		}
-		for (var i = 0; i < _datas.length; i++) {
-			var _data = _datas[i];
-			if(_data.type==0 || _data.type=='0'){
-				_html+="<div class='wd_time'>"+_data.ctStr+"</div>";
-				_html+="<div class='wd'>";
-					_html+="<div class='wd_sub'>";
-						_html+="<img width='50' src='/res/img/weChat_1.png' class='wd_sub_img1' />";
-						_html+="<span class='wd_sub_s1' >"+_data.unitName+"</span>";
-					_html+="</div>";
-					_html+="<div class='wd_sub_d1'>"+_data.msg+"</div>";
-				_html+="</div>";
-			}else{
-				_html+="<div class='wd_time'>"+_data.ctStr+"</div>";
-				_html+="<div class='wd'>";
-					_html+="<div class='wd_sub'>";
-						_html+="<img width='50' src='/res/img/weChat_2.png' class='wd_sub_img2' />";
-						_html+="<span class='wd_sub2_s1'>客服</span>";
-					_html+="</div>";
-					_html+="<div class='wd_sub_d2'>"+_data.msg+"</div>";
-				_html+="</div>";
-			}
-		}
-		for (var i = 0; i < _datas.length; i++) {
-			var _data = _datas[i];
-			if(_data.type==0 || _data.type=='0'){
-				_html+="<div class='wd_time'>"+_data.ctStr+"</div>";
-				_html+="<div class='wd'>";
-					_html+="<div class='wd_sub'>";
-						_html+="<img width='50' src='/res/img/weChat_1.png' class='wd_sub_img1' />";
-						_html+="<span class='wd_sub_s1' >"+_data.unitName+"</span>";
-					_html+="</div>";
-					_html+="<div class='wd_sub_d1'>"+_data.msg+"</div>";
-				_html+="</div>";
-			}else{
-				_html+="<div class='wd_time'>"+_data.ctStr+"</div>";
-				_html+="<div class='wd'>";
-					_html+="<div class='wd_sub'>";
-						_html+="<img width='50' src='/res/img/weChat_2.png' class='wd_sub_img2' />";
-						_html+="<span class='wd_sub2_s1'>客服</span>";
-					_html+="</div>";
-					_html+="<div class='wd_sub_d2'>"+_data.msg+"</div>";
-				_html+="</div>";
-			}
-		}
 		$("#mx").html(_html);
 	});
-	
-	
 	$("#about").popup();
 }
 function swichTab(num){
