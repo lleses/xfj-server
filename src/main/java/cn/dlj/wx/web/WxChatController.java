@@ -62,7 +62,6 @@ public class WxChatController {
 	}
 
 	//------------------巡查------------------
-	//TODO
 	@RequestMapping("addChatByXuncha")
 	@ResponseBody
 	public String addChatByXuncha(HttpServletRequest request) {
