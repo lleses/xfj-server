@@ -197,12 +197,14 @@ function swichTab(num){
 		}else{
 			$("#newMsg").hide();
 		}
+		$("#btn").hide();
 	}else{
 		$("#xxtx").show();
 		$("#xxtxTab").addClass("changeColor");
 		$("#wtjd").hide();
 		$("#wtjd2").hide();
 		$("#wtjdTab").removeClass();
+		$("#btn").show();
 		if(!g_newMsg){
 			$("#newMsg").hide();
 		}

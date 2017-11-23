@@ -110,11 +110,11 @@
 				<div style="width:90%;margin:0px 5%;height:112px;">
 					<textarea id="txtMsg" style="outline:none;height:50px;margin:10px 0 0 0;border:1px solid #ddd;width:calc(100% - 20px);float:left;overflow:scroll;resize:none;font-size:15px;padding:10px;"></textarea>
 				</div>
-				<div class="close_button" onclick="sendMsg()" style="float: left;width: 50%;background-color:#ddd;color:#607D8B;">
+				<div id="sendMsg" class="close_button" onclick="sendMsg()" style="float: left;width: 50%;background-color:#ddd;color:#607D8B;">
 					<a>发送</a>
 				</div>
 				<div class="close_button"  id="confirmStu" onclick="$.closePopup();" style="width: 50%;float:left;background-color:#607D8B;color:white;">
-					<a>关闭</a>
+					<a>关闭${wxUser.userId}</a>
 				</div>
 			</div>
 		</div>
@@ -123,7 +123,6 @@
 <script>
 var g_xctype = "1";//1人员密集场所巡查2三少场所巡查3工业企业巡查
 var _type = '${unit.type}';
-var g_unitId = '${wxUser.unitId}';
 var g_userId = '${wxUser.userId}';
 $(function(){
 	var g_hei = $(window).height()-(21+30+50+46+30);
@@ -147,7 +146,7 @@ $(function(){
 	});
 })
 
-function sendMsg(){
+function sendMsg(p_unitId){
 	var _txtMsg = $("#txtMsg")[0].value;
 	if($.trim(_txtMsg)==""){
 		$.alert("请填写内容后在发送");
@@ -167,13 +166,14 @@ function sendMsg(){
 	
 	var param={
 			"msg":_txtMsg,
-			"unitId": g_unitId,
+			"unitId": p_unitId,
 			"userId":g_userId
 		}
 	$.post("/wx/addChatByXuncha",param,function(rs){});
 }
 
 function openPopup(p_unitId){
+	$("#sendMsg").attr("onclick","sendMsg('"+p_unitId+"')");
 	var param={
 			"unitId": p_unitId,
 		}
