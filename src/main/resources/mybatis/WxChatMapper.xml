@@ -46,7 +46,7 @@
 		from t_wx_chat chat
 		left join t_unit u on u.id = chat.unitId
 		<where>
-			chat.userId=#{userId} and chat.readMsg='0' and chat.type=#{type}
+			chat.userId=#{userId} and chat.readMsg=#{readMsg} and chat.type='0'
 		</where>
 		group by chat.unitId
 	</select>
