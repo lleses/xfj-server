@@ -44,10 +44,10 @@ public class WxChatService {
 		return 0;
 	}
 
-	public List<WxChat> getListByUserId(Integer userId, String type) {
+	public List<WxChat> getListByUserId(Integer userId, String readMsg) {
 		List<WxChat> list = new ArrayList<>();
-		if (userId != null && type != null) {
-			list = wxChatDao.getListByUserId(userId, type);
+		if (userId != null && readMsg != null) {
+			list = wxChatDao.getListByUserId(userId, readMsg);
 		}
 		return list;
 	}

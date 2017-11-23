@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.dlj.entity.Unit;
+import cn.dlj.service.UnitService;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.wx.entity.WxChat;
@@ -24,14 +26,20 @@ public class WxChatController {
 
 	@Autowired
 	private WxChatService wxChatService;
+	@Autowired
+	private UnitService unitService;
 
 	@RequestMapping("addChatByUnit")
 	@ResponseBody
 	public String addChatByUnit(HttpServletRequest request) {
 		String msg = ParamUtils.getStr(request, "msg");
 		Integer unitId = ParamUtils.getInt(request, "unitId");
-		String unitName = ParamUtils.getStr(request, "unitName");
 		Integer userId = ParamUtils.getInt(request, "userId");
+		Unit unit = unitService.getById(unitId);
+		String unitName = "";
+		if (unit != null) {
+			unitName = unit.getName();
+		}
 		WxChat wxChat = new WxChat();
 		wxChat.setMsg(msg);
 		wxChat.setUnitId(unitId);
@@ -60,8 +68,12 @@ public class WxChatController {
 	public String addChatByXuncha(HttpServletRequest request) {
 		String msg = ParamUtils.getStr(request, "msg");
 		Integer unitId = ParamUtils.getInt(request, "unitId");
-		String unitName = ParamUtils.getStr(request, "unitName");
 		Integer userId = ParamUtils.getInt(request, "userId");
+		Unit unit = unitService.getById(unitId);
+		String unitName = "";
+		if (unit != null) {
+			unitName = unit.getName();
+		}
 		WxChat wxChat = new WxChat();
 		wxChat.setMsg(msg);
 		wxChat.setUnitId(unitId);

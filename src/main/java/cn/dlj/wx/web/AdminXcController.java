@@ -69,8 +69,6 @@ public class AdminXcController {
 			List<WxChat> wxChats2 = wxChatService.getListByUserId(wxUser.getUserId(), "1");
 			request.setAttribute("wxChats2", wxChats2);
 			request.setAttribute("wxUser", wxUser);
-			Unit unit = unitService.getById(Integer.valueOf(wxUser.getUnitId()));
-			request.setAttribute("unitName", unit.getName());
 		}
 		return "wx/admin/index";
 	}
