@@ -190,4 +190,20 @@
 		where id=#{id}
 	</update>
 	
+	<!-- *************职能部门 ************** -->
+	
+	<select id="getMyPaging" resultType="cn.dlj.entity.Xuncha">
+		select
+				x.id 						as "id",
+				x.unitId 					as "unitId",
+				x.unitName					as "unitName",
+				x.xcTime					as "xcTime"
+		from t_xuncha x
+		<where>
+			x.flag='13'
+			<if test="null!=params.unitName"> and x.unitName like #{params.unitName}</if>
+		</where>
+		order by x.xcTime desc
+		limit #{first},#{pageSize}
+	</select>
 </mapper>
