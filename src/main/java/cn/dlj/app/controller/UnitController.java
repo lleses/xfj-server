@@ -20,6 +20,7 @@ import cn.dlj.utils.ChineseToSpell;
 import cn.dlj.utils.FileUtils;
 import cn.dlj.utils.IdUtils;
 import cn.dlj.utils.PagingMySql;
+import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.utils.WxConfig;
 
@@ -30,27 +31,16 @@ public class UnitController {
 	@Autowired
 	private UnitService unitService;
 
-	@RequestMapping("myList")
-	@ResponseBody
-	public String myList(HttpServletRequest request, int currentPage, String unitName, int userId) {
-		PagingMySql paging = new PagingMySql();
-		paging.setCurrentPage(currentPage);
-		paging.add("userId", userId);
-		if (unitName != null && !"".equals(unitName)) {
-			paging.add("unitName", "%" + unitName + "%");
-			paging.add("address", "%" + unitName + "%");
-		}
-		List<Unit> pagingBuilding = unitService.getMyPaging(paging);
-		String json = StringUtils.json(pagingBuilding);
-		return json;
-
-	}
-
 	@RequestMapping("list")
 	@ResponseBody
-	public String list(HttpServletRequest request, int currentPage, String unitName) {
+	public String list(HttpServletRequest request, int currentPage, String unitName, int townId) {
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(currentPage);
+		paging.add("townId", townId);
+		Integer userId = ParamUtils.getInt(request, "userId");
+		if (userId != null) {
+			paging.add("userId", userId);
+		}
 		if (unitName != null && !"".equals(unitName)) {
 			paging.add("unitName", "%" + unitName + "%");
 			paging.add("address", "%" + unitName + "%");
@@ -121,7 +111,7 @@ public class UnitController {
 				}
 				un.setBuildingSet(buildingSet);
 			}
-			unitService.update2(un);
+			unitService.update(un);
 		}
 		return "1";
 	}

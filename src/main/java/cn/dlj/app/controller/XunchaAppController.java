@@ -44,7 +44,7 @@ public class XunchaAppController {
 			paging.add("unitName", "%" + unitName + "%");
 			paging.add("address", "%" + unitName + "%");
 		}
-		List<Unit> pagingBuilding = unitService.getMyPaging(paging);
+		List<Unit> pagingBuilding = unitService.getPaging(paging);
 		String json = StringUtils.json(pagingBuilding);
 		return json;
 	}
