@@ -33,7 +33,7 @@ public class UnitController {
 
 	@RequestMapping("list")
 	@ResponseBody
-	public String list(HttpServletRequest request, int currentPage, String unitName, int townId) {
+	public String list(HttpServletRequest request, int currentPage, String name, int townId) {
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(currentPage);
 		paging.add("townId", townId);
@@ -41,9 +41,9 @@ public class UnitController {
 		if (userId != null) {
 			paging.add("userId", userId);
 		}
-		if (unitName != null && !"".equals(unitName)) {
-			paging.add("unitName", "%" + unitName + "%");
-			paging.add("address", "%" + unitName + "%");
+		if (name != null && !"".equals(name)) {
+			paging.add("unitName", "%" + name + "%");
+			paging.add("address", "%" + name + "%");
 		}
 		List<Unit> pagingBuilding = unitService.getPaging(paging);
 		String json = StringUtils.json(pagingBuilding);

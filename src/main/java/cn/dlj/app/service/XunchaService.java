@@ -25,34 +25,12 @@ public class XunchaService {
 	@Autowired
 	private XunchaDao dao;
 
-	/**
-	 * 新增
-	 * 
-	 * @param building
-	 * 			巡查登记
-	 */
 	@Transactional
 	public Integer add(Xuncha xuncha) {
 		dao.add(xuncha);
 		return xuncha.getId();
 	}
 
-	/**
-	 * 新增
-	 * 
-	 * @param building
-	 * 			巡查登记
-	 */
-	@Transactional
-	public Integer add2(Xuncha xuncha) {
-		dao.add2(xuncha);
-		return xuncha.getId();
-	}
-
-	/**
-	 * 新增Img
-	 * 
-	 */
 	@Transactional
 	public Integer addImg(XunchaImg xunchaImg) {
 		dao.addImg(xunchaImg);
@@ -62,28 +40,16 @@ public class XunchaService {
 		return null;
 	}
 
-	/**
-	 * 新增历史记录
-	 * 
-	 */
 	@Transactional
 	public void addFlag(Map<String, Object> map) {
 		dao.addFlag(map);
 	}
 
-	/**
-	 * 新增历史记录
-	 * 
-	 */
 	@Transactional
 	public void addRd(Map<String, Object> map) {
 		dao.addRd(map);
 	}
 
-	/**
-	 * 更新rd的图片
-	 * 
-	 */
 	@Transactional
 	public void updateRdImgs(Integer id, String imgIds) {
 		if (id != null && !"".equals(imgIds) && imgIds != null && !"".equals(imgIds)) {
@@ -99,55 +65,11 @@ public class XunchaService {
 		dao.updateXc(xuncha);
 	}
 
-	/**
-	 * 根据appId获取id
-	 * 
-	 * @param appXunchaId
-	 * @return
-	 */
-	public Integer getByAppId(String appXunchaId) {
-		if (appXunchaId != null && !"".equals(appXunchaId)) {
-			return dao.getByAppId(appXunchaId);
-		}
-		return null;
-	}
-
 	public Xuncha getById(Integer id) {
 		if (id != null) {
 			return dao.getById(id);
 		}
 		return null;
-	}
-
-	/**
-	 * 根据名称和appid获取巡查记录
-	 * 
-	 * @param appXunchaId
-	 * 				appID
-	 * @param unitName
-	 * 				监管名称
-	 */
-	public Xuncha get(String appXunchaId, String unitName) {
-		if (appXunchaId != null && unitName != null) {
-			return dao.get(appXunchaId, unitName);
-		}
-		return null;
-	}
-
-	//------------------------------wx------------------------------
-
-	public Xuncha getByUnitId(Integer unitId) {
-		if (unitId != null) {
-			return dao.getByUnitId(unitId);
-		}
-		return null;
-	}
-
-	@Transactional
-	public void updateWxXuncha(Integer xunchaId, String status) {
-		if (xunchaId != null) {
-			dao.updateWxXuncha(xunchaId, status);
-		}
 	}
 
 	public List<XunchaImg> getImgs(Integer xunchaId) {
@@ -156,15 +78,6 @@ public class XunchaService {
 			list = dao.getImgs(xunchaId);
 		}
 		return list;
-	}
-
-	public List<Xuncha> getWxList(PagingMySql paging) {
-		List<Xuncha> wxList = dao.getWxList(paging);
-		return wxList;
-	}
-
-	public void updateXunchaXcItem(String xcItem, Integer XcItemNum, Integer xunchaId) {
-		dao.updateXunchaXcItem(xcItem, XcItemNum, xunchaId);
 	}
 
 	public Xuncha find(Integer unitId) {
@@ -177,6 +90,28 @@ public class XunchaService {
 
 	public void delXunchaImg(Integer xunchaId) {
 		dao.delXunchaImg(xunchaId);
+	}
+
+	public void updateXunchaXcItem(String xcItem, Integer XcItemNum, Integer xunchaId) {
+		dao.updateXunchaXcItem(xcItem, XcItemNum, xunchaId);
+	}
+
+	@Transactional
+	public void updateWxXuncha(Integer xunchaId, String status) {
+		if (xunchaId != null) {
+			dao.updateWxXuncha(xunchaId, status);
+		}
+	}
+
+	public Xuncha getByUnitId(Integer unitId) {
+		if (unitId != null) {
+			return dao.getByUnitId(unitId);
+		}
+		return null;
+	}
+
+	public List<Xuncha> getDepPaging(PagingMySql paging) {
+		return dao.getDepPaging(paging);
 	}
 
 }

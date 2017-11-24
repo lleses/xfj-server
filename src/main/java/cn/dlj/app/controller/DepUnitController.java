@@ -7,8 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,42 +21,25 @@ import cn.dlj.utils.PagingMySql;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 
-@RequestMapping("app/xuncha")
+@RequestMapping("dep/xc")
 @Controller
-public class XunchaAppController {
+public class DepUnitController {
 
-	private static final Logger log = LoggerFactory.getLogger(XunchaAppController.class);
 	@Autowired
 	private XunchaService xunchaService;
-
 	@Autowired
 	private UnitService unitService;
 
-	@RequestMapping("myList")
-	@ResponseBody
-	public String myList(HttpServletRequest request, int currentPage, String unitName, int userId) {
-		PagingMySql paging = new PagingMySql();
-		paging.setCurrentPage(currentPage);
-		paging.add("userId", userId);
-		if (unitName != null && !"".equals(unitName)) {
-			paging.add("unitName", "%" + unitName + "%");
-			paging.add("address", "%" + unitName + "%");
-		}
-		List<Unit> pagingBuilding = unitService.getPaging(paging);
-		String json = StringUtils.json(pagingBuilding);
-		return json;
-	}
-
+	/** 巡查列表 */
 	@RequestMapping("list")
 	@ResponseBody
-	public String list(HttpServletRequest request, int currentPage, String unitName) {
+	public String unitList(HttpServletRequest request, int currentPage, String unitName) {
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(currentPage);
 		if (unitName != null && !"".equals(unitName)) {
 			paging.add("unitName", "%" + unitName + "%");
-			paging.add("address", "%" + unitName + "%");
 		}
-		List<Unit> pagingBuilding = unitService.getPaging(paging);
+		List<Xuncha> pagingBuilding = xunchaService.getDepPaging(paging);
 		String json = StringUtils.json(pagingBuilding);
 		return json;
 	}
@@ -66,9 +47,10 @@ public class XunchaAppController {
 	@RequestMapping("get")
 	@ResponseBody
 	public String get(HttpServletRequest request, int id) {
-		Unit unit = unitService.getById(id);
-		Xuncha xuncha = xunchaService.find(id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		Xuncha xuncha = xunchaService.getById(id);
 		if (xuncha != null) {
+			Unit unit = unitService.getById(xuncha.getUnitId());
 			List<XunchaImg> list = xunchaService.getImgs(xuncha.getId());
 			String imgs = null;
 			for (XunchaImg xunchaImg : list) {
@@ -78,11 +60,9 @@ public class XunchaAppController {
 				imgs = imgs.substring(1);
 				xuncha.setImg64(imgs);
 			}
+			map.put("unit", unit);
+			map.put("xuncha", xuncha);
 		}
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("unit", unit);
-		map.put("xuncha", xuncha);
 		String json = StringUtils.json(map);
 		return json;
 	}
@@ -98,46 +78,44 @@ public class XunchaAppController {
 		Integer starLevel = ParamUtils.getInt(request, "starLevel");
 		String img64Str = ParamUtils.getStr(request, "img64Str");
 
-		if (id == null) {
-			xunchaService.add2(xuncha);
-		} else {
-			Xuncha xc = xunchaService.getById(id);
-			xc.setAddTime(new Date());
-			xc.setOxcTime(new Date());
-			xc.setXcTime(new Date());
-			xc.setModTime(new Date());
-			xc.setXctype(xuncha.getXctype());
-			xc.setUnitId(xuncha.getUnitId());
-			xc.setUnitName(xuncha.getUnitName());
-			xc.setDepartId(xuncha.getDepartId());
-			xc.setDepartName(xuncha.getDepartName());
-			xc.setTownId(xuncha.getTownId());
-			xc.setTownName(xuncha.getTownName());
-			xc.setXcPerson(xuncha.getXcPerson());
-			xc.setEtPerson(xuncha.getEtPerson());
-			xc.setXcItem1(xuncha.getXcItem1());
-			xc.setXcItem2(xuncha.getXcItem2());
-			xc.setXcItem3(xuncha.getXcItem3());
-			xc.setXcItem4(xuncha.getXcItem4());
-			xc.setXcItem5(xuncha.getXcItem5());
-			xc.setXcItem6(xuncha.getXcItem6());
-			xc.setXcItem7(xuncha.getXcItem7());
-			xc.setXcItem8(xuncha.getXcItem8());
-			xc.setXcItem9(xuncha.getXcItem9());
-			xc.setXcItem10(xuncha.getXcItem10());
-			xc.setXcItem11(xuncha.getXcItem11());
-			xc.setMeno(xuncha.getMeno());
-			xc.setFlag(xuncha.getFlag());
-			xc.setDoorNum(xuncha.getDoorNum());
-			xc.setDoorTime1(xuncha.getDoorTime1());
-			xc.setDoorTime2(xuncha.getDoorTime2());
-			xc.setPxquantity(xuncha.getPxquantity());
-			xc.setTrainingA(xuncha.getTrainingA());
-			xc.setLiveThree(xuncha.getLiveThree());
-			xunchaService.updateXc(xc);
-			xuncha = xc;
-		}
+		Xuncha xc = xunchaService.getById(id);
+		xc.setXcTime(new Date());
+		xc.setModTime(new Date());
+		xc.setXctype(xuncha.getXctype());
+		xc.setUnitId(xuncha.getUnitId());
+		xc.setUnitName(xuncha.getUnitName());
+		xc.setDepartId(xuncha.getDepartId());
+		xc.setDepartName(xuncha.getDepartName());
+		xc.setTownId(xuncha.getTownId());
+		xc.setTownName(xuncha.getTownName());
+		xc.setXcPerson(xuncha.getXcPerson());
+		xc.setEtPerson(xuncha.getEtPerson());
+		xc.setXcItem1(xuncha.getXcItem1());
+		xc.setXcItem2(xuncha.getXcItem2());
+		xc.setXcItem3(xuncha.getXcItem3());
+		xc.setXcItem4(xuncha.getXcItem4());
+		xc.setXcItem5(xuncha.getXcItem5());
+		xc.setXcItem6(xuncha.getXcItem6());
+		xc.setXcItem7(xuncha.getXcItem7());
+		xc.setXcItem8(xuncha.getXcItem8());
+		xc.setXcItem9(xuncha.getXcItem9());
+		xc.setXcItem10(xuncha.getXcItem10());
+		xc.setXcItem11(xuncha.getXcItem11());
+		xc.setMeno(xuncha.getMeno());
+		xc.setFlag(xuncha.getFlag());
+		xc.setDoorNum(xuncha.getDoorNum());
+		xc.setDoorTime1(xuncha.getDoorTime1());
+		xc.setDoorTime2(xuncha.getDoorTime2());
+		xc.setPxquantity(xuncha.getPxquantity());
+		xc.setTrainingA(xuncha.getTrainingA());
+		xc.setLiveThree(xuncha.getLiveThree());
+		xuncha = xc;
 		if ("30".equals(xuncha.getFlag())) {
+			xc.setFlag("13");
+		}
+		xunchaService.updateXc(xc);
+		if ("30".equals(xuncha.getFlag())) {
+			xuncha.setFlag("13");
 			// 历史记录
 			addFlag(xuncha, xuncha.getXcPerson());
 			// 巡查流转情况记录表
@@ -187,10 +165,9 @@ public class XunchaAppController {
 		map.put("userName", userName);
 		map.put("addTime", new Date());
 		map.put("addIp", null);
-		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "6");
+		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "13");
 		map.put("liveThree", appXuncha.getLiveThree());
 		xunchaService.addFlag(map);
-		log.error("在线巡查历史新增成功,xunchaId:" + appXuncha.getId() + ",name:" + appXuncha.getUnitId() + ",账号ID:" + appXuncha.getUserId());
 	}
 
 	/** 巡查流转情况记录表 **/
@@ -222,7 +199,7 @@ public class XunchaAppController {
 		map.put("xcItem12", appXuncha.getXcItem12());
 		map.put("rectDate", new Date());
 		map.put("meno", appXuncha.getMeno());
-		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "6");
+		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "13");
 		map.put("imgIds", imgIds);
 		map.put("addTime", new Date());
 		map.put("userId", appXuncha.getUserId());
@@ -250,7 +227,6 @@ public class XunchaAppController {
 			map.put("unitMeno", unit.getMeno());
 		}
 		xunchaService.addRd(map);
-		log.error("在线巡查流转新增成功,xunchaId:" + appXuncha.getId() + ",name:" + appXuncha.getUnitId() + ",账号ID:" + appXuncha.getUserId());
 	}
 
 }

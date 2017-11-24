@@ -29,7 +29,7 @@ public class BuildingController {
 
 	@RequestMapping("list")
 	@ResponseBody
-	public String list(HttpServletRequest request, int currentPage, String buildName, int townId) {
+	public String list(HttpServletRequest request, int currentPage, String name, int townId) {
 		Integer userId = ParamUtils.getInt(request, "userId");
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(currentPage);
@@ -37,9 +37,9 @@ public class BuildingController {
 		if (userId != null) {
 			paging.add("userId", userId);
 		}
-		if (buildName != null && !"".equals(buildName)) {
-			paging.add("buildName", "%" + buildName + "%");
-			paging.add("obligation", "%" + buildName + "%");
+		if (name != null && !"".equals(name)) {
+			paging.add("buildName", "%" + name + "%");
+			paging.add("obligation", "%" + name + "%");
 		}
 		List<Building> pagingBuilding = buildingService.getPaging(paging);
 		String json = StringUtils.json(pagingBuilding);
