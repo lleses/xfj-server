@@ -1,4 +1,4 @@
-package cn.dlj.wx.web;
+package cn.dlj.wx.entity;
 
 /**
  * 网页授权信息  

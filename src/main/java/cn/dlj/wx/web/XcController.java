@@ -33,7 +33,7 @@ import cn.dlj.wx.service.WxUserService;
 import cn.dlj.wx.service.WxXunchaService;
 
 /**
- * 微信-巡查(被监管单位)
+ * 微信-被监管单位
  */
 @Controller
 @RequestMapping("/wx/xc/")

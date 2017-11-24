@@ -15,15 +15,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.dlj.app.entity.Unit;
 import cn.dlj.app.entity.WxXuncha;
-import cn.dlj.app.entity.Xuncha;
 import cn.dlj.app.service.UnitService;
 import cn.dlj.app.service.WxService;
-import cn.dlj.app.service.XunchaService;
 import cn.dlj.utils.HttpUtils;
 import cn.dlj.utils.PagingMySql;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.utils.WxConfig;
+import cn.dlj.wx.entity.WeixinOauth2Token;
 import cn.dlj.wx.entity.WxChat;
 import cn.dlj.wx.entity.WxUser;
 import cn.dlj.wx.service.WxChatService;
@@ -37,8 +36,6 @@ import cn.dlj.wx.service.WxUserService;
 public class WxController {
 
 	private static final Logger log = LoggerFactory.getLogger(WxController.class);
-	@Autowired
-	private XunchaService xunchaService;
 	@Autowired
 	private UnitService unitService;
 	@Autowired
@@ -161,46 +158,4 @@ public class WxController {
 		return wat;
 	}
 
-	//TODO
-	//----------------------------------------------------------------------
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test(HttpServletRequest request) {
-		Integer unitId = 591299;
-		Xuncha xuncha = xunchaService.getByUnitId(unitId);
-		Unit unit = unitService.findById(unitId);
-		request.setAttribute("xuncha", xuncha);
-		request.setAttribute("unit", unit);
-		return "wx/index";
-	}
-
-	@RequestMapping(value = "/test2", method = RequestMethod.GET)
-	public String test2(HttpServletRequest request) {
-		PagingMySql paging = new PagingMySql();
-		paging.setCurrentPage(1);
-		paging.setPageSize(20);
-		//巡查员(待审核)
-		List<WxXuncha> waitList = wxService.getWxWaitList(paging);
-		//巡查员(已审核)
-		List<WxXuncha> alreadyList = wxService.getWxAlreadyList(paging);
-		request.setAttribute("waitList", waitList);
-		request.setAttribute("size", waitList.size());
-		request.setAttribute("alreadyList", alreadyList);
-		return "wx/admin/index";
-	}
-
-	@RequestMapping(value = "/test3", method = RequestMethod.GET)
-	public String test3(HttpServletRequest request) {
-		PagingMySql paging = new PagingMySql();
-		paging.setCurrentPage(1);
-		paging.setPageSize(20);
-		//巡查员(待审核)
-		List<WxXuncha> waitList = wxService.getWxGlyWaitList(paging);
-		//巡查员(已审核)
-		List<WxXuncha> alreadyList = wxService.getWxGlyAlreadyList(paging);
-		request.setAttribute("waitList", waitList);
-		request.setAttribute("size", waitList.size());
-		request.setAttribute("alreadyList", alreadyList);
-		return "wx/gly/index";
-
-	}
 }
