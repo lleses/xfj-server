@@ -63,7 +63,7 @@ public class UnitController {
 	@RequestMapping("add")
 	@ResponseBody
 	public String add(HttpServletRequest request, Unit unit, String img64Str, String buildIds) throws UnsupportedEncodingException {
-		String newBimg = dealUploadBimg(null, img64Str, WxConfig.BUILD_IMG_SERVER_PATH, WxConfig.BUILD_IMG_UPLOAD_PATH);
+		String newBimg = dealUploadBimg(null, img64Str, WxConfig.BUILD_IMG, WxConfig.BUILD_IMG_UPLOAD_PATH);
 		Unit un = unitService.get(unit.getName());
 		if (un == null) {
 			unit.setAddTime(new Date());

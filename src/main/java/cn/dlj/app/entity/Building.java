@@ -2,7 +2,7 @@ package cn.dlj.app.entity;
 
 import java.util.Date;
 
-import cn.dlj.utils.Config;
+import cn.dlj.utils.WxConfig;
 
 /**
  * 建筑物信息
@@ -87,9 +87,6 @@ public class Building {
 	/** 异常标记位(-1:异常 其他则正常) **/
 	transient private String err;
 
-	/** 建筑物图片查看地址 */
-	public static final String BUILD_IMG_SERVER_PATH = Config.get("build.img.server.path");
-
 	public Building() {
 		this.name = "";
 		this.addIp = "";
@@ -123,7 +120,7 @@ public class Building {
 		if (null != bimg && !"".equals(bimg.trim()) && bimg != "null" && bimg != "undefined") {
 			String[] imgs = bimg.split(",", -1);
 			for (String img : imgs) {
-				serverBimg += "," + BUILD_IMG_SERVER_PATH + img;
+				serverBimg += "," + WxConfig.BUILD_IMG + img;
 			}
 			serverBimg = serverBimg.substring(1);
 		}

@@ -24,7 +24,7 @@ public class WxConfig {
 	/** 巡查图片保存地址 */
 	public static final String XUNCHA_IMG_UPLOAD_PATH = Config.get("xuncha.img.upload.path");
 	/** 建筑物图片查看地址 */
-	public static final String BUILD_IMG_SERVER_PATH = Config.get("build.img.server.path");
+	public static final String BUILD_IMG = Config.get("build.img.server.path");
 	/** 建筑物图片保存地址 */
 	public static final String BUILD_IMG_UPLOAD_PATH = Config.get("build.img.upload.path");
 }
