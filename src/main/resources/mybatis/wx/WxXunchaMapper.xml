@@ -3,19 +3,19 @@
 <mapper namespace="cn.dlj.wx.dao.WxXunchaDao">
 
 	<!-- 新增 -->
-	<insert id="add" parameterType="cn.dlj.entity.WxXuncha">
+	<insert id="add" parameterType="cn.dlj.app.entity.WxXuncha">
 		insert into t_wx_xuncha(xunchaId,status,ct,et,role,unitName)
 		values(#{xunchaId},#{status},#{ct},#{et},#{role},#{unitName})
 	</insert>
 	
-	<update id="update" parameterType="cn.dlj.entity.WxXuncha" >
+	<update id="update" parameterType="cn.dlj.app.entity.WxXuncha" >
 		update t_wx_xuncha set
 			status= #{status},et=#{et},role=#{role} 
 		where xunchaId=#{xunchaId}
 	</update>
 	
 	<!-- 根据appId获取id -->
-	<select id="getById" resultType="cn.dlj.entity.WxXuncha">
+	<select id="getById" resultType="cn.dlj.app.entity.WxXuncha">
 		select
 				*
 		from t_wx_xuncha
