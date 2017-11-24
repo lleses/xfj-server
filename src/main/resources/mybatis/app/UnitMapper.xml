@@ -2,53 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dlj.app.dao.UnitDao">
 
-	<!-- 新增 -->
 	<insert id="add" parameterType="cn.dlj.app.entity.Unit" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
 		insert into t_unit(name,departmentId,townId,code,license,address,type,safedLinkman,safedTelphone,manageLinkman,manageTelphone,belongUserId,addTime,modTime,userId,delflag,meno,bimg,area,buildingsLayer,isxc,starLevel,nameId,keyUnit,app_id,iscg)
 		values(#{name},#{departmentId},#{townId},#{code},#{license},#{address},#{type},#{safedLinkman},#{safedTelphone},#{manageLinkman},#{manageTelphone},#{belongUserId},#{addTime},#{modTime},#{userId},#{delflag},#{meno},#{bimg},#{area},#{buildingsLayer},#{isxc},#{starLevel},0,#{keyUnit},#{appUnitId},#{iscg})
 	</insert>
 	
-	<!-- 修改 -->
 	<update id="update" parameterType="cn.dlj.app.entity.Unit" >
-		update t_unit
-			set
-			departmentId= #{departmentId},
-			townId= #{townId},
-			code= #{code},
-			license = #{license},
-			address= #{address},
-			type= #{type},
-			safedLinkman= #{safedLinkman},
-			safedTelphone= #{safedTelphone}, 
-			manageLinkman= #{manageLinkman}, 
-			manageTelphone= #{manageTelphone},
-			belongUserId= #{belongUserId}, 
-			addTime= #{addTime}, 
-			modTime= #{modTime},
-			userId= #{userId}, 
-			delflag= #{delflag},
-			isxc= #{isxc},
-			meno= #{meno},
-			id=#{id},
-			name= #{name},
-			area= #{area},
-			buildingsLayer= #{buildingsLayer},
-			starLevel= #{starLevel},
-			keyUnit= #{keyUnit},
-			app_id= #{appUnitId}
-		where id=#{id}
-	</update>
-	
-	<!-- 修改 -->
-	<update id="updateYzm" >
-		update t_unit
-			set
-			yzm= #{yzm}
-		where id=#{id}
-	</update>
-	
-	<!-- 修改 -->
-	<update id="update2" parameterType="cn.dlj.app.entity.Unit" >
 		update t_unit
 			set
 			departmentId= #{departmentId},
@@ -80,7 +39,13 @@
 		where id=#{id}
 	</update>
 	
-	<!-- 修改 -->
+	<update id="updateGm" >
+		update t_unit
+			set
+			isgm= #{isgm}
+		where id=#{id}
+	</update>
+	
 	<update id="updateIsxc" >
 		update t_unit
 			set
@@ -89,22 +54,6 @@
 		where id=#{id}
 	</update>
 	
-	<!-- 修改 -->
-	<update id="updateGm" >
-		update t_unit
-			set
-			isgm= #{isgm}
-		where id=#{id}
-	</update>
-	
-	<!-- 修改 -->
-	<update id="updateImg" parameterType="java.util.Map" >
-		update t_unit set
-			bimg= #{bimg}
-		where id=#{id}
-	</update>
-	
-	<!-- 检测监管单位(巡查单位)是否存在 -->
 	<select id="get" resultType="cn.dlj.app.entity.Unit">
 		select
 				id 						as "id",
@@ -133,7 +82,6 @@
 		</where>
 	</select>
 	
-	<!-- 检测监管单位(巡查单位)是否存在 -->
 	<select id="getById" resultType="cn.dlj.app.entity.Unit">
 		select
 				unit.id 						as "id",
@@ -186,7 +134,6 @@
 		delete from t_unit_building where uid = #{uid}
 	</delete>
 	
-	<!-- 新增监管单位归属建筑物信息 -->
 	<insert id="addUnitBuilding" parameterType="cn.dlj.app.entity.Unit">
 		insert into t_unit_building(uid,bid) 
 		<foreach collection="unit.buildingSet" item="bid" separator="union">
@@ -194,19 +141,6 @@
 		</foreach>
 	</insert>
 	
-	<select id="getBuilds" resultType="java.util.Map">
-		select
-				b.name		as  "name",
-				b.id		as	"id"
-		from t_unit_building ub
-		left join t_building b on ub.bid=b.id
-		<where>
-			ub.uid=#{uid}
-		</where>
-	</select>
-	
-	<!--****************************** wx ******************************-->
-	<!-- 获取监管单位(巡查单位)数据 -->
 	<select id="findById" resultType="cn.dlj.app.entity.Unit">
 		select
 				unit.id 						as "id",
@@ -244,7 +178,6 @@
 		</where>
 	</select>
 	
-	<!-- 获取监管单位(巡查单位)离线数据 -->
 	<select id="getPaging" resultType="cn.dlj.app.entity.Unit">
 		select
 				unit.id 						as "id",
@@ -279,60 +212,26 @@
 		left join t_user u on u.id=unit.userId
 		left join t_town t on t.id=unit.townId
 		left join t_department dep  on dep.id=unit.departmentId
-		<if test="null!=params.unitName">
-			<where>
-				unit.name like #{params.unitName} or unit.address like #{params.address}
-			</where>
-		</if>
-		order by unit.addTime desc
-		limit #{first},#{pageSize}
-	</select>
-	
-	<!-- 获取监管单位(巡查单位)离线数据 -->
-	<select id="getMyPaging" resultType="cn.dlj.app.entity.Unit">
-		select
-				unit.id 						as "id",
-				unit.name 						as "name",
-				unit.departmentId 				as "departmentId",
-				unit.townId 					as "townId",
-				unit.code 						as "code",
-				unit.license					as "license",
-				unit.address					as "address",
-				unit.type						as "type",
-				unit.safedLinkman				as "safedLinkman",
-				unit.safedTelphone				as "safedTelphone",
-				unit.manageLinkman				as "manageLinkman",
-				unit.manageTelphone				as "manageTelphone",
-				unit.belongUserId				as "belongUserId",
-				unit.isxc						as "isxc",
-				unit.addTime					as "addTime",
-				unit.modTime					as "modTime",
-				unit.userId						as "userId",
-				unit.delflag					as "delflag",
-				unit.meno						as "meno",
-				u.name							as "userName",
-				t.name							as "townName",
-				dep.name						as "departmentName",
-				unit.bimg						as "bimg",
-				unit.area						as "area",
-				unit.buildingsLayer				as "buildingsLayer",
-				unit.iscg						as "iscg",
-				unit.isgm						as "isgm",
-				unit.keyUnit					as "keyUnit"
-		from t_unit unit
-		left join t_user u on u.id=unit.userId
-		left join t_town t on t.id=unit.townId
-		left join t_department dep  on dep.id=unit.departmentId
 		<where>
-			unit.userId=#{params.userId}
-			<if test="null!=params.unitName">
-				and (unit.name like #{params.unitName} or unit.address like #{params.address})
-			</if>
+			1=1 
+			<if test="null!=params.townId"> and unit.townId=#{params.townId} </if>
+			<if test="null!=params.userId"> and unit.userId=#{params.userId}</if>
+			<if test="null!=params.unitName"> and (unit.name like #{params.unitName} or unit.address like #{params.address})</if>
 		</where>
 		order by unit.addTime desc
 		limit #{first},#{pageSize}
 	</select>
-	<!-- ***************************new*********************************** -->
+	
+	<select id="getBuilds" resultType="java.util.Map">
+		select
+				b.name		as  "name",
+				b.id		as	"id"
+		from t_unit_building ub
+		left join t_building b on ub.bid=b.id
+		<where>
+			ub.uid=#{uid}
+		</where>
+	</select>
 	
 	<select id="getByPhone" resultType="cn.dlj.app.entity.Unit">
 		select
@@ -374,8 +273,6 @@
 		</where>
 	</select>
 	
-	
-	<!-- 获取监管单位(巡查单位)数据 -->
 	<select id="findByIds" resultType="cn.dlj.app.entity.Unit">
 		select
 				unit.id 						as "id",
@@ -385,4 +282,5 @@
 			unit.id in (${ids})
 		</where>
 	</select>
+	
 </mapper>

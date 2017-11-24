@@ -162,7 +162,8 @@
 		left join t_town t on t.id=bui.townId
 		left join t_department dep  on dep.id=bui.departmentId
 		<where>
-			bui.townId = #{params.townId}
+			1=1 
+			<if test="null!=params.townId"> and bui.townId = #{params.townId}</if>
 			<if test="null!=params.userId"> and bui.userId=#{params.userId}</if>
 			<if test="null!=params.buildName"> and (bui.name like #{params.buildName} or bui.obligation like #{params.obligation})</if>
 		</where>
