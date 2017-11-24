@@ -1,14 +1,11 @@
 package cn.dlj.app;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.dlj.entity.Building;
 import cn.dlj.service.BuildingService;
+import cn.dlj.utils.FileUtils;
 import cn.dlj.utils.IdUtils;
 import cn.dlj.utils.PagingMySql;
+import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.utils.WxConfig;
 
@@ -28,27 +27,16 @@ public class BuildingController {
 	@Autowired
 	private BuildingService buildingService;
 
-	@RequestMapping("myList")
-	@ResponseBody
-	public String myList(HttpServletRequest request, int currentPage, String buildName, int userId) {
-		PagingMySql paging = new PagingMySql();
-		paging.setCurrentPage(currentPage);
-		paging.add("userId", userId);
-		if (buildName != null && !"".equals(buildName)) {
-			paging.add("buildName", "%" + buildName + "%");
-			paging.add("obligation", "%" + buildName + "%");
-		}
-		List<Building> pagingBuilding = buildingService.getMyPaging(paging);
-		String json = StringUtils.json(pagingBuilding);
-		return json;
-
-	}
-
 	@RequestMapping("list")
 	@ResponseBody
-	public String list(HttpServletRequest request, int currentPage, String buildName) {
+	public String list(HttpServletRequest request, int currentPage, String buildName, int townId) {
+		Integer userId = ParamUtils.getInt(request, "userId");
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(currentPage);
+		paging.add("townId", townId);
+		if (userId != null) {
+			paging.add("userId", userId);
+		}
 		if (buildName != null && !"".equals(buildName)) {
 			paging.add("buildName", "%" + buildName + "%");
 			paging.add("obligation", "%" + buildName + "%");
@@ -107,11 +95,10 @@ public class BuildingController {
 			build.setRefractory(building.getRefractory());
 			build.setFacilityA(building.getFacilityA());
 			build.setMessage(building.getMessage());
-
 			build.setModTime(new Date());
 			build.setWorkTime(new Date());
 			build.setBimg(newBimg);
-			buildingService.update2(build);
+			buildingService.update(build);
 		}
 		return "1";
 	}
@@ -130,10 +117,6 @@ public class BuildingController {
 	private String dealUploadBimg(String oldBimg, String img64Str, String serverImgPathType, String imgLocalSavePath) {
 		String newBimg = "";
 		// 获取旧的图片名称
-		//		String historyBimgs = appImgs.getBimg();
-		//		if (bimg == null || "".equals(bimg)) {
-		//			return newBimg;
-		//		}
 		String newHistoryBimgs = "";
 		if (oldBimg != null) {
 			for (String hb : oldBimg.split(",", -1)) {
@@ -183,35 +166,11 @@ public class BuildingController {
 			}
 			String fileName = IdUtils.id32() + ".jpg";
 			String path = basePath + fileName;
-			if (write(split[i], path)) {
+			if (FileUtils.write(split[i], path)) {
 				list.add(fileName);
 			}
 		}
 		return list;
-	}
-
-	/** 写文件 **/
-	private boolean write(String img64, String outPath) {
-		FileOutputStream out = null;
-		boolean succ = false;
-		try {
-			out = new FileOutputStream(outPath);
-			Base64 B64 = new Base64();
-			out.write(B64.decode(img64));
-			out.flush();
-			succ = true;
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		} finally {
-			if (out != null) {
-				try {
-					out.close();
-				} catch (IOException e) {
-				}
-			}
-		}
-		return succ;
 	}
 
 }

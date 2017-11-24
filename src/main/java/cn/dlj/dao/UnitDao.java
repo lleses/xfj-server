@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import cn.dlj.entity.Unit;
-import cn.dlj.entity.UnitStr;
 import cn.dlj.utils.MyBatisDao;
 import cn.dlj.utils.PagingMySql;
 
@@ -84,16 +83,16 @@ public interface UnitDao {
 	 */
 	Unit getById(@Param("id") Integer id);
 
-	/**
-	 * 获取监管单位(巡查单位)离线数据
-	 * 
-	 * @param townId
-	 *            所属镇区ID
-	 * @param departmentId
-	 *            所属社区ID
-	 * @return
-	 */
-	List<UnitStr> getList(@Param("townId") Integer townId, @Param("departmentId") Integer departmentId);
+//	/**
+//	 * 获取监管单位(巡查单位)离线数据
+//	 * 
+//	 * @param townId
+//	 *            所属镇区ID
+//	 * @param departmentId
+//	 *            所属社区ID
+//	 * @return
+//	 */
+//	List<UnitStr> getList(@Param("townId") Integer townId, @Param("departmentId") Integer departmentId);
 
 	/**
 	 * 获取监管单位(巡查单位)最大ID值

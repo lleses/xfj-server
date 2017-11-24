@@ -1,6 +1,5 @@
 package cn.dlj.app;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -114,8 +113,11 @@ public class XunchaController {
 		xc.setPxquantity(xuncha.getPxquantity());
 		xc.setTrainingA(xuncha.getTrainingA());
 		xc.setLiveThree(xuncha.getLiveThree());
-		xunchaService.updateXc(xc);
 		xuncha = xc;
+		if ("30".equals(xuncha.getFlag())) {
+			xc.setFlag("13");
+		}
+		xunchaService.updateXc(xc);
 		if ("30".equals(xuncha.getFlag())) {
 			xuncha.setFlag("13");
 			// 历史记录
@@ -231,20 +233,6 @@ public class XunchaController {
 		xunchaService.addRd(map);
 	}
 	//-------------------------------------------------
-
-	/** 组装请假信息数据 **/
-	private String unitJson(List<Xuncha> list) {
-		List<Map<String, Object>> li = new ArrayList<Map<String, Object>>();
-		for (Xuncha x : list) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("id", x.getId());
-			map.put("unitId", x.getUnitId());
-			map.put("unitName", x.getUnitName());
-			map.put("xcTime", x.getXcTime());
-			li.add(map);
-		}
-		return StringUtils.json(li);
-	}
 
 	/** 获取巡查RD明细 */
 	@RequestMapping("get_xuncha_rd")

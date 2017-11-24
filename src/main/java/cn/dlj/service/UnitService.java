@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.dlj.dao.UnitDao;
 import cn.dlj.entity.Unit;
-import cn.dlj.entity.UnitStr;
 import cn.dlj.utils.PagingMySql;
 
 /**
@@ -160,23 +159,6 @@ public class UnitService {
 			return dao.getById(id);
 		}
 		return null;
-	}
-
-	/**
-	 * 获取监管单位(巡查单位)离线数据
-	 * 
-	 * @param townId
-	 *            所属镇区ID
-	 * @param departmentId
-	 *            所属社区ID
-	 * @return
-	 */
-	public List<UnitStr> getList(Integer townId, Integer departmentId) {
-		List<UnitStr> list = new ArrayList<UnitStr>();
-		if (townId != null && departmentId != null) {
-			list = dao.getList(townId, departmentId);
-		}
-		return list;
 	}
 
 	/**

@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import cn.dlj.entity.Unit;
-import cn.dlj.entity.UnitStr;
 import cn.dlj.entity.Xuncha;
 import cn.dlj.entity.XunchaRd;
 import cn.dlj.utils.MyBatisDao;
@@ -17,18 +15,6 @@ import cn.dlj.utils.PagingMySql;
  */
 @MyBatisDao
 public interface DepUnitDao {
-
-	/**
-	 * 获取监管单位List
-	 * 
-	 */
-	List<UnitStr> pagingUnit(PagingMySql paging);
-
-	/**
-	 * 获取监管单位
-	 * 
-	 */
-	UnitStr get(@Param("id") String id);
 
 	/**
 	 * 获取巡查记录List

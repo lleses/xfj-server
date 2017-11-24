@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.dlj.dao.DepUnitDao;
-import cn.dlj.entity.Unit;
-import cn.dlj.entity.UnitStr;
 import cn.dlj.entity.Xuncha;
 import cn.dlj.entity.XunchaRd;
 import cn.dlj.utils.PagingMySql;
@@ -23,20 +21,6 @@ public class DepUnitService {
 
 	@Autowired
 	private DepUnitDao dao;
-
-	/**
-	 * 获取监管单位(巡查单位)离线数据
-	 */
-	public List<UnitStr> pagingUnit(PagingMySql paging) {
-		return dao.pagingUnit(paging);
-	}
-
-	/**
-	 * 获取监管单位
-	 */
-	public UnitStr get(String id) {
-		return dao.get(id);
-	}
 
 	/**
 	 * 获取巡查记录离线数据
