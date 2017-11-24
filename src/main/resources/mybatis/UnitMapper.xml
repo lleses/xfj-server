@@ -174,51 +174,6 @@
 		</where>
 	</select>
 	
-	
-	
-	<!-- 获取监管单位(巡查单位)离线数据 -->
-	<select id="getList" resultType="cn.dlj.entity.UnitStr">
-		select
-				unit.id 						as "id",
-				unit.name 						as "name",
-				unit.departmentId 				as "departmentId",
-				unit.townId 					as "townId",
-				unit.code 						as "code",
-				unit.license					as "license",
-				unit.address					as "address",
-				unit.type						as "type",
-				unit.safedLinkman				as "safedLinkman",
-				unit.safedTelphone				as "safedTelphone",
-				unit.manageLinkman				as "manageLinkman",
-				unit.manageTelphone				as "manageTelphone",
-				ub.bids							as "stationId",
-				unit.belongUserId				as "belongUserId",
-				unit.isxc						as "isxc",
-				unit.addTime					as "addTime",
-				unit.modTime					as "modTime",
-				unit.userId						as "userId",
-				unit.delflag					as "delflag",
-				unit.meno						as "meno",
-				u.name							as "userName",
-				t.name							as "townName",
-				dep.name						as "departmentName",
-				unit.bimg						as "bimg",
-				unit.area						as "area",
-				unit.buildingsLayer				as "buildingsLayer",
-				unit.keyUnit					as "keyUnit"
-		from t_unit unit
-		left join t_user u on u.id=unit.userId
-		left join t_town t on t.id=unit.townId
-		left join t_department dep  on dep.id=unit.departmentId
-		left join (select uid as "uid",group_concat(bid) as "bids" from t_unit_building group by uid) ub
-		 			on unit.id = ub.uid
-		<where>
-			unit.townId=#{townId} and unit.departmentId=#{departmentId}
-		</where>
-		order by unit.addTime asc
-	</select>
-	
-	
 	<!-- 获取监管单位(巡查单位)最大ID值 -->
 	<select id="getMaxId" resultType="java.lang.Integer">
 		select

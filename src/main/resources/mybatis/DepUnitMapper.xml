@@ -3,67 +3,6 @@
 <mapper namespace="cn.dlj.dao.DepUnitDao">
 
 	<!-- 获取监管单位List -->
-	<select id="pagingUnit" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.entity.UnitStr">
-		select
-				unit.id 						as "id",
-				unit.name 						as "name",
-				unit.isxc						as "isxc",
-				unit.delflag					as "delflag"
-		from t_unit unit
-		<if test="null!=params.unitName">
-			<where>
-				unit.name like #{params.unitName}
-			</where>
-		</if>
-		order by unit.addTime desc
-		limit #{first},#{pageSize}
-	</select>
-	
-	<!-- 获取监管单位 -->
-	<select id="get" resultType="cn.dlj.entity.UnitStr">
-		select
-				unit.id 						as "id",
-				unit.name 						as "name",
-				unit.departmentId 				as "departmentId",
-				unit.townId 					as "townId",
-				unit.code 						as "code",
-				unit.license					as "license",
-				unit.address					as "address",
-				unit.type						as "type",
-				unit.safedLinkman				as "safedLinkman",
-				unit.safedTelphone				as "safedTelphone",
-				unit.manageLinkman				as "manageLinkman",
-				unit.manageTelphone				as "manageTelphone",
-				ub.bNames						as "builNames",
-				unit.belongUserId				as "belongUserId",
-				unit.isxc						as "isxc",
-				unit.addTime					as "addTime",
-				unit.modTime					as "modTime",
-				unit.userId						as "userId",
-				unit.delflag					as "delflag",
-				unit.meno						as "meno",
-				u.name							as "userName",
-				t.name							as "townName",
-				dep.name						as "departmentName",
-				unit.bimg						as "bimg",
-				unit.area						as "area",
-				unit.buildingsLayer				as "buildingsLayer",
-				unit.keyUnit					as "keyUnit"
-		from t_unit unit
-		left join t_user u on u.id=unit.userId
-		left join t_town t on t.id=unit.townId
-		left join t_department dep  on dep.id=unit.departmentId
-		left join (select tub.uid as "uid",
-						  group_concat(build.name) as "bNames" 
-					from t_unit_building tub
-					inner join t_building build on build.id = tub.bid
-					group by tub.uid) ub on unit.id = ub.uid
-		<where>
-			unit.id=#{id}
-		</where>
-	</select>
-	
-	<!-- 获取监管单位List -->
 	<select id="pagingXuncha" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.entity.Xuncha">
 		select
 				x.id 						as "id",
