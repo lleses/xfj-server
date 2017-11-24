@@ -22,7 +22,7 @@ public class UploadController {
 	@ResponseBody
 	public String img(HttpServletRequest request, String imgbasc64, String xuncha) {
 		String path = WxConfig.BUILD_IMG_UPLOAD_PATH;
-		if (xuncha != null) {
+		if (xuncha != null && !"null".equals(xuncha)) {
 			path = WxConfig.XUNCHA_IMG_UPLOAD_PATH;
 		}
 		String imgSrc = FileUtils.imgbasc64(imgbasc64, path);
