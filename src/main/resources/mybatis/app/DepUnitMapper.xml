@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlj.app.dao.DepUnitDao">
+
+	<!-- 获取监管单位List -->
+	<select id="pagingXuncha" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.app.entity.Xuncha">
+		select
+				x.id 						as "id",
+				x.unitId 					as "unitId",
+				x.unitName					as "unitName",
+				x.xcTime					as "xcTime"
+		from t_xunchard x
+		<where>
+			x.townId=#{params.townId} and x.departId=#{params.departmentId} and x.flag=6
+			<if test="null!=params.unitName"> and x.unitName like #{params.unitName}</if>
+		</where>
+		order by x.addTime desc
+		limit #{first},#{pageSize}
+	</select>
+	
+	<!-- 获取巡查RD明细 -->
+	<select id="getXunchaRd" resultType="cn.dlj.app.entity.XunchaRd">
+		select
+				id 						as "id",
+				xunchaId 				as "xunchaId",
+				xctype 					as "xctype",
+				unitId 					as "unitId",
+				unitName 				as "unitName",
+				departId				as "departId",
+				departName				as "departName",
+				townId					as "townId",
+				townName				as "townName",
+				code					as "code",
+				license					as "license",
+				address					as "address",
+				type					as "type",
+				safedLinkman			as "safedLinkman",
+				safedTelphone			as "safedTelphone",
+				manageLinkman			as "manageLinkman",
+				manageTelphone			as "manageTelphone",
+				area					as "area",
+				crewSize				as "crewSize",
+				buildingsLayer			as "buildingsLayer",
+				unitMeno				as "unitMeno",
+				xcTime					as "xcTime",
+				oxcTime					as "oxcTime",
+				xcPerson				as "xcPerson",
+				etPerson				as "etPerson",
+				xcItem1					as "xcItem1",
+				xcItem2					as "xcItem2",
+				xcItem3					as "xcItem3",
+				xcItem4					as "xcItem4",
+				xcItem5					as "xcItem5",
+				xcItem6					as "xcItem6",
+				xcItem7					as "xcItem7",
+				xcItem8					as "xcItem8",
+				xcItem9					as "xcItem9",
+				xcItem10				as "xcItem10",
+				xcItem11				as "xcItem11",
+				xcItem12				as "xcItem12",
+				rectDate				as "rectDate",
+				meno					as "meno",
+				flag					as "flag",
+				imgIds					as "imgIds",
+				addTime					as "addTime",
+				userId					as "userId",
+				userName				as "userName",
+				live_three				as "liveThree"
+		from t_xunchard
+		<where>
+			id=#{id}
+		</where>
+	</select>
+	
+	<!-- 获取巡查图片 -->
+	<select id="getImg" resultType="java.lang.String">
+		select
+				picName 		as "picName"
+		from t_xunchaimg
+		<where>
+			id=#{id}
+		</where>
+	</select>
+	
+	<update id="updateXC" parameterType="cn.dlj.app.entity.XunchaRd">
+		update t_xuncha set 
+			etPerson= #{etPerson},
+			meno= #{meno},
+			live_three= #{liveThree},
+			<if test="null!=flag">flag= #{flag},</if>
+			xcItem1= #{xcItem1},
+			xcItem2= #{xcItem2},
+			xcItem3= #{xcItem3},
+			xcItem4= #{xcItem4},
+			xcItem5= #{xcItem5},
+			xcItem6= #{xcItem6},
+			xcItem7= #{xcItem7},
+			xcItem8= #{xcItem8},
+			xcItem9= #{xcItem9},
+			xcItem10= #{xcItem10},
+			xcItem11= #{xcItem11}
+		where id=#{xunchaId}
+	</update>
+	
+	<update id="updateFlag" parameterType="cn.dlj.app.entity.XunchaRd">
+		update t_xunchaflag set 
+			<if test="null!=flag">flag= #{flag},</if>
+			live_three= #{liveThree}
+		where xunchaId=#{xunchaId}
+	</update>
+	
+	<update id="updateRd" parameterType="cn.dlj.app.entity.XunchaRd">
+		update t_xunchard set 
+			etPerson= #{etPerson},
+			meno= #{meno},
+			live_three= #{liveThree},
+			<if test="null!=flag">flag= #{flag},</if>
+			xcItem1= #{xcItem1},
+			xcItem2= #{xcItem2},
+			xcItem3= #{xcItem3},
+			xcItem4= #{xcItem4},
+			xcItem5= #{xcItem5},
+			xcItem6= #{xcItem6},
+			xcItem7= #{xcItem7},
+			xcItem8= #{xcItem8},
+			xcItem9= #{xcItem9},
+			xcItem10= #{xcItem10},
+			xcItem11= #{xcItem11}
+		where id=#{id}
+	</update>
+	
+	<!-- *************职能部门 ************** -->
+	
+	<select id="getMyPaging" resultType="cn.dlj.app.entity.Xuncha">
+		select
+				x.id 						as "id",
+				x.unitId 					as "unitId",
+				x.unitName					as "unitName",
+				x.xcTime					as "xcTime"
+		from t_xuncha x
+		<where>
+			x.flag='11'
+			<if test="null!=params.unitName"> and x.unitName like #{params.unitName}</if>
+		</where>
+		order by x.xcTime desc
+		limit #{first},#{pageSize}
+	</select>
+</mapper>
