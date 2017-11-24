@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import cn.dlj.entity.Unit;
-import cn.dlj.entity.WxXuncha;
-import cn.dlj.entity.Xuncha;
-import cn.dlj.service.UnitService;
-import cn.dlj.service.WxService;
-import cn.dlj.service.XunchaService;
+import cn.dlj.app.entity.Unit;
+import cn.dlj.app.entity.WxXuncha;
+import cn.dlj.app.entity.Xuncha;
+import cn.dlj.app.service.UnitService;
+import cn.dlj.app.service.WxService;
+import cn.dlj.app.service.XunchaService;
 import cn.dlj.utils.HttpUtils;
 import cn.dlj.utils.PagingMySql;
 import cn.dlj.utils.ParamUtils;

@@ -2,7 +2,7 @@ package cn.dlj.wx.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import cn.dlj.entity.WxXuncha;
+import cn.dlj.app.entity.WxXuncha;
 import cn.dlj.utils.MyBatisDao;
 
 @MyBatisDao

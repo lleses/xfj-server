@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.dlj.entity.Unit;
-import cn.dlj.service.UnitService;
+import cn.dlj.app.entity.Unit;
+import cn.dlj.app.service.UnitService;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
 import cn.dlj.wx.entity.WxChat;
