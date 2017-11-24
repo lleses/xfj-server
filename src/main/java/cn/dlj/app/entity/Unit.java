@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import cn.dlj.utils.Config;
+import cn.dlj.utils.WxConfig;
 
 /**
  * 监管单位(巡查单位)
@@ -92,9 +92,6 @@ public class Unit {
 	/** 监管单位归属建筑物ID集合 */
 	transient private Set<Integer> buildingSet = new HashSet<>();
 
-	/** 监管单位图片查看地址 */
-	public static final String UNIT_IMG_SERVER_PATH = Config.get("build.img.server.path");
-
 	/**
 	 * 完整图片地址
 	 */
@@ -102,26 +99,11 @@ public class Unit {
 		if (null != bimg && !"".equals(bimg.trim()) && bimg != "null" && bimg != "undefined") {
 			String[] imgs = bimg.split(",", -1);
 			for (String img : imgs) {
-				serverBimg += "," + UNIT_IMG_SERVER_PATH + img;
+				serverBimg += "," + WxConfig.BUILD_IMG + img;
 			}
 			serverBimg = serverBimg.substring(1);
 		}
 		return serverBimg;
-	}
-
-	/**
-	 * 完整图片地址
-	 */
-	public String getServerBimg2() {
-		String serverBimgx = "";
-		if (null != bimg && !"".equals(bimg.trim()) && bimg != "null" && bimg != "undefined") {
-			String[] imgs = bimg.split(",", -1);
-			for (String img : imgs) {
-				serverBimgx += "," + UNIT_IMG_SERVER_PATH + img;
-			}
-			serverBimgx = serverBimgx.substring(1);
-		}
-		return serverBimgx;
 	}
 
 	/**
