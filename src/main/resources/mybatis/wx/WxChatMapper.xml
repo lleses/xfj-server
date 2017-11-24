@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlj.wx.dao.WxChatDao">
+
+	<!-- 新增 -->
+	<insert id="add" parameterType="cn.dlj.wx.entity.WxChat" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+		insert into t_wx_chat(id,msg,unitId,unitName,userId,type,readMsg,ct)
+		values(#{id},#{msg},#{unitId},#{unitName},#{userId},#{type},'0',#{ct})
+	</insert>
+	
+	<select id="getListByUnitId" resultType="cn.dlj.wx.entity.WxChat">
+		select
+				*
+		from t_wx_chat
+		<where>
+			unitId=#{unitId}
+		</where>
+		order by id asc
+	</select>
+	
+	
+	<!-- 一共多少条未阅读消息 -->
+	<select id="getAllCountByUnitId" resultType="java.lang.Integer">
+		select
+				count(*)
+		from t_wx_chat
+		<where>
+			unitId=#{unitId} and readMsg='0' and type='1'
+		</where>
+	</select>
+	
+	<update id="updateByUnitId" >
+		update t_wx_chat
+			set
+			readMsg='1'
+		where unitId=#{unitId} and type=#{type}
+	</update>
+	
+	<!-- *************xuncha*************** -->
+	
+	<!-- 每个单位有多少条未读消息 -->
+	<select id="getListByUserId" resultType="cn.dlj.wx.entity.WxChat">
+		select
+				chat.unitId		as "unitId",
+				u.name		as "unitName"
+		from t_wx_chat chat
+		left join t_unit u on u.id = chat.unitId
+		<where>
+			chat.userId=#{userId} and chat.readMsg=#{readMsg} and chat.type='0'
+		</where>
+		group by chat.unitId
+	</select>
+	
+</mapper>
