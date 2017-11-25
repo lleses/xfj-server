@@ -33,9 +33,10 @@ public class DepUnitController {
 	/** 巡查列表 */
 	@RequestMapping("list")
 	@ResponseBody
-	public String unitList(HttpServletRequest request, int currentPage, String unitName) {
+	public String unitList(HttpServletRequest request, int currentPage, String unitName, int townId) {
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(currentPage);
+		paging.add("townId", townId);
 		if (unitName != null && !"".equals(unitName)) {
 			paging.add("unitName", "%" + unitName + "%");
 		}
