@@ -47,39 +47,42 @@
 	<!-- 查询巡查员待审核记录 -->
 	<select id="getWxWaitList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.app.entity.WxXuncha">
 		select
-				*
-		from t_wx_xuncha
+				wx.*
+		from t_wx_xuncha wx
+		inner join t_xuncha xc on xc.id = wx.xunchaId
 		<where>
-			 status=0 and role=1 
-			 <if test="null!=params.unitName"> and unitName like #{params.unitName} </if>
+			 wx.status=0 and wx.role=1 and xc.userId=#{params.userId}
+			 <if test="null!=params.unitName"> and wx.unitName like #{params.unitName} </if>
 		</where>
-		order by et desc
+		order by wx.et desc
 		limit #{first},#{pageSize}
 	</select>
 	
 	<!-- 查询巡查员已审核记录 -->
 	<select id="getWxAlreadyList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.app.entity.WxXuncha">
 		select
-				*
-		from t_wx_xuncha
+				wx.*
+		from t_wx_xuncha wx
+		inner join t_xuncha xc on xc.id = wx.xunchaId
 		<where>
-			 status in (1,2) and role=1 
-			 <if test="null!=params.unitName"> and unitName like #{params.unitName} </if>
+			 wx.status in (1,2) and wx.role=1 and xc.userId=#{params.userId}
+			 <if test="null!=params.unitName"> and wx.unitName like #{params.unitName} </if>
 		</where>
-		order by et desc
+		order by wx.et desc
 		limit #{first},#{pageSize}
 	</select>
 	
 	<!-- 查询管理员员待审核记录 -->
 	<select id="getWxGlyWaitList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.app.entity.WxXuncha">
 		select
-				*
-		from t_wx_xuncha
+				wx.*
+		from t_wx_xuncha wx
+		inner join t_xuncha xc on xc.id = wx.xunchaId
 		<where>
-			 status=0 and role=2 
-			 <if test="null!=params.unitName"> and unitName like #{params.unitName} </if>
+			 wx.status=0 and wx.role=2 and xc.userId=#{params.userId}
+			 <if test="null!=params.unitName"> and wx.unitName like #{params.unitName} </if>
 		</where>
-		order by et desc
+		order by wx.et desc
 		limit #{first},#{pageSize}
 	</select>
 	
@@ -87,12 +90,13 @@
 	<select id="getWxGlyAlreadyList" parameterType="cn.dlj.utils.PagingMySql" resultType="cn.dlj.app.entity.WxXuncha">
 		select
 				*
-		from t_wx_xuncha
+		from t_wx_xuncha wx
+		inner join t_xuncha xc on xc.id = wx.xunchaId
 		<where>
-			 status in (1,2) and role=2 
-			 <if test="null!=params.unitName"> and unitName like #{params.unitName} </if>
+			 wx.status in (1,2) and wx.role=2 and xc.userId=#{params.userId}
+			 <if test="null!=params.unitName"> and wx.unitName like #{params.unitName} </if>
 		</where>
-		order by et desc
+		order by wx.et desc
 		limit #{first},#{pageSize}
 	</select>
 	
