@@ -1,5 +1,6 @@
 package cn.dlj.wx.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -108,11 +109,13 @@ public class AdminXcController {
 		Integer xunchaId = ParamUtils.getInt(request, "xunchaId");
 		Xuncha xuncha = xunchaService.getById(xunchaId);
 		Unit unit = null;
+		List<XunchaImg> imgs = new ArrayList<>();
+		List<WxXunchaImg> wxImgs = new ArrayList<>();
 		if (xuncha != null) {
 			unit = unitService.findById(xuncha.getUnitId());
+			imgs = xunchaService.getImgs(xuncha.getId());
+			wxImgs = wxService.getList(xuncha.getId());
 		}
-		List<XunchaImg> imgs = xunchaService.getImgs(xuncha.getId());
-		List<WxXunchaImg> wxImgs = wxService.getList(xuncha.getId());
 		request.setAttribute("xuncha", xuncha);
 		request.setAttribute("unit", unit);
 		request.setAttribute("wxImgs", wxImgs);
