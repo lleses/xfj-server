@@ -32,22 +32,6 @@
   </servlet-mapping>
   
   
-  <servlet>
-        <servlet-name>initAccessTokenServlet</servlet-name>
-        <servlet-class>
-            cn.dlj.wx.web.AccessTokenServlet
-        </servlet-class>
-        <init-param>
-            <param-name>appid</param-name>
-            <param-value>wx982f8ef9575e11e4</param-value>
-        </init-param>
-        <init-param>
-            <param-name>appsecret</param-name>
-            <param-value>e3ebfa28358e9c77f203f82ba1a80abd</param-value>
-        </init-param>
-        <load-on-startup>0</load-on-startup>
- </servlet>
- 
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
