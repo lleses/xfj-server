@@ -29,7 +29,7 @@ public class UnitController {
 
 	@RequestMapping("list")
 	@ResponseBody
-	public String list(HttpServletRequest request, int currentPage, String name, int townId) {
+	public String list(HttpServletRequest request, int currentPage, String name, Integer townId) {
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(currentPage);
 		paging.add("townId", townId);

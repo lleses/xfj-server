@@ -25,7 +25,7 @@ public class BuildingController {
 
 	@RequestMapping("list")
 	@ResponseBody
-	public String list(HttpServletRequest request, int currentPage, String name, int townId) {
+	public String list(HttpServletRequest request, int currentPage, String name, Integer townId) {
 		Integer userId = ParamUtils.getInt(request, "userId");
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(currentPage);
