@@ -214,6 +214,7 @@
 		left join t_department dep  on dep.id=unit.departmentId
 		<where>
 			1=1 
+			<if test="null!=params.showCg"> and unit.iscg != '1' </if>
 			<if test="null!=params.townId"> and unit.townId=#{params.townId} </if>
 			<if test="null!=params.userId"> and unit.userId=#{params.userId}</if>
 			<if test="null!=params.unitName"> and (unit.name like #{params.unitName} or unit.address like #{params.address})</if>
