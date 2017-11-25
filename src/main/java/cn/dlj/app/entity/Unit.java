@@ -88,7 +88,7 @@ public class Unit {
 	/** 图片basc64 **/
 	transient private String img64 = "";
 	/** 完整图片地址 */
-	transient private String serverBimg;
+	transient private String serverBimg = "";
 	/** 监管单位归属建筑物ID集合 */
 	transient private Set<Integer> buildingSet = new HashSet<>();
 

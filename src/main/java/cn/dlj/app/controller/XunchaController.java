@@ -40,7 +40,7 @@ public class XunchaController {
 		Xuncha xuncha = xunchaService.find(id);
 		if (xuncha != null) {
 			List<XunchaImg> list = xunchaService.getImgs(xuncha.getId());
-			String imgs = null;
+			String imgs = "";
 			for (XunchaImg xunchaImg : list) {
 				imgs += "," + xunchaImg.getPicName();
 			}
