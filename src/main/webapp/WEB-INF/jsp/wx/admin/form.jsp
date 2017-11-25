@@ -450,9 +450,9 @@ function toForm(){
 function xcItemFlag(imgIds,xcItems,xcItemVals){
 	var param={
 		"imgIds":imgIds,
-		"xcItems": xcItems,//key
-		"xcItemVals": xcItemVals,//val
-		xunchaId:'${xuncha.id}'
+		"xcItems": xcItems,
+		"xcItemVals": xcItemVals,
+		"xunchaId":'${xuncha.id}'
 	}
 	$.post("/wx/admin/xc/updateFalg",param,function(rs){
 		$.alert("提交成功", function() {
