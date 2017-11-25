@@ -39,18 +39,14 @@
 		where id=#{id}
 	</update>
 	
-	<update id="updateGm" >
+	<update id="updateStatus" >
 		update t_unit
 			set
-			isgm= #{isgm}
-		where id=#{id}
-	</update>
-	
-	<update id="updateIsxc" >
-		update t_unit
-			set
-			isxc= '1',
-			starLevel= #{starLevel}
+			lastXunchaTime = sysdate()
+			<if test="null!=isgm"> ,isgm= #{isgm} </if>
+			<if test="null!=isxc"> ,isxc= #{isxc} </if>
+			<if test="null!=starLevel"> ,starLevel= #{starLevel} </if>
+			<if test="null!=iscg"> ,iscg= #{iscg} </if>
 		where id=#{id}
 	</update>
 	
@@ -207,6 +203,7 @@
 				unit.buildingsLayer				as "buildingsLayer",
 				unit.iscg						as "iscg",
 				unit.isgm						as "isgm",
+				unit.lastXunchaTime				as "lastXunchaTime",
 				unit.keyUnit					as "keyUnit"
 		from t_unit unit
 		left join t_user u on u.id=unit.userId
