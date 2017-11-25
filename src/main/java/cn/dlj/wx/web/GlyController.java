@@ -54,33 +54,36 @@ public class GlyController {
 		PagingMySql paging = new PagingMySql();
 		paging.setCurrentPage(1);
 		paging.setPageSize(20);
-		//巡查员(待审核)
-		List<WxXuncha> waitList = wxService.getWxGlyWaitList(paging);
-		//巡查员(已审核)
-		List<WxXuncha> alreadyList = wxService.getWxGlyAlreadyList(paging);
-		request.setAttribute("waitList", waitList);
-		request.setAttribute("size", waitList.size());
-		request.setAttribute("alreadyList", alreadyList);
-
 		String openId = ParamUtils.getStr(request, "openId");
 		WxUser wxUser = wxUserService.getByOpenId(openId);
 		if (wxUser != null) {
+			paging.add("userId", wxUser.getUserId());
+			//巡查员(待审核)
+			List<WxXuncha> waitList = wxService.getWxGlyWaitList(paging);
+			//巡查员(已审核)
+			List<WxXuncha> alreadyList = wxService.getWxGlyAlreadyList(paging);
+			request.setAttribute("waitList", waitList);
+			request.setAttribute("size", waitList.size());
+			request.setAttribute("alreadyList", alreadyList);
+
 			List<WxChat> wxChats = wxChatService.getListByUserId(wxUser.getUserId(), "0");
 			request.setAttribute("wxChats", wxChats);
+			request.setAttribute("wxUser", wxUser);
 		}
 		return "wx/gly/index";
 	}
 
 	@RequestMapping("list")
-	public String list(HttpServletRequest request) {
+	public String list(HttpServletRequest request, Integer userId) {
 		String statusType = ParamUtils.getStr(request, "statusType");//0:待审核 1:已审核
 		request.setAttribute("statusType", statusType);
+		request.setAttribute("userId", userId);
 		return "wx/gly/list";
 	}
 
 	@RequestMapping("list_data")
 	@ResponseBody
-	public String listData(HttpServletRequest request) {
+	public String listData(HttpServletRequest request, Integer userId) {
 		String statusType = ParamUtils.getStr(request, "statusType");//0:待审核 1:已审核
 		String unitName = ParamUtils.getStr(request, "unitName");
 		Integer currentPage = ParamUtils.getInt(request, "currentPage");
@@ -89,6 +92,7 @@ public class GlyController {
 		if (unitName != null) {
 			paging.add("unitName", "%" + unitName + "%");
 		}
+		paging.add("userId", userId);
 		List<WxXuncha> list;
 		if ("0".equals(statusType)) {
 			//巡查员(待审核)

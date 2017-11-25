@@ -83,6 +83,7 @@ public class WxController {
 				PagingMySql paging = new PagingMySql();
 				paging.setCurrentPage(1);
 				paging.setPageSize(20);
+				paging.add("userId", wxUser.getUserId());
 				//巡查员(待审核)
 				List<WxXuncha> waitList = wxService.getWxWaitList(paging);
 				//巡查员(已审核)
@@ -101,6 +102,7 @@ public class WxController {
 				PagingMySql paging = new PagingMySql();
 				paging.setCurrentPage(1);
 				paging.setPageSize(20);
+				paging.add("userId", wxUser.getUserId());
 				//巡查员(待审核)
 				List<WxXuncha> waitList = wxService.getWxGlyWaitList(paging);
 				//巡查员(已审核)
@@ -111,6 +113,7 @@ public class WxController {
 
 				List<WxChat> wxChats = wxChatService.getListByUserId(userId, "0");
 				request.setAttribute("wxChats", wxChats);
+				request.setAttribute("wxUser", wxUser);
 				return "wx/gly/index";
 			}
 		} catch (Exception e) {
