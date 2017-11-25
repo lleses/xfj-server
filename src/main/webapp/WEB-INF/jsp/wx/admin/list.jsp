@@ -42,6 +42,7 @@
         <div id="no_more" class="no_more">
                 已无更多数据
         </div>
+        <input id="inp_userId" type="hidden" value="${userId }">
 	</div>
 </body>
 <script>
@@ -70,6 +71,7 @@ function loadUnitDb(isQry) {
        	"currentPage": g_currentPage,
        	"unitName": _unitName,
        	"statusType": g_statusType,
+       	"userId":$("#inp_userId").val(),
          "t": new Date().getTime()
 	}
 	

@@ -105,7 +105,7 @@ function swichTab(num){
 }
 
 function toDetail(xunchaId) {
-	window.location.href="/wx/gly/form?xunchaId="+xunchaId;
+	window.location.href="/wx/gly/form?xunchaId="+xunchaId+"&userId="+'${wxUser.userId}';
 }
 
 </script>

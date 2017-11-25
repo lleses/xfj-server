@@ -32,11 +32,11 @@
 .wd_sub_img1{float:left;width:50px;height:40px;}
 .wd_sub_s1{height:40px;float:left;text-align: left;width: calc(100% - 50px);}
 .wd_sub_s2{height:40px;float:left;line-height:40px;padding:0px 5px;color: #ddd;}
-.wd_sub_d1{float:left;width:100%;padding:5px 0px;text-align:left;color:#888888;}
+.wd_sub_d1{float:left;width:100%;padding:5px 0px;text-align:left;color:#888888;word-wrap:break-word}
 .wd_sub_img2{float:right;width:50px;height:40px;}
 .wd_sub2_s1{height:40px;float:right;line-height:40px;}
 .wd_sub2_s2{height:40px;float:right;line-height:40px;padding:0px 5px;color: #ddd;}
-.wd_sub_d2{float:left;width:100%;padding:5px 0px;text-align:right;color:#888888;}
+.wd_sub_d2{float:left;width:100%;padding:5px 0px;text-align:right;color:#888888;word-wrap:break-word}
 .newMsg{display:none;background:#E91E63;color:white;border-radius:50px;border:1px solid #E91E63;margin-left:10px;margin-top:2px;width:25px;float:left;height:25px;}
 </style>
 </head>
@@ -108,7 +108,7 @@
 				<div id="mx" style="overflow:auto;border:1px solid rgb(221,221,221);margin:20px 20px 0px 20px;">
 				</div>
 				<div style="width:90%;margin:0px 5%;height:112px;">
-					<textarea id="txtMsg" style="outline:none;height:50px;margin:10px 0 0 0;border:1px solid #ddd;width:calc(100% - 20px);float:left;overflow:scroll;resize:none;font-size:15px;padding:10px;"></textarea>
+					<textarea id="txtMsg" maxlength="100" style="outline:none;height:50px;margin:10px 0 0 0;border:1px solid #ddd;width:calc(100% - 20px);float:left;overflow:scroll;resize:none;font-size:15px;padding:10px;"></textarea>
 				</div>
 				<div id="sendMsg" class="close_button" onclick="sendMsg()" style="float: left;width: 50%;background-color:#ddd;color:#607D8B;">
 					<a>发送</a>
@@ -232,7 +232,7 @@ function swichTab(num){
 }
 
 function toDetail(xunchaId) {
-	window.location.href="/wx/admin/xc/form?xunchaId="+xunchaId;
+	window.location.href="/wx/admin/xc/form?xunchaId="+xunchaId+"&userId="+'${wxUser.userId}';
 }
 
 </script>
