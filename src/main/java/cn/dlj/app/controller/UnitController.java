@@ -41,6 +41,11 @@ public class UnitController {
 			paging.add("unitName", "%" + name + "%");
 			paging.add("address", "%" + name + "%");
 		}
+		////默认显示草稿(0:不显示草稿 1:显示草稿)
+		String showCg = ParamUtils.getStr(request, "showCg");
+		if (!"1".equals(showCg)) {
+			paging.add("showCg", showCg);
+		}
 		List<Unit> pagingBuilding = unitService.getPaging(paging);
 		String json = StringUtils.json(pagingBuilding);
 		return json;
