@@ -85,13 +85,8 @@ public class UnitService {
 	}
 
 	@Transactional
-	public void updateIsxc(Integer starLevel, Integer id) {
-		dao.updateIsxc(starLevel, id);
-	}
-
-	@Transactional
-	public void updateGm(Integer id, String isgm) {
-		dao.updateGm(id, isgm);
+	public void updateStatus(Integer id, String isxc, Integer starLevel, String iscg, String isgm) {
+		dao.updateStatus(id, isxc, starLevel, iscg, isgm);
 	}
 
 	public Unit findById(Integer id) {

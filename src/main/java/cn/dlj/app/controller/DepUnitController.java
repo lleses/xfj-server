@@ -53,11 +53,11 @@ public class DepUnitController {
 		if (xuncha != null) {
 			Unit unit = unitService.getById(xuncha.getUnitId());
 			List<XunchaImg> list = xunchaService.getImgs(xuncha.getId());
-			String imgs = null;
+			String imgs = "";
 			for (XunchaImg xunchaImg : list) {
 				imgs += "," + xunchaImg.getPicName();
 			}
-			if (imgs != null) {
+			if (!"".equals(imgs)) {
 				imgs = imgs.substring(1);
 				xuncha.setImg64(imgs);
 			}
@@ -110,22 +110,21 @@ public class DepUnitController {
 		xc.setPxquantity(xuncha.getPxquantity());
 		xc.setTrainingA(xuncha.getTrainingA());
 		xc.setLiveThree(xuncha.getLiveThree());
-		xuncha = xc;
 		if ("30".equals(xuncha.getFlag())) {
 			xc.setFlag("13");
 		}
 		xunchaService.updateXc(xc);
-		if ("30".equals(xuncha.getFlag())) {
-			xuncha.setFlag("13");
+		xuncha = xc;
+		if ("13".equals(xuncha.getFlag())) {
 			// 历史记录
 			addFlag(xuncha, xuncha.getXcPerson());
 			// 巡查流转情况记录表
 			addRd(xuncha, xuncha.getXcPerson(), null);
-			unitService.updateIsxc(starLevel, xuncha.getUnitId());
+			unitService.updateStatus(xuncha.getUnitId(), "1", starLevel, null, null);
 		} else if ("1".equals(xuncha.getFlag())) {
-			unitService.updateGm(xuncha.getUnitId(), "2");
+			unitService.updateStatus(xuncha.getUnitId(), "0", 1, "0", "0");
 		} else {
-			unitService.updateGm(xuncha.getUnitId(), "1");
+			unitService.updateStatus(xuncha.getUnitId(), null, null, null, "1");
 		}
 		String imgIds = "";
 		if (xuncha.getId() == null || img64Str == null || "".equals(img64Str)) {

@@ -1,5 +1,6 @@
 package cn.dlj.app.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -67,10 +68,12 @@ public class Unit {
 	private String keyUnit;
 	/** 草稿(1:是,其他:否) **/
 	private String iscg;
-	/** 是否关门(1:是,2:已巡查,其他:否) **/
+	/** 是否关门(1:是,其他:否) **/
 	private String isgm;
 	/** 验证码 **/
 	private String yzm;
+	/** 上次巡查时间 **/
+	private Date lastXunchaTime;
 	/** 添加者 **/
 	transient private String userName;
 	/** 镇区名称 **/
@@ -98,12 +101,23 @@ public class Unit {
 	public String getServerBimg() {
 		if (null != bimg && !"".equals(bimg.trim()) && bimg != "null" && bimg != "undefined") {
 			String[] imgs = bimg.split(",", -1);
-			for (String img : imgs) {
-				serverBimg += "," + WxConfig.BUILD_IMG + img;
+			if (imgs.length > 0) {
+				for (String img : imgs) {
+					serverBimg += "," + WxConfig.BUILD_IMG + img;
+				}
+				serverBimg = serverBimg.substring(1);
 			}
-			serverBimg = serverBimg.substring(1);
 		}
 		return serverBimg;
+	}
+
+	public String getLastXunchaTimeStr() {
+		String rsTime = "----";
+		if (lastXunchaTime != null) {
+			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+			rsTime = simple.format(lastXunchaTime);
+		}
+		return rsTime;
 	}
 
 	/**
@@ -624,6 +638,20 @@ public class Unit {
 	 */
 	public void setYzm(String yzm) {
 		this.yzm = yzm;
+	}
+
+	/**
+	 * 
+	 */
+	public Date getLastXunchaTime() {
+		return lastXunchaTime;
+	}
+
+	/**
+	 * 
+	 */
+	public void setLastXunchaTime(Date lastXunchaTime) {
+		this.lastXunchaTime = lastXunchaTime;
 	}
 
 }

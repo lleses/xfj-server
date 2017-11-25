@@ -119,10 +119,12 @@ public class Building {
 	public String getServerBimg() {
 		if (null != bimg && !"".equals(bimg.trim()) && bimg != "null" && bimg != "undefined") {
 			String[] imgs = bimg.split(",", -1);
-			for (String img : imgs) {
-				serverBimg += "," + WxConfig.BUILD_IMG + img;
+			if (imgs.length > 0) {
+				for (String img : imgs) {
+					serverBimg += "," + WxConfig.BUILD_IMG + img;
+				}
+				serverBimg = serverBimg.substring(1);
 			}
-			serverBimg = serverBimg.substring(1);
 		}
 		return serverBimg;
 	}

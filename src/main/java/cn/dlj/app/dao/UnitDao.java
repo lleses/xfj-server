@@ -16,9 +16,7 @@ public interface UnitDao {
 
 	void update(Unit unit);
 
-	void updateGm(@Param("id") Integer id, @Param("isgm") String isgm);
-
-	void updateIsxc(@Param("starLevel") Integer starLevel, @Param("id") Integer id);
+	void updateStatus(@Param("id") Integer id, @Param("isxc") String isxc, @Param("starLevel") Integer starLevel, @Param("iscg") String iscg, @Param("isgm") String isgm);
 
 	Unit get(@Param("name") String name);
 
