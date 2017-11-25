@@ -181,7 +181,7 @@ a:hover {color: #999999;text-decoration: none;}
                     <div id="showPhotos" class="weui_cell_bd weui_cell_primary">
                     	<c:forEach var="xcimg" items="${imgs }">
 	                    	<div class='photo_main'>
-								<img  name="photo" src="${upload }${xcimg.picName }" border='0' width='70' height='70' />
+								<img onclick="biggerPic(this)"  name="photo" src="${upload }${xcimg.picName }" border='0' width='70' height='70' />
 							</div>
 						</c:forEach>
                     </div>
@@ -393,7 +393,7 @@ function addHtml() {
 			htm += "</div>";
 		htm += "</div>";
 		htm += "<div id='_div_upimg" + (i + 1) + "' class='weui_cell' style='border-bottom:0px;display:none;'>";
-			htm += "<img id='_upimg" + (i + 1) + "' width='120' height='120' src='' />";
+			htm += "<img onclick=\"biggerPic(this)\" id='_upimg" + (i + 1) + "' width='120' height='120' src='' />";
 		htm += "</div>";
 	}
 	$("#unitType").append(htm);
