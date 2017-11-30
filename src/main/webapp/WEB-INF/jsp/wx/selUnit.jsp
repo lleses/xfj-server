@@ -38,7 +38,7 @@
 			</div>
 			<c:forEach var="unit" items="${units }">
 				<img width="50" src="/res/img/bird.png" style="float: left;margin-left: 5%;" />
-				<div onclick="toUrl('${unit.id}')" class="zgsj" style="border: 3px solid #9E9E9E;background: #9a9da2;color: white;border-radius: 15px;width: calc(70% - 28px);">${unit.name }</div>
+				<div onclick="toUrl('${unit.id}')" class="zgsj" style="border: 3px solid #9E9E9E;background: #9a9da2;color: white;border-radius: 15px;width: calc(70% - 28px);">${unit.name }${unit.id}</div>
 			</c:forEach>
 			<div id="btn" class="btn" style="padding:10px 5%; width: 90%; float: left;margin-bottom: 30px;">
 				<a href="/wx/xc/toBind?openId=${openId }&type=1" style="font-size: 15px;line-height: 30px;height: 30px;" class="weui_btn weui_btn_primary">添加绑定</a>

@@ -48,7 +48,7 @@
 			<div id="xxtx" style="overflow-y: auto;height:350px;float: left;width: 100%;">
 				<c:forEach	items="${waitList }" var="waitList" varStatus="status">
 					<div class="xxtx_clo2" onclick="toDetail('${waitList.xunchaId }')">
-						${status.index+1 }、${waitList.unitName }
+						${status.index+1 }、${waitList.unitName }<span style="color: red;font-size: 11px;padding: 5px;">${waitList.lastTimeStr }</span>
 					</div>
 				</c:forEach>
 			</div>
