@@ -1,5 +1,6 @@
 package cn.dlj.app.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,11 @@ public interface XunchaDao {
 
 	Xuncha getByUnitId(@Param("unitId") Integer unitId);
 
-	void updateWxXuncha(@Param("xunchaId") Integer xunchaId, @Param("status") String status);
+	void updateXcFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
+
+	void updateXcRdFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
+
+	void updateXcFlagFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
 
 	List<XunchaImg> getImgs(@Param("xunchaId") Integer xunchaId);
 
@@ -37,7 +42,9 @@ public interface XunchaDao {
 
 	List<Xuncha> find(@Param("unitId") Integer unitId);
 
+	List<Xuncha> findByXcTime(@Param("xcTime") Date xcTime);
+
 	void delXunchaImg(@Param("xunchaId") Integer xunchaId);
-	
+
 	List<Xuncha> getDepPaging(PagingMySql paging);
 }

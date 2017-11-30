@@ -90,7 +90,7 @@ public class XcController {
 	public String save(HttpServletRequest request) {
 		Integer xunchaId = ParamUtils.getInt(request, "xunchaId");
 		String unitName = ParamUtils.getStr(request, "unitName");
-		xunchaService.updateWxXuncha(xunchaId, "31");//更新flag状态31
+		xunchaService.updateXcFlag(xunchaId, "31");//更新flag状态31
 
 		WxXuncha wxXuncha = wxXunchaService.getById(xunchaId);
 		if (wxXuncha == null) {
@@ -101,11 +101,13 @@ public class XcController {
 			wxXuncha.setStatus(0);
 			wxXuncha.setRole(1);
 			wxXuncha.setUnitName(unitName);
+			wxXuncha.setLastTime(2);
 			wxXunchaService.add(wxXuncha);
 		} else {
 			wxXuncha.setEt(new Date());
 			wxXuncha.setStatus(0);
 			wxXuncha.setRole(1);
+			wxXuncha.setLastTime(2);
 			wxXunchaService.update(wxXuncha);
 		}
 		return "1";

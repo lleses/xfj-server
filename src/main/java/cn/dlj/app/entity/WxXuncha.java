@@ -16,6 +16,9 @@ public class WxXuncha {
 	private Date et;
 	/** 审核角色(1:平台巡查员 2:平台管理员) **/
 	private int role;
+	/** 剩余时间 **/
+	private Integer lastTime;
+
 	/** 监管单位名称 **/
 	transient private String unitName;
 
@@ -27,6 +30,13 @@ public class WxXuncha {
 		} else {
 			return "";
 		}
+	}
+
+	/**
+	 * 
+	 */
+	public String getLastTimeStr() {
+		return "剩余" + lastTime + "天";
 	}
 
 	/**
@@ -111,6 +121,20 @@ public class WxXuncha {
 	 */
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
+	}
+
+	/**
+	 * 
+	 */
+	public Integer getLastTime() {
+		return lastTime;
+	}
+
+	/**
+	 * 
+	 */
+	public void setLastTime(Integer lastTime) {
+		this.lastTime = lastTime;
 	}
 
 }

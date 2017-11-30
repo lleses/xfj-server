@@ -156,7 +156,7 @@ public class AdminXcController {
 			wxXuncha.setRole(1);
 			if (isSucc) {
 				wxXuncha.setStatus(1);
-				xunchaService.updateWxXuncha(xunchaId, "6");//更新flag状态6(不及格)
+				xunchaService.updateXcFlag(xunchaId, "6");//更新flag状态6(不及格)
 			} else {
 				wxXuncha.setStatus(2);
 			}

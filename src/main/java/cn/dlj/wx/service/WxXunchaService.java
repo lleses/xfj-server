@@ -1,5 +1,7 @@
 package cn.dlj.wx.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,11 +26,20 @@ public class WxXunchaService {
 		WxXunchaDao.update(wxXuncha);
 	}
 
+	@Transactional
+	public void updateLastTime(WxXuncha wxXuncha) {
+		WxXunchaDao.updateLastTime(wxXuncha);
+	}
+
 	public WxXuncha getById(Integer xunchaId) {
 		if (xunchaId != null) {
 			return WxXunchaDao.getById(xunchaId);
 		}
 		return null;
+	}
+
+	public List<WxXuncha> getByLastTime() {
+		return WxXunchaDao.getByLastTime();
 	}
 
 }

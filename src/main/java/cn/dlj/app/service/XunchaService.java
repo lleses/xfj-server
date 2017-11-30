@@ -1,6 +1,7 @@
 package cn.dlj.app.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,10 @@ public class XunchaService {
 		return null;
 	}
 
+	public List<Xuncha> findByXcTime(Date xcTime) {
+		return dao.findByXcTime(xcTime);
+	}
+
 	public void delXunchaImg(Integer xunchaId) {
 		dao.delXunchaImg(xunchaId);
 	}
@@ -97,9 +102,23 @@ public class XunchaService {
 	}
 
 	@Transactional
-	public void updateWxXuncha(Integer xunchaId, String status) {
+	public void updateXcFlag(Integer xunchaId, String flag) {
 		if (xunchaId != null) {
-			dao.updateWxXuncha(xunchaId, status);
+			dao.updateXcFlag(xunchaId, flag);
+		}
+	}
+
+	@Transactional
+	public void updateXcRdFlag(Integer xunchaId, String flag) {
+		if (xunchaId != null) {
+			dao.updateXcRdFlag(xunchaId, flag);
+		}
+	}
+
+	@Transactional
+	public void updateXcFlagFlag(Integer xunchaId, String flag) {
+		if (xunchaId != null) {
+			dao.updateXcFlagFlag(xunchaId, flag);
 		}
 	}
 
