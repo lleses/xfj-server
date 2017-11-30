@@ -138,8 +138,16 @@
 		</where>
 	</select>
 	
-	<update id="updateWxXuncha">
-		update t_xuncha set flag=#{status} where id=#{xunchaId}
+	<update id="updateXcFlag">
+		update t_xuncha set flag=#{flag} where id=#{xunchaId}
+	</update>
+	
+	<update id="updateXcRdFlag">
+		update t_xunchard set flag=#{flag} where xunchaId=#{xunchaId}
+	</update>
+	
+	<update id="updateXcFlagFlag">
+		update t_xunchaflag set flag=#{flag} where xunchaId=#{xunchaId}
 	</update>
 	
 	<select id="getImgs" resultType="cn.dlj.app.entity.XunchaImg">
@@ -200,6 +208,16 @@
 			unitId=#{unitId}
 		</where>
 		order by addTime desc
+	</select>
+	
+	<select id="findByXcTime" resultType="cn.dlj.app.entity.Xuncha">
+		select
+				id				as 	"id"
+		from t_xuncha xc
+		left join t_wx_xuncha wx
+		<where>
+			xc.xcTime &lt; ${xcTime} and xc.flag='30' and wx.xunchaId=null
+		</where>
 	</select>
 	
 	<delete id="delXunchaImg">

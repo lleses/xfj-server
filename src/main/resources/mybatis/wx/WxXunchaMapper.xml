@@ -4,13 +4,19 @@
 
 	<!-- 新增 -->
 	<insert id="add" parameterType="cn.dlj.app.entity.WxXuncha">
-		insert into t_wx_xuncha(xunchaId,status,ct,et,role,unitName)
-		values(#{xunchaId},#{status},#{ct},#{et},#{role},#{unitName})
+		insert into t_wx_xuncha(xunchaId,status,ct,et,role,unitName,lastTime)
+		values(#{xunchaId},#{status},#{ct},#{et},#{role},#{unitName},#{lastTime})
 	</insert>
 	
 	<update id="update" parameterType="cn.dlj.app.entity.WxXuncha" >
 		update t_wx_xuncha set
-			status= #{status},et=#{et},role=#{role} 
+			status= #{status},et=#{et},role=#{role},lastTime=#{lastTime} 
+		where xunchaId=#{xunchaId}
+	</update>
+	
+	<update id="updateLastTime" parameterType="cn.dlj.app.entity.WxXuncha" >
+		update t_wx_xuncha set
+			lastTime= #{lastTime} 
 		where xunchaId=#{xunchaId}
 	</update>
 	
@@ -21,6 +27,16 @@
 		from t_wx_xuncha
 		<where>
 			xunchaId=#{xunchaId}
+		</where>
+	</select>
+	
+	<!-- 根据appId获取id -->
+	<select id="getByLastTime" resultType="cn.dlj.app.entity.WxXuncha">
+		select
+				*
+		from t_wx_xuncha
+		<where>
+			lastTime in (1,2)
 		</where>
 	</select>
 	
