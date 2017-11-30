@@ -75,8 +75,10 @@ public class GlyController {
 
 	@RequestMapping("list")
 	public String list(HttpServletRequest request, Integer userId) {
+		String openId = ParamUtils.getStr(request, "openId");//0:待审核 1:已审核
 		String statusType = ParamUtils.getStr(request, "statusType");//0:待审核 1:已审核
 		request.setAttribute("statusType", statusType);
+		request.setAttribute("openId", openId);
 		request.setAttribute("userId", userId);
 		return "wx/gly/list";
 	}
@@ -107,6 +109,7 @@ public class GlyController {
 
 	@RequestMapping("form")
 	public String form(HttpServletRequest request) {
+		Integer openId = ParamUtils.getInt(request, "openId");
 		Integer xunchaId = ParamUtils.getInt(request, "xunchaId");
 		Xuncha xuncha = xunchaService.getById(xunchaId);
 		Unit unit = null;
@@ -121,6 +124,7 @@ public class GlyController {
 		request.setAttribute("unit", unit);
 		request.setAttribute("wxImgs", wxImgs);
 		request.setAttribute("imgs", imgs);
+		request.setAttribute("openId", openId);
 		request.setAttribute("upload", WxConfig.XUNCHA_IMG);
 		return "wx/gly/form";
 	}

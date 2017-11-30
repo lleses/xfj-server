@@ -78,9 +78,11 @@ public class AdminXcController {
 
 	@RequestMapping("list")
 	public String list(HttpServletRequest request, Integer userId) {
+		String openId = ParamUtils.getStr(request, "openId");
 		String statusType = ParamUtils.getStr(request, "statusType");//0:待审核 1:已审核
 		request.setAttribute("statusType", statusType);
 		request.setAttribute("userId", userId);
+		request.setAttribute("openId", openId);
 		return "wx/admin/list";
 	}
 
@@ -110,6 +112,7 @@ public class AdminXcController {
 
 	@RequestMapping("form")
 	public String form(HttpServletRequest request) {
+		Integer openId = ParamUtils.getInt(request, "openId");
 		Integer xunchaId = ParamUtils.getInt(request, "xunchaId");
 		Xuncha xuncha = xunchaService.getById(xunchaId);
 		Unit unit = null;
@@ -124,6 +127,7 @@ public class AdminXcController {
 		request.setAttribute("unit", unit);
 		request.setAttribute("wxImgs", wxImgs);
 		request.setAttribute("imgs", imgs);
+		request.setAttribute("openId", openId);
 		request.setAttribute("upload", WxConfig.XUNCHA_IMG);
 		return "wx/admin/form";
 	}
