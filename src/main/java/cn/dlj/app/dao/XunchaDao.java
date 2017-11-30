@@ -1,6 +1,5 @@
 package cn.dlj.app.dao;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +41,7 @@ public interface XunchaDao {
 
 	List<Xuncha> find(@Param("unitId") Integer unitId);
 
-	List<Xuncha> findByXcTime(@Param("xcTime") Date xcTime);
+	List<Xuncha> findByXcTime(@Param("xcTime") String xcTime);
 
 	void delXunchaImg(@Param("xunchaId") Integer xunchaId);
 

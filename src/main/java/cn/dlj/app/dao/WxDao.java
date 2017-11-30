@@ -38,11 +38,7 @@ public interface WxDao {
 	 */
 	WxXunchaImg getNum(@Param("xunchaId") Integer xunchaId, @Param("num") Integer num);
 
-	/**
-	 * 修改
-	 * 
-	 */
-	void updateFalg(@Param("id") Integer id, @Param("flag") Integer flag);
+	void updateFalg(@Param("id") Integer id, @Param("flag") Integer flag, @Param("remark") String remark);
 
 	List<WxXuncha> getWxWaitList(PagingMySql paging);
 

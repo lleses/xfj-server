@@ -16,6 +16,8 @@ public class WxXunchaImg {
 	private int num;
 	/** '0' 待通过 ,'1' 审核通过' , '2' 审核不通过 **/
 	private int flag;
+	/** 审核意见 **/
+	private String remark;
 
 	/**
 	 * 
@@ -85,6 +87,20 @@ public class WxXunchaImg {
 	 */
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+
+	/**
+	 * 
+	 */
+	public String getRemark() {
+		return remark;
+	}
+
+	/**
+	 * 
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }

@@ -94,11 +94,8 @@ public class WxService {
 		return list;
 	}
 
-	/**
-	 * 
-	 */
-	public void updateFalg(Integer id, Integer flag) {
-		wxDao.updateFalg(id, flag);
+	public void updateFalg(Integer id, Integer flag, String remark) {
+		wxDao.updateFalg(id, flag, remark);
 	}
 
 	public List<WxXuncha> getWxWaitList(PagingMySql paging) {
