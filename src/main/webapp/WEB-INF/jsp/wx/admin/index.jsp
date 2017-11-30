@@ -101,7 +101,7 @@
 			</div>
 		</div>
 		
-		<!-- 学生弹幕 -->
+		<!-- 弹幕 -->
 		<div id="about" class="weui-popup-container">
 			<div class="weui-popup-overlay"></div>
 			<div class="weui-popup-modal" style="background-color: white;">
@@ -232,7 +232,7 @@ function swichTab(num){
 }
 
 function toDetail(xunchaId) {
-	window.location.href="/wx/admin/xc/form?xunchaId="+xunchaId+"&userId="+'${wxUser.userId}';
+	window.location.href="/wx/admin/xc/form?xunchaId="+xunchaId+"&userId="+'${wxUser.userId}'+"&openId="+'${wxUser.openId}';
 }
 
 </script>

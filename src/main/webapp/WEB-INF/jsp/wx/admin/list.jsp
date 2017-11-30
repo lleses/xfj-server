@@ -101,7 +101,7 @@ function load_db_callback(datas) {
 }
 
 function toDetail(xunchaId) {
-	window.location.href="/wx/admin/xc/form?xunchaId="+xunchaId;
+	window.location.href="/wx/admin/xc/form?xunchaId="+xunchaId+"&openId="+'${openId}';
 }
 
 
