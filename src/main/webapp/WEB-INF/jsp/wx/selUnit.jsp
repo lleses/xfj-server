@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<c:forEach var="unit" items="${units }">
-				<img width="50" src="/res/img/bird.png" style="float: left;margin-left: 5%;" />
+				<img width="50" src="/res/img/001.png" style="float: left;margin-left: 5%;" />
 				<div onclick="toUrl('${unit.id}')" class="zgsj" style="border: 3px solid #9E9E9E;background: #9a9da2;color: white;border-radius: 15px;width: calc(70% - 28px);">${unit.name }${unit.id}</div>
 			</c:forEach>
 			<div id="btn" class="btn" style="padding:10px 5%; width: 90%; float: left;margin-bottom: 30px;">

@@ -299,6 +299,9 @@ $(function(){
 				$("#_img_flag"+'${wximg.num}').text("待审核");
 			}
 			$("#_img_flag"+'${wximg.num}').show();
+			
+			$("#_remarkdiv"+'${wximg.num}').show();
+			$("#_remark"+'${wximg.num}').text('${wximg.remark}');
 		</c:forEach>
 	}
 })
@@ -391,6 +394,14 @@ function addHtml() {
 			htm += "</div>";
 			htm += "<div id='_img_flag" + (i + 1) + "' style='margin-left:10px;font-size: 11px;border: 1px solid red;padding: 5px;display:none;'></div>";
 		htm += "</div>";
+		
+		htm += "<div id='_remarkdiv" + (i + 1) + "' class='weui_cell' style='border-top: 1px solid #e6e6e6;display:none;'>";
+			htm += "<div class='weui_cell_hd'>";
+				htm += "<label class='weui_label'>审核意见</label>";
+			htm += "</div>";
+			htm += "<div id='_remark" + (i + 1) + "' class='weui_cell_bd weui_cell_primary'></div>";
+		htm += "</div>";
+	
 		htm += "<div id='_div_upimg" + (i + 1) + "' class='weui_cell' style='border-bottom:0px;display:none;'>";
 			htm += "<img id='_upimg" + (i + 1) + "' onclick=\"biggerPic(this)\" width='120' height='120' src='' />";
 		htm += "</div>";

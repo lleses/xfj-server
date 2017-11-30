@@ -278,6 +278,8 @@ $(function(){
 			$("#_div_upimg"+'${wximg.num}').show();
 			$("#xcItem_flag_"+'${wximg.num}'+"1").attr("imgId",'${wximg.id}');
 			$("#_img_flag"+'${wximg.num}').show();
+			$("#_remarkdiv"+'${wximg.num}').show();
+			$("#_remark"+'${wximg.num}').val('${wximg.remark}');
 			
 			if('${wximg.flag}'=='1'){
 				$("#xcItem_flag_"+'${wximg.num}'+"2").attr("checked","checked");
@@ -392,6 +394,16 @@ function addHtml() {
 				htm += "</div>";
 			htm += "</div>";
 		htm += "</div>";
+		
+		htm += "<div id='_remarkdiv" + (i + 1) + "' class='weui_cell' style='border-top: 1px solid #e6e6e6;display:none;'>";
+			htm += "<div class='weui_cell_hd'>";
+				htm += "<label class='weui_label'>审核意见</label>";
+			htm += "</div>";
+			htm += "<div class='weui_cell_bd weui_cell_primary'>";
+				htm += "<input maxlength='100' type='text' placeholder='请输入审核意见' id='_remark" + (i + 1) + "'  class='weui_input'>";
+			htm += "</div>";
+		htm += "</div>";
+	
 		htm += "<div id='_div_upimg" + (i + 1) + "' class='weui_cell' style='border-bottom:0px;display:none;'>";
 			htm += "<img onclick=\"biggerPic(this)\" id='_upimg" + (i + 1) + "' width='120' height='120' src='' />";
 		htm += "</div>";
@@ -426,32 +438,38 @@ function toForm(){
 	var xcItemVals = "";
 	var xcItems = "";
 	var imgIds = "";
+	var _remarks = "";
 	var _arr = _all_num.split(",");
 	for (var i = 0; i < _arr.length; i++) {
 		var _x_flag = $("input[name='xcItem_flag_"+_arr[i]+"']:checked").val();//值
 		var _imgId = $("#xcItem_flag_"+_arr[i]+"1").attr("imgId");//值
+		var _remark = $.trim($("#_remark"+_arr[i]).val());
 		xcItemVals = xcItemVals +_x_flag+",";
 		xcItems = xcItems + "xcItem" + _arr[i] +",";
 		imgIds = imgIds +_imgId+",";
+		_remarks = _remarks + _remark +"##,";
 	}
 	if(xcItemVals != ""){
 		xcItemVals = xcItemVals.substring(0,xcItemVals.length-1);
 		xcItems = xcItems.substring(0,xcItems.length-1);
 		imgIds = imgIds.substring(0,imgIds.length-1);
+		_remarks = _remarks.substring(0,_remarks.length-1);
 	}
 	console.log("imgIds:"+imgIds);	
 	console.log("_all_num:"+_all_num);	
 	console.log("xcItems:"+xcItems);	
 	console.log("xcItemVals:"+xcItemVals);	
+	console.log("_remarks:"+_remarks);	
 	
-	xcItemFlag(imgIds,xcItems,xcItemVals);
+	xcItemFlag(imgIds,xcItems,xcItemVals,_remarks);
 }
 
-function xcItemFlag(imgIds,xcItems,xcItemVals){
+function xcItemFlag(imgIds,xcItems,xcItemVals,p_remarks){
 	var param={
 		"imgIds":imgIds,
 		"xcItems": xcItems,
 		"xcItemVals": xcItemVals,
+		"remarks": p_remarks,
 		"xunchaId":'${xuncha.id}'
 	}
 	$.post("/wx/gly/updateFalg",param,function(rs){
