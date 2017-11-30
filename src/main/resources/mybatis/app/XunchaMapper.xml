@@ -212,11 +212,11 @@
 	
 	<select id="findByXcTime" resultType="cn.dlj.app.entity.Xuncha">
 		select
-				id				as 	"id"
+				xc.id				as 	"id"
 		from t_xuncha xc
-		left join t_wx_xuncha wx
+		left join t_wx_xuncha wx on xc.id=wx.xunchaId
 		<where>
-			xc.xcTime &lt; ${xcTime} and xc.flag='30' and wx.xunchaId=null
+			xc.xcTime &lt; date_format(#{xcTime},'%Y-%m-%d') and xc.flag='30' and wx.xunchaId is null
 		</where>
 	</select>
 	

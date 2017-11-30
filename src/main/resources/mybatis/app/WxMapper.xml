@@ -4,8 +4,8 @@
 
 	<!-- 新增 -->
 	<insert id="add" parameterType="cn.dlj.app.entity.WxXunchaImg" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
-		insert into t_wx_xunchaimg(id,xunchaId,picName,num,flag)
-		values(#{id},#{xunchaId},#{picName},#{num},#{flag})
+		insert into t_wx_xunchaimg(id,xunchaId,picName,num,flag,remark)
+		values(#{id},#{xunchaId},#{picName},#{num},#{flag},#{remark})
 	</insert>
 	
 	<!-- 修改 -->
@@ -19,7 +19,7 @@
 	<!-- 根据appId获取id -->
 	<select id="getList" resultType="cn.dlj.app.entity.WxXunchaImg">
 		select
-				id,xunchaId,picName,num,flag
+				*
 		from t_wx_xunchaimg
 		<where>
 			xunchaId=#{xunchaId}
@@ -29,7 +29,7 @@
 	<!-- 根据appId获取id -->
 	<select id="getNum" resultType="cn.dlj.app.entity.WxXunchaImg">
 		select
-				id,xunchaId,picName,num,flag
+				*
 		from t_wx_xunchaimg
 		<where>
 			xunchaId=#{xunchaId} and num=#{num}
@@ -40,7 +40,7 @@
 	<update id="updateFalg">
 		update t_wx_xunchaimg
 			set
-			flag= #{flag}
+			flag= #{flag},remark=#{remark}
 		where id=#{id}
 	</update>
 	
