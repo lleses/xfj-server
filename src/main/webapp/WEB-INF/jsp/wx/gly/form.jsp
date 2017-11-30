@@ -474,7 +474,7 @@ function xcItemFlag(imgIds,xcItems,xcItemVals,p_remarks){
 	}
 	$.post("/wx/gly/updateFalg",param,function(rs){
 		$.alert("提交成功", function() {
-			window.location.href="/wx/gly/index"+"&openId="+'${openId}';
+			window.location.href="/wx/gly/index?openId="+'${openId}';
 		});
 	});
 }
