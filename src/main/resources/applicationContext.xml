@@ -59,8 +59,8 @@
 	<!-- 定时任务 -->
 	<task:annotation-driven />
 	<task:scheduled-tasks>
-		<!-- 每1点45分执行一次 -->
-		<task:scheduled ref="WxFlag" method="task" fixed-delay="30000" />
+		<!-- 每天1点30分执行一次 -->
+		<task:scheduled ref="WxFlag" method="task" cron="0 30 1 * * *" />
 	</task:scheduled-tasks>
 
 </beans>
