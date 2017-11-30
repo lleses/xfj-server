@@ -134,11 +134,13 @@ public class AdminXcController {
 		String imgIds = ParamUtils.getStr(request, "imgIds");
 		String xcItems = ParamUtils.getStr(request, "xcItems");
 		String xcItemVals = ParamUtils.getStr(request, "xcItemVals");
+		String remarks = ParamUtils.getStr(request, "remarks");
 		Integer xunchaId = ParamUtils.getInt(request, "xunchaId");
 
 		String[] imgIdsArr = imgIds.split(",");
 		String[] xcItemsArr = xcItems.split(",");
 		String[] xcItemValsArr = xcItemVals.split(",");
+		String[] remarksArr = remarks.split(",");
 		if (imgIdsArr != null && !"".equals(imgIdsArr)) {
 			boolean isSucc = true;//总的审核是否通过
 			for (int i = 0; i < imgIdsArr.length; i++) {
@@ -146,7 +148,9 @@ public class AdminXcController {
 				if (value != null && value == 2) {
 					isSucc = false;
 				}
-				wxService.updateFalg(Integer.valueOf(imgIdsArr[i]), value);
+				String remark = remarksArr[i].trim();
+				remark=remark.replace("##", "");
+				wxService.updateFalg(Integer.valueOf(imgIdsArr[i]), value, remark);
 				//消防安全状况(1没问题2有问题) '1' 审核通过' , '2' 审核不通过
 				xunchaService.updateXunchaXcItem(xcItemsArr[i], value, xunchaId);
 			}
