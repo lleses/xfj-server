@@ -51,8 +51,6 @@ public class WxController {
 		// 用户同意授权后，能获取到code
 		String code = request.getParameter("code");
 		log.error("code:" + code);
-		String state = request.getParameter("state");
-		log.error("state:" + state);
 		// 用户同意授权
 		if ("authdeny".equals(code)) {
 			return "wx/bind";
