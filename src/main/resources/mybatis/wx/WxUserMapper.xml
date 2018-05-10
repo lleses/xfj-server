@@ -40,5 +40,15 @@
 		</where>
 	</select>
 	
+	<!-- 根据appId获取id -->
+	<select id="getAll" resultType="cn.dlj.wx.entity.WxUser">
+		select
+				*
+		from t_wx_user
+		<where>
+			type=0
+		</where>
+	</select>
+	
 	
 </mapper>
