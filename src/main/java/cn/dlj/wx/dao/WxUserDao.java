@@ -1,5 +1,7 @@
 package cn.dlj.wx.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import cn.dlj.utils.MyBatisDao;
@@ -14,14 +16,12 @@ public interface WxUserDao {
 
 	WxUser getByOpenId(@Param("openId") String openId);
 
-	/**
-	 * 新增
-	 * 
-	 */
 	int add(WxUser wxUser);
 
 	void update(WxUser wxUser);
 
 	WxUser getByNameAndPwd(@Param("userName") String userName, @Param("userPwd") String userPwd);
+
+	List<WxUser> getAll();
 
 }

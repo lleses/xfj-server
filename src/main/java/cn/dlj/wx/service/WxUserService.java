@@ -1,5 +1,7 @@
 package cn.dlj.wx.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +43,10 @@ public class WxUserService {
 
 	public WxUser getByNameAndPwd(String userName, String userPwd) {
 		return wxUserDao.getByNameAndPwd(userName, userPwd);
+	}
+
+	public List<WxUser> getAll() {
+		return wxUserDao.getAll();
 	}
 
 }

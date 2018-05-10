@@ -112,6 +112,8 @@ public class WxController {
 				List<WxChat> wxChats = wxChatService.getListByUserId(userId, "0");
 				request.setAttribute("wxChats", wxChats);
 				request.setAttribute("wxUser", wxUser);
+				List<WxUser> wxUsers = wxUserService.getAll();
+				request.setAttribute("gzSize", wxUsers.size());
 				return "wx/gly/index";
 			}
 		} catch (Exception e) {

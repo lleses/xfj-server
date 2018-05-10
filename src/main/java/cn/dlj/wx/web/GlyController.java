@@ -70,6 +70,8 @@ public class GlyController {
 			request.setAttribute("wxChats", wxChats);
 			request.setAttribute("wxUser", wxUser);
 		}
+		List<WxUser> wxUsers = wxUserService.getAll();
+		request.setAttribute("gzSize", wxUsers.size());
 		return "wx/gly/index";
 	}
 
