@@ -36,7 +36,7 @@
 		</div>
 		<!-- 上次更新时间 -->
 		<div style="text-align: center;padding: 10px;border: 3px solid #009688;color: #888;width: calc(90% - 28px);float: left;margin: 0px 5%;">
-			您还有<span id="xxtx_num" style="color:red;">${size }</span>条记录需要审核
+			您还有<span id="xxtx_num" style="color:red;">${size }</span>条需要审核<span  style="padding-left:20px;">已关注单位:</span><span id="xxtx_gz_num" style="color:red;">${gzSize }</span>
 		</div>
 		
 		<div style="border: 1px solid #e9e9e9;float: left;width: 90%;margin: 10px 5% 0px 5%;text-align: center;">
