@@ -1,6 +1,5 @@
 package cn.dlj.app.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.dlj.app.dao.XunchaDao;
 import cn.dlj.app.entity.Xuncha;
-import cn.dlj.app.entity.XunchaImg;
 import cn.dlj.utils.PagingMySql;
 
-/**
- * 巡查登记
- * 
- */
 @Service
 @Transactional(readOnly = true)
 public class XunchaService {
@@ -39,6 +33,11 @@ public class XunchaService {
 	@Transactional
 	public void addRd(Map<String, Object> map) {
 		dao.addRd(map);
+	}
+
+	@Transactional
+	public void delByTownId(Integer townId) {
+		dao.delByTownId(townId);
 	}
 
 	@Transactional

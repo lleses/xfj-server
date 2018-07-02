@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import cn.dlj.app.entity.Xuncha;
-import cn.dlj.app.entity.XunchaImg;
 import cn.dlj.utils.MyBatisDao;
 import cn.dlj.utils.PagingMySql;
 
@@ -18,6 +17,8 @@ public interface XunchaDao {
 	void addFlag(Map<String, Object> map);
 
 	void addRd(Map<String, Object> map);
+	
+	void delByTownId(Integer townId);
 
 	void updateRdImgs(Map<String, Object> map);
 

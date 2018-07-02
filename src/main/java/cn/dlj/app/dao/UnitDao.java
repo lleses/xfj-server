@@ -18,6 +18,8 @@ public interface UnitDao {
 
 	void updateStatus(@Param("id") Integer id, @Param("isxc") String isxc, @Param("starLevel") Integer starLevel, @Param("iscg") String iscg, @Param("isgm") String isgm);
 
+	void archiveInit(@Param("townId") Integer townId);
+
 	Unit get(@Param("name") String name);
 
 	Unit getById(@Param("id") Integer id);

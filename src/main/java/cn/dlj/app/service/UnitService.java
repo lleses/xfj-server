@@ -89,6 +89,11 @@ public class UnitService {
 		dao.updateStatus(id, isxc, starLevel, iscg, isgm);
 	}
 
+	@Transactional
+	public void archiveInit(Integer townId) {
+		dao.archiveInit(townId);
+	}
+
 	public Unit findById(Integer id) {
 		if (id != null) {
 			Unit unit = dao.findById(id);
