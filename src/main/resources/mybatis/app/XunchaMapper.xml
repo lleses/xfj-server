@@ -7,11 +7,6 @@
 		values(#{id},#{xctype},#{unitId},#{unitName},#{departId},#{departName},#{townId},#{townName},#{xcTime},#{oxcTime},#{xcPerson},#{etPerson},#{xcItem1},#{xcItem2},#{xcItem3},#{xcItem4},#{xcItem5},#{xcItem6},#{xcItem7},#{xcItem8},#{xcItem9},#{xcItem10},#{xcItem11},null,#{meno},#{flag},#{addTime},#{modTime},#{userId},#{addIp},#{pxquantity},#{trainingA},#{appXunchaId},#{liveThree},#{doorTime1},#{doorTime2},#{doorNum})
 	</insert>
 	
-	<insert id="addImg" parameterType="cn.dlj.app.entity.XunchaImg" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
-		insert into t_xunchaimg(id,xunchaId,picName,intro,longitude,latitude,flag,addTime)
-		values(#{id},#{xunchaId},#{picName},#{intro},#{longitude},#{latitude},#{flag},#{addTime})
-	</insert>
-	
 	<insert id="addFlag" parameterType="java.util.Map">
 		insert into t_xunchaflag(xunchaId,townId,townName,departId,departName,userId,userName,addTime,addIp,flag,live_three)
 		values(#{xunchaId},#{townId},#{townName},#{departId},#{departName},#{userId},#{userName},#{addTime},#{addIp},#{flag},#{liveThree})
@@ -150,15 +145,6 @@
 		update t_xunchaflag set flag=#{flag} where xunchaId=#{xunchaId}
 	</update>
 	
-	<select id="getImgs" resultType="cn.dlj.app.entity.XunchaImg">
-		select
-				id,xunchaId,picName,intro,longitude,latitude,flag,addTime
-		from t_xunchaimg
-		<where>
-			xunchaId=#{xunchaId}
-		</where>
-	</select>
-	
 	<update id="updateXunchaXcItem">
 		update t_xuncha set
 			${xcItem}= #{XcItemNum}
@@ -220,10 +206,6 @@
 		</where>
 	</select>
 	
-	<delete id="delXunchaImg">
-		delete from t_xunchaimg where xunchaId = #{xunchaId}
-	</delete>
-	
 	<select id="getDepPaging" resultType="cn.dlj.app.entity.Xuncha">
 		select
 				x.id 						as "id",
@@ -239,4 +221,6 @@
 		order by x.xcTime desc
 		limit #{first},#{pageSize}
 	</select>
+	
+	
 </mapper>

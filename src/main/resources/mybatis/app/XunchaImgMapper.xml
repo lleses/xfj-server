@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlj.app.dao.XunchaImgDao">
+
+	<insert id="add" parameterType="cn.dlj.app.entity.XunchaImg" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+		insert into t_xunchaimg(id,xunchaId,picName,intro,longitude,latitude,flag,addTime)
+		values(#{id},#{xunchaId},#{picName},#{intro},#{longitude},#{latitude},#{flag},#{addTime})
+	</insert>
+	
+	<select id="getImgs" resultType="cn.dlj.app.entity.XunchaImg">
+		select
+				*
+		from t_xunchaimg
+		<where>
+			xunchaId=#{xunchaId}
+		</where>
+	</select>
+	
+	<delete id="delXunchaImg">
+		delete from t_xunchaimg where xunchaId = #{xunchaId}
+	</delete>
+	
+</mapper>
