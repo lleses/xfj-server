@@ -86,6 +86,13 @@ public class XunchaService {
 	}
 
 	@Transactional
+	public void updateXcFlagAndMeno(Integer xunchaId, String flag, String meno) {
+		if (xunchaId != null) {
+			dao.updateXcFlagAndMeno(xunchaId, flag, meno);
+		}
+	}
+
+	@Transactional
 	public void updateXcRdFlag(Integer xunchaId, String flag) {
 		if (xunchaId != null) {
 			dao.updateXcRdFlag(xunchaId, flag);

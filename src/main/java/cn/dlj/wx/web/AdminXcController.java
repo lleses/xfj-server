@@ -167,7 +167,10 @@ public class AdminXcController {
 			wxXuncha.setRole(1);
 			if (isSucc) {
 				wxXuncha.setStatus(1);
-				xunchaService.updateXcFlag(xunchaId, "6");//更新flag状态6(不及格)
+				Xuncha xuncha = xunchaService.getById(xunchaId);
+				String meno = xuncha.getMeno();
+				meno = meno + "【微信平台审核通过】";
+				xunchaService.updateXcFlagAndMeno(xunchaId, "6", meno);//更新flag状态6(不及格)
 			} else {
 				wxXuncha.setStatus(2);
 			}

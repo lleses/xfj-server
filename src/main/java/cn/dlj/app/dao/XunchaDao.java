@@ -17,7 +17,7 @@ public interface XunchaDao {
 	void addFlag(Map<String, Object> map);
 
 	void addRd(Map<String, Object> map);
-	
+
 	void delByTownId(Integer townId);
 
 	void updateRdImgs(Map<String, Object> map);
@@ -29,6 +29,8 @@ public interface XunchaDao {
 	Xuncha getByUnitId(@Param("unitId") Integer unitId);
 
 	void updateXcFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
+
+	void updateXcFlagAndMeno(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag, @Param("meno") String meno);
 
 	void updateXcRdFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
 

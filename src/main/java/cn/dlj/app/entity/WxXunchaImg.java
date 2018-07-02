@@ -62,28 +62,28 @@ public class WxXunchaImg {
 	}
 
 	/**
-	 * 
+	 * 序号(用于定位消防安全状况的位置) 
 	 */
 	public int getNum() {
 		return num;
 	}
 
 	/**
-	 * 
+	 * 序号(用于定位消防安全状况的位置) 
 	 */
 	public void setNum(int num) {
 		this.num = num;
 	}
 
 	/**
-	 * 
+	 * '0' 待通过 ,'1' 审核通过' , '2' 审核不通过
 	 */
 	public int getFlag() {
 		return flag;
 	}
 
 	/**
-	 * 
+	 * '0' 待通过 ,'1' 审核通过' , '2' 审核不通过
 	 */
 	public void setFlag(int flag) {
 		this.flag = flag;

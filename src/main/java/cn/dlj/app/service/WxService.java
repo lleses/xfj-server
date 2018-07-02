@@ -94,6 +94,17 @@ public class WxService {
 		return list;
 	}
 
+	/**
+	 * 
+	 */
+	public List<WxXunchaImg> getListByXunchaIdAnd(Integer xunchaId) {
+		List<WxXunchaImg> list = new ArrayList<WxXunchaImg>();
+		if (xunchaId != null) {
+			list = wxDao.getListByXunchaIdAnd(xunchaId);
+		}
+		return list;
+	}
+
 	public void updateFalg(Integer id, Integer flag, String remark) {
 		wxDao.updateFalg(id, flag, remark);
 	}

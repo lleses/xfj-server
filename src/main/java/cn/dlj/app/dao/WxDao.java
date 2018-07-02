@@ -32,6 +32,9 @@ public interface WxDao {
 	 * 
 	 */
 	List<WxXunchaImg> getList(@Param("xunchaId") Integer xunchaId);
+	
+	
+	List<WxXunchaImg> getListByXunchaIdAnd(@Param("xunchaId") Integer xunchaId);
 
 	/**
 	 * 

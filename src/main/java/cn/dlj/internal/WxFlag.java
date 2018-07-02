@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.dlj.app.entity.WxXuncha;
+import cn.dlj.app.entity.WxXunchaImg;
 import cn.dlj.app.entity.Xuncha;
+import cn.dlj.app.service.WxService;
 import cn.dlj.app.service.XunchaService;
 import cn.dlj.utils.DateUtils;
 import cn.dlj.wx.service.WxXunchaService;
@@ -27,6 +29,8 @@ public class WxFlag {
 	private XunchaService xunchaService;
 	@Autowired
 	private WxXunchaService wxXunchaService;
+	@Autowired
+	private WxService wxService;
 
 	@Transactional
 	public void task() {
@@ -69,7 +73,7 @@ public class WxFlag {
 				//流转到网格系统
 				wxXuncha.setLastTime(0);
 				wxXunchaService.update(wxXuncha);
-				updateFlag(wxXuncha.getXunchaId());
+				updateFlagAndMeno(wxXuncha);
 				log.error("流转网格，更新xcId:" + wxXuncha.getXunchaId());
 			} else {
 				Xuncha xuncha = xunchaService.getById(wxXuncha.getXunchaId());
@@ -77,7 +81,7 @@ public class WxFlag {
 				if (time > 7) {//如果已审核，超过7天就流转到网格
 					wxXuncha.setLastTime(0);
 					wxXunchaService.update(wxXuncha);
-					updateFlag(wxXuncha.getXunchaId());
+					updateFlagAndMeno(wxXuncha);
 					log.error("流转网格，更新xcId:" + wxXuncha.getXunchaId());
 				}
 			}
@@ -92,9 +96,43 @@ public class WxFlag {
 	}
 
 	private void updateFlag(Integer xunchaId) {
-		xunchaService.updateXcFlag(xunchaId, "6");
+		Xuncha xuncha = xunchaService.getById(xunchaId);
+		String meno = xuncha.getMeno();
+		xunchaService.updateXcFlagAndMeno(xunchaId, "6", meno + "【该单位在微信平台未整改】");
 		xunchaService.updateXcRdFlag(xunchaId, "6");
 		xunchaService.updateXcFlagFlag(xunchaId, "6");
+	}
+
+	private void updateFlagAndMeno(WxXuncha wxXuncha) {
+		Integer xunchaId = wxXuncha.getXunchaId();
+		int status = wxXuncha.getStatus();
+		if (status == 2) {//如果审核不通过
+			//加上原来的
+			String meno = getRemark(xunchaId);
+			xunchaService.updateXcFlagAndMeno(xunchaId, "6", meno);
+		} else {
+			xunchaService.updateXcFlag(xunchaId, "6");
+		}
+		xunchaService.updateXcRdFlag(xunchaId, "6");
+		xunchaService.updateXcFlagFlag(xunchaId, "6");
+	}
+
+	private String getRemark(Integer xunchaId) {
+		Xuncha xuncha = xunchaService.getById(xunchaId);
+		String meno = xuncha.getMeno();
+		String remark = "【微信平台审核不通过】明细如下:";
+		List<WxXunchaImg> list = wxService.getListByXunchaIdAnd(xunchaId);
+		for (WxXunchaImg wxXunchaImg : list) {
+			int flag = wxXunchaImg.getFlag();//'0' 待通过 ,'1' 审核通过' , '2' 审核不通过
+			int num = wxXunchaImg.getNum();
+			if (flag == 0) {
+				remark = remark + "【问题" + num + "未审核】";
+			} else if (flag == 2) {
+				remark = remark + "【问题" + num + "不通过,审核意见:" + wxXunchaImg.getRemark() + "】";
+			}
+		}
+		meno = meno + remark;
+		return meno;
 	}
 
 }
