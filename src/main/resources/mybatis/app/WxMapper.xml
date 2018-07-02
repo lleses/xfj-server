@@ -26,6 +26,17 @@
 		</where>
 	</select>
 	
+	<!-- 获取审核不通过的记录 -->
+	<select id="getListByXunchaIdAnd" resultType="cn.dlj.app.entity.WxXunchaImg">
+		select
+				*
+		from t_wx_xunchaimg
+		<where>
+			xunchaId=#{xunchaId} and flag in (0,2)
+		</where>
+		order by num asc
+	</select>
+	
 	<!-- 根据appId获取id -->
 	<select id="getNum" resultType="cn.dlj.app.entity.WxXunchaImg">
 		select

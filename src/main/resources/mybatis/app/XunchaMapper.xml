@@ -141,6 +141,10 @@
 		update t_xuncha set flag=#{flag} where id=#{xunchaId}
 	</update>
 	
+	<update id="updateXcFlagAndMeno">
+		update t_xuncha set flag=#{flag},meno=#{meno} where id=#{xunchaId}
+	</update>
+	
 	<update id="updateXcRdFlag">
 		update t_xunchard set flag=#{flag} where xunchaId=#{xunchaId}
 	</update>
