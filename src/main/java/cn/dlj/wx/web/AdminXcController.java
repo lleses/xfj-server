@@ -18,6 +18,7 @@ import cn.dlj.app.entity.Xuncha;
 import cn.dlj.app.entity.XunchaImg;
 import cn.dlj.app.service.UnitService;
 import cn.dlj.app.service.WxService;
+import cn.dlj.app.service.XunchaImgService;
 import cn.dlj.app.service.XunchaService;
 import cn.dlj.utils.PagingMySql;
 import cn.dlj.utils.ParamUtils;
@@ -38,6 +39,8 @@ public class AdminXcController {
 
 	@Autowired
 	private XunchaService xunchaService;
+	@Autowired
+	private XunchaImgService xunchaImgService;
 	@Autowired
 	private UnitService unitService;
 	@Autowired
@@ -120,7 +123,7 @@ public class AdminXcController {
 		List<WxXunchaImg> wxImgs = new ArrayList<>();
 		if (xuncha != null) {
 			unit = unitService.findById(xuncha.getUnitId());
-			imgs = xunchaService.getImgs(xuncha.getId());
+			imgs = xunchaImgService.getImgs(xuncha.getId());
 			wxImgs = wxService.getList(xuncha.getId());
 		}
 		request.setAttribute("xuncha", xuncha);
@@ -153,7 +156,7 @@ public class AdminXcController {
 					isSucc = false;
 				}
 				String remark = remarksArr[i].trim();
-				remark=remark.replace("##", "");
+				remark = remark.replace("##", "");
 				wxService.updateFalg(Integer.valueOf(imgIdsArr[i]), value, remark);
 				//消防安全状况(1没问题2有问题) '1' 审核通过' , '2' 审核不通过
 				xunchaService.updateXunchaXcItem(xcItemsArr[i], value, xunchaId);

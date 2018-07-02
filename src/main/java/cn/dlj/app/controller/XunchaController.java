@@ -18,6 +18,7 @@ import cn.dlj.app.entity.Unit;
 import cn.dlj.app.entity.Xuncha;
 import cn.dlj.app.entity.XunchaImg;
 import cn.dlj.app.service.UnitService;
+import cn.dlj.app.service.XunchaImgService;
 import cn.dlj.app.service.XunchaService;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.StringUtils;
@@ -29,7 +30,8 @@ public class XunchaController {
 	private static final Logger log = LoggerFactory.getLogger(XunchaController.class);
 	@Autowired
 	private XunchaService xunchaService;
-
+	@Autowired
+	private XunchaImgService xunchaImgService;
 	@Autowired
 	private UnitService unitService;
 
@@ -39,7 +41,7 @@ public class XunchaController {
 		Unit unit = unitService.getById(id);
 		Xuncha xuncha = xunchaService.find(id);
 		if (xuncha != null) {
-			List<XunchaImg> list = xunchaService.getImgs(xuncha.getId());
+			List<XunchaImg> list = xunchaImgService.getImgs(xuncha.getId());
 			String imgs = "";
 			for (XunchaImg xunchaImg : list) {
 				imgs += "," + xunchaImg.getPicName();
@@ -123,7 +125,7 @@ public class XunchaController {
 			return "1";
 		}
 		String[] imgNames = img64Str.split(",");
-		xunchaService.delXunchaImg(xuncha.getId());
+		xunchaImgService.delXunchaImg(xuncha.getId());
 		for (String imgName : imgNames) {
 			XunchaImg xunchaImg = new XunchaImg();
 			xunchaImg.setXunchaId(xuncha.getId());// 巡查ID
@@ -133,7 +135,7 @@ public class XunchaController {
 			xunchaImg.setLatitude(null);// 纬度
 			xunchaImg.setFlag("2");// 1电脑上传2手机上传
 			xunchaImg.setAddTime(new Date());// 添加时间
-			Integer xunchaImgId = xunchaService.addImg(xunchaImg);
+			Integer xunchaImgId = xunchaImgService.add(xunchaImg);
 			if (xunchaImgId != null) {
 				imgIds += "," + xunchaImgId;
 			}

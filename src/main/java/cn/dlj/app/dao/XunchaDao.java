@@ -15,8 +15,6 @@ public interface XunchaDao {
 
 	int add(Xuncha xuncha);
 
-	void addImg(XunchaImg xunchaImg);
-
 	void addFlag(Map<String, Object> map);
 
 	void addRd(Map<String, Object> map);
@@ -35,15 +33,11 @@ public interface XunchaDao {
 
 	void updateXcFlagFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
 
-	List<XunchaImg> getImgs(@Param("xunchaId") Integer xunchaId);
-
 	void updateXunchaXcItem(@Param("xcItem") String xcItem, @Param("XcItemNum") Integer XcItemNum, @Param("xunchaId") Integer xunchaId);
 
 	List<Xuncha> find(@Param("unitId") Integer unitId);
 
 	List<Xuncha> findByXcTime(@Param("xcTime") String xcTime);
-
-	void delXunchaImg(@Param("xunchaId") Integer xunchaId);
 
 	List<Xuncha> getDepPaging(PagingMySql paging);
 }

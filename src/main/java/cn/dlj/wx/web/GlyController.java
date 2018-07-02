@@ -18,6 +18,7 @@ import cn.dlj.app.entity.Xuncha;
 import cn.dlj.app.entity.XunchaImg;
 import cn.dlj.app.service.UnitService;
 import cn.dlj.app.service.WxService;
+import cn.dlj.app.service.XunchaImgService;
 import cn.dlj.app.service.XunchaService;
 import cn.dlj.utils.PagingMySql;
 import cn.dlj.utils.ParamUtils;
@@ -38,6 +39,8 @@ public class GlyController {
 
 	@Autowired
 	private XunchaService xunchaService;
+	@Autowired
+	private XunchaImgService xunchaImgService;
 	@Autowired
 	private UnitService unitService;
 	@Autowired
@@ -119,7 +122,7 @@ public class GlyController {
 		List<WxXunchaImg> wxImgs = new ArrayList<>();
 		if (xuncha != null) {
 			unit = unitService.findById(xuncha.getUnitId());
-			imgs = xunchaService.getImgs(xuncha.getId());
+			imgs = xunchaImgService.getImgs(xuncha.getId());
 			wxImgs = wxService.getList(xuncha.getId());
 		}
 		request.setAttribute("xuncha", xuncha);

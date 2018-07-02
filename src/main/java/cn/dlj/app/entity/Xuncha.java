@@ -62,8 +62,16 @@ public class Xuncha {
 	private String xcItem12;
 	/** 整改日期 **/
 	private String rectDate;
+	/** 培训人数 **/
+	private String pxquantity;
+	/** 培训内容(trainingA1,trainingA2,trainingA3,trainingA4,trainingA5) **/
+	private String trainingA;
 	/** 备注 **/
 	private String meno;
+	/** 分派的镇级部门ID(没有使用) */
+	private Integer agnDepartId;
+	/** 分派的镇级部门名称(没有使用) */
+	private String agnDepartName;
 	/** 
 	 * -1:关门<br>
 	 * 1:及格 <br>
@@ -76,6 +84,10 @@ public class Xuncha {
 	 * 32:被整改单位  <br>
 	**/
 	private String flag = "1";
+	/** 行动ID(没有使用) **/
+	private Integer actionId;
+	/** 抽查 部门ID(没有使用) **/
+	private Integer ccdepId;
 	/** 添加时间 **/
 	private Date addTime;
 	/** 修改时间 **/
@@ -84,10 +96,8 @@ public class Xuncha {
 	private Integer userId;
 	/** IP地址 **/
 	private String addIp;
-	/** 培训人数 **/
-	private String pxquantity;
-	/** 培训内容(trainingA1,trainingA2,trainingA3,trainingA4,trainingA5) **/
-	private String trainingA;
+	/** 推荐分配部门(没有使用) **/
+	private String fp_bumen;
 	/** 住人三人以上(0:否,1:是) **/
 	private String liveThree;
 	/** 关门次数 **/
@@ -96,14 +106,14 @@ public class Xuncha {
 	private String doorTime1;
 	/** 关门时间 **/
 	private String doorTime2;
+	/** app巡查ID(没有使用) **/
+	private String appXunchaId;
 	/** 图片basc64 **/
 	transient private String img64;
 	/** 完整图片地址 */
 	transient private String serverBimg = "";
 	/** app监管单位ID **/
 	transient private String uid;
-	/** app巡查ID **/
-	transient private String appXunchaId;
 
 	public String getXcTimeStr() {
 		String format = "";
@@ -729,6 +739,83 @@ public class Xuncha {
 	 */
 	public void setDoorTime2(String doorTime2) {
 		this.doorTime2 = doorTime2;
+	}
+
+	/**
+	 * 
+	 */
+	public Integer getAgnDepartId() {
+		return agnDepartId;
+	}
+
+	/**
+	 * 
+	 */
+	public void setAgnDepartId(Integer agnDepartId) {
+		this.agnDepartId = agnDepartId;
+	}
+
+	/**
+	 * 
+	 */
+	public String getAgnDepartName() {
+		return agnDepartName;
+	}
+
+	/**
+	 * 
+	 */
+	public void setAgnDepartName(String agnDepartName) {
+		this.agnDepartName = agnDepartName;
+	}
+
+	/**
+	 * 
+	 */
+	public Integer getActionId() {
+		return actionId;
+	}
+
+	/**
+	 * 
+	 */
+	public void setActionId(Integer actionId) {
+		this.actionId = actionId;
+	}
+
+	/**
+	 * 
+	 */
+	public Integer getCcdepId() {
+		return ccdepId;
+	}
+
+	/**
+	 * 
+	 */
+	public void setCcdepId(Integer ccdepId) {
+		this.ccdepId = ccdepId;
+	}
+
+	/**
+	 * 
+	 */
+	public String getFp_bumen() {
+		return fp_bumen;
+	}
+
+	/**
+	 * 
+	 */
+	public void setFp_bumen(String fp_bumen) {
+		this.fp_bumen = fp_bumen;
+	}
+
+	/**
+	 * 
+	 */
+	public void setServerBimg(String serverBimg) {
+		this.serverBimg = serverBimg;
 	}
 
 }

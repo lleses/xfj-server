@@ -23,6 +23,7 @@ import cn.dlj.app.entity.XunchaImg;
 import cn.dlj.app.service.UnitService;
 import cn.dlj.app.service.UserService;
 import cn.dlj.app.service.WxService;
+import cn.dlj.app.service.XunchaImgService;
 import cn.dlj.app.service.XunchaService;
 import cn.dlj.utils.ParamUtils;
 import cn.dlj.utils.WxConfig;
@@ -42,6 +43,8 @@ public class XcController {
 	private static final Logger log = LoggerFactory.getLogger(XcController.class);
 	@Autowired
 	private XunchaService xunchaService;
+	@Autowired
+	private XunchaImgService xunchaImgService;
 	@Autowired
 	private UnitService unitService;
 	@Autowired
@@ -75,7 +78,7 @@ public class XcController {
 		Integer unitId = ParamUtils.getInt(request, "unitId");
 		Xuncha xuncha = xunchaService.getByUnitId(unitId);
 		Unit unit = unitService.findById(unitId);
-		List<XunchaImg> imgs = xunchaService.getImgs(xuncha.getId());
+		List<XunchaImg> imgs = xunchaImgService.getImgs(xuncha.getId());
 		List<WxXunchaImg> wxImgs = wxService.getList(xuncha.getId());
 		request.setAttribute("xuncha", xuncha);
 		request.setAttribute("unit", unit);

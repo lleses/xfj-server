@@ -3,7 +3,7 @@ package cn.dlj.app.entity;
 import java.util.Date;
 
 /**
- * 巡查登记
+ * 巡查登记图片
  * 
  */
 public class XunchaImg {
@@ -14,11 +14,11 @@ public class XunchaImg {
 	private Integer xunchaId;
 	/** 图片名称 **/
 	private String picName;
-	/** 说明 **/
+	/** 说明(没有使用) **/
 	private String intro;
-	/** 经度 **/
+	/** 经度(没有使用) **/
 	private String longitude;
-	/** 纬度 **/
+	/** 纬度(没有使用) **/
 	private String latitude;
 	/** 1电脑上传2手机上传 **/
 	private String flag;

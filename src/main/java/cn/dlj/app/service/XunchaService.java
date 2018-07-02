@@ -32,15 +32,6 @@ public class XunchaService {
 	}
 
 	@Transactional
-	public Integer addImg(XunchaImg xunchaImg) {
-		dao.addImg(xunchaImg);
-		if (xunchaImg != null && xunchaImg.getId() != null) {
-			return xunchaImg.getId();
-		}
-		return null;
-	}
-
-	@Transactional
 	public void addFlag(Map<String, Object> map) {
 		dao.addFlag(map);
 	}
@@ -72,14 +63,6 @@ public class XunchaService {
 		return null;
 	}
 
-	public List<XunchaImg> getImgs(Integer xunchaId) {
-		List<XunchaImg> list = new ArrayList<XunchaImg>();
-		if (xunchaId != null) {
-			list = dao.getImgs(xunchaId);
-		}
-		return list;
-	}
-
 	public Xuncha find(Integer unitId) {
 		List<Xuncha> list = dao.find(unitId);
 		if (!list.isEmpty()) {
@@ -90,10 +73,6 @@ public class XunchaService {
 
 	public List<Xuncha> findByXcTime(String xcTime) {
 		return dao.findByXcTime(xcTime);
-	}
-
-	public void delXunchaImg(Integer xunchaId) {
-		dao.delXunchaImg(xunchaId);
 	}
 
 	public void updateXunchaXcItem(String xcItem, Integer XcItemNum, Integer xunchaId) {
