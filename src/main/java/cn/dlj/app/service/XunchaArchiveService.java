@@ -18,17 +18,9 @@ public class XunchaArchiveService {
 	private XunchaArchiveDao dao;
 
 	@Transactional
-	public void add(Integer archiveNum, Date archiveTime) {
-		dao.add(archiveNum, archiveTime);
+	public void add(Integer archiveNum, Date archiveTime, Integer archiveUserId) {
+		dao.add(archiveNum, archiveTime, archiveUserId);
 	}
-
-	//	public List<XunchaArchive> getAllRecord() {
-	//		return dao.getAllRecord();
-	//	}
-	//
-	//	public List<XunchaArchive> getAllXuncha(Integer townId) {
-	//		return dao.getAllXuncha(townId);
-	//	}
 
 	public List<XunchaArchive> getByUnitId(Integer unitId) {
 		return dao.getByUnitId(unitId);

@@ -45,7 +45,7 @@ public class LoginController {
 			map.put("msg", "该账号不存在，请重新输入！");
 			return StringUtils.json(map);
 		}
-		if (user.getRoleId() != null && user.getRoleId() != 6 && user.getRoleId() != 28) {
+		if (user.getRoleId() != null && user.getRoleId() != 6 && user.getRoleId() != 28 && user.getRoleId() != 15) {
 			map.put("succ", "-1");
 			map.put("msg", "只允许巡查员或职能部门人员登陆，请更换巡查员账号！");
 			return StringUtils.json(map);
@@ -57,13 +57,15 @@ public class LoginController {
 		}
 		user.setStationId(service.getStationId(user.getTownId(), user.getDepId()));
 
+		map.put("data", user);
 		if (user.getRoleId() == 28) {
 			map.put("succ", "2");
-			map.put("data", user);
+			return StringUtils.json(map);
+		} else if (user.getRoleId() == 15) {//公司管理员
+			map.put("succ", "3");
 			return StringUtils.json(map);
 		}
 		map.put("succ", "1");
-		map.put("data", user);
 		return StringUtils.json(map);
 	}
 

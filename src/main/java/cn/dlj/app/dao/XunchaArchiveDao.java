@@ -11,7 +11,7 @@ import cn.dlj.utils.MyBatisDao;
 @MyBatisDao
 public interface XunchaArchiveDao {
 
-	int add(@Param("archiveNum") Integer archiveNum, @Param("archiveTime") Date archiveTime);
+	int add(@Param("archiveNum") Integer archiveNum, @Param("archiveTime") Date archiveTime, @Param("archiveUserId") Integer archiveUserId);
 
 	List<XunchaArchive> getByUnitId(@Param("unitId") Integer unitId);
 

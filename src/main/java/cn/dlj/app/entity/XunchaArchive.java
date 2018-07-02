@@ -1,6 +1,9 @@
 package cn.dlj.app.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import cn.dlj.utils.WxConfig;
 
 /**
  * 巡查登记归档
@@ -108,6 +111,36 @@ public class XunchaArchive {
 	private Integer archiveNum;
 	/** 归档时间(用于t_xuncha_archive表) */
 	private Date archiveTime;
+	/** 归档人ID **/
+	private Integer archiveUserId;
+
+	/** 图片basc64 **/
+	transient private String img64;
+	/** 完整图片地址 */
+	transient private String serverBimg = "";
+
+	public String getArchiveTimeStr() {
+		String format = "";
+		if (archiveTime != null) {
+			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+			format = simple.format(archiveTime);
+		}
+		return format;
+	}
+
+	/**
+	 * 完整图片地址
+	 */
+	public String getServerBimg() {
+		if (null != img64 && !"".equals(img64.trim()) && img64 != "null" && img64 != "undefined") {
+			String[] imgs = img64.split(",", -1);
+			for (String img : imgs) {
+				serverBimg += "," + WxConfig.XUNCHA_IMG + img;
+			}
+			serverBimg = serverBimg.substring(1);
+		}
+		return serverBimg;
+	}
 
 	/**
 	 * 
@@ -737,6 +770,41 @@ public class XunchaArchive {
 	 */
 	public void setArchiveTime(Date archiveTime) {
 		this.archiveTime = archiveTime;
+	}
+
+	/**
+	 * 
+	 */
+	public Integer getArchiveUserId() {
+		return archiveUserId;
+	}
+
+	/**
+	 * 
+	 */
+	public void setArchiveUserId(Integer archiveUserId) {
+		this.archiveUserId = archiveUserId;
+	}
+
+	/**
+	 * 
+	 */
+	public String getImg64() {
+		return img64;
+	}
+
+	/**
+	 * 
+	 */
+	public void setImg64(String img64) {
+		this.img64 = img64;
+	}
+
+	/**
+	 * 
+	 */
+	public void setServerBimg(String serverBimg) {
+		this.serverBimg = serverBimg;
 	}
 
 }
