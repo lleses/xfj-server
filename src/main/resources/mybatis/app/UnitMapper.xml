@@ -50,6 +50,17 @@
 		where id=#{id}
 	</update>
 	
+	<!-- 初始化状态(归档时候用) -->
+	<update id="archiveInit" >
+		update t_unit
+			set
+			isgm='0',
+			iscg='0',
+			isxc='0',
+			starLevel=null
+		where townId=#{townId}
+	</update>
+	
 	<select id="get" resultType="cn.dlj.app.entity.Unit">
 		select
 				id 						as "id",

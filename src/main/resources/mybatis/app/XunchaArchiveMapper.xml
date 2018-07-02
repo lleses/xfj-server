@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlj.app.dao.XunchaArchiveDao">
+
+	<insert id="add" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+		insert into t_xuncha_archive(
+			id,xctype,unitId,unitName,departId,departName,townId,townName,xcTime,oxcTime,xcPerson,etPerson,xcItem1,xcItem2,xcItem3,xcItem4,xcItem5,xcItem6,xcItem7,xcItem8,xcItem9,xcItem10,xcItem11,xcItem12,rectDate,pxquantity,trainingA,meno,agnDepartId,agnDepartName,flag,actionId,ccdepId,addTime,modTime,userId,addIp,fp_bumen,live_three,doorNum,doorTime1,doorTime2,app_xuncha_id,archiveNum,archiveTime
+		) 
+		select 
+			id,xctype,unitId,unitName,departId,departName,townId,townName,xcTime,oxcTime,xcPerson,etPerson,xcItem1,xcItem2,xcItem3,xcItem4,xcItem5,xcItem6,xcItem7,xcItem8,xcItem9,xcItem10,xcItem11,xcItem12,rectDate,pxquantity,trainingA,meno,agnDepartId,agnDepartName,flag,actionId,ccdepId,addTime,modTime,userId,addIp,fp_bumen,live_three,doorNum,doorTime1,doorTime2,app_xuncha_id,#{archiveNum},#{archiveTime}
+ 		from t_xuncha
+	</insert>
+	
+	<select id="getByUnitId" resultType="cn.dlj.app.entity.XunchaArchive">
+		select
+				*
+		from t_xuncha_archive
+		<where>
+			unitId=#{unitId}
+		</where>
+		order by archiveNum desc
+	</select>
+	
+	<select id="getById" resultType="cn.dlj.app.entity.XunchaArchive">
+		select
+				*
+		from t_xuncha_archive
+		<where>
+			id=#{id}
+		</where>
+	</select>
+	
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select
+			max(archiveNum)
+		from t_xuncha_archive
+		<where>
+			townId=#{townId}
+		</where>
+	</select>
+	
+</mapper>

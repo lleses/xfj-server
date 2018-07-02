@@ -17,6 +17,10 @@
 		values(#{xunchaId},#{xctype},#{unitId},#{unitName},#{departId},#{departName},#{townId},#{townName},#{code},#{license},#{address},#{type},#{safedLinkman},#{safedTelphone},#{manageLinkman},#{manageTelphone},#{area},#{crewSize},#{buildingsLayer},#{unitMeno},#{xcTime},#{oxcTime},#{xcPerson},#{etPerson},#{xcItem1},#{xcItem2},#{xcItem3},#{xcItem4},#{xcItem5},#{xcItem6},#{xcItem7},#{xcItem8},#{xcItem9},#{xcItem10},#{xcItem11},#{xcItem12},null,#{meno},#{flag},#{imgIds},#{addTime},#{userId},#{userName},#{liveThree})
 	</insert>
 	
+	<delete id="delByTownId">
+		delete from t_xuncha where townId = #{townId}
+	</delete>
+	
 	<update id="updateRdImgs" parameterType="java.util.Map" >
 		update t_xunchard set
 			imgIds= #{imgIds}
