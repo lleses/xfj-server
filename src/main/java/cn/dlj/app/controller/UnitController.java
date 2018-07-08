@@ -88,6 +88,7 @@ public class UnitController {
 	public String edit(HttpServletRequest request, Unit unit, String img64Str, String buildIds) {
 		Unit un = unitService.getById(unit.getId());
 		if (un != null) {
+			un.setName(unit.getName());
 			un.setLicense(unit.getLicense());
 			un.setAddress(unit.getAddress());
 			un.setType(unit.getType());

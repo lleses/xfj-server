@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,11 @@ public class XunchaService {
 			map.put("imgIds", imgIds);
 			dao.updateRdImgs(map);
 		}
+	}
+
+	@Transactional
+	public void updateMeno(String meno, Integer id) {
+		dao.updateMeno(meno, id);
 	}
 
 	@Transactional

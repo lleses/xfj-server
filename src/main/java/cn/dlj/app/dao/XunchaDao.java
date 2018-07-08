@@ -20,6 +20,8 @@ public interface XunchaDao {
 
 	void delByTownId(Integer townId);
 
+	void updateMeno(@Param("meno") String meno, @Param("id") Integer id);
+
 	void updateRdImgs(Map<String, Object> map);
 
 	void updateXc(Xuncha xuncha);
@@ -30,13 +32,15 @@ public interface XunchaDao {
 
 	void updateXcFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
 
-	void updateXcFlagAndMeno(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag, @Param("meno") String meno);
+	void updateXcFlagAndMeno(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag,
+			@Param("meno") String meno);
 
 	void updateXcRdFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
 
 	void updateXcFlagFlag(@Param("xunchaId") Integer xunchaId, @Param("flag") String flag);
 
-	void updateXunchaXcItem(@Param("xcItem") String xcItem, @Param("XcItemNum") Integer XcItemNum, @Param("xunchaId") Integer xunchaId);
+	void updateXunchaXcItem(@Param("xcItem") String xcItem, @Param("XcItemNum") Integer XcItemNum,
+			@Param("xunchaId") Integer xunchaId);
 
 	List<Xuncha> find(@Param("unitId") Integer unitId);
 

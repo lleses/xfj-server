@@ -117,7 +117,7 @@ public class XunchaController {
 			unitService.updateStatus(xuncha.getUnitId(), "1", starLevel, null, null);
 		} else if ("1".equals(xuncha.getFlag())) {
 			unitService.updateStatus(xuncha.getUnitId(), "0", 1, "0", "0");
-		} else {//关门
+		} else {// 关门
 			unitService.updateStatus(xuncha.getUnitId(), null, null, null, "1");
 		}
 		String imgIds = "";
@@ -147,6 +147,18 @@ public class XunchaController {
 		return "1";
 	}
 
+	@RequestMapping("updateMeno")
+	@ResponseBody
+	public String updateMeno(HttpServletRequest request) {
+		String meno = ParamUtils.getStr(request, "meno");
+		Integer id = ParamUtils.getInt(request, "id");
+		Xuncha xuncha = xunchaService.getById(id);
+		String meno2 = xuncha.getMeno();
+		meno = meno2 + meno;
+		xunchaService.updateMeno(meno, id);
+		return "1";
+	}
+
 	/** 保存巡查历史记录 **/
 	private void addFlag(Xuncha appXuncha, String userName) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -162,7 +174,8 @@ public class XunchaController {
 		map.put("flag", "1".equals(appXuncha.getFlag()) ? "1" : "6");
 		map.put("liveThree", appXuncha.getLiveThree());
 		xunchaService.addFlag(map);
-		log.error("在线巡查历史新增成功,xunchaId:" + appXuncha.getId() + ",name:" + appXuncha.getUnitId() + ",账号ID:" + appXuncha.getUserId());
+		log.error("在线巡查历史新增成功,xunchaId:" + appXuncha.getId() + ",name:" + appXuncha.getUnitId() + ",账号ID:"
+				+ appXuncha.getUserId());
 	}
 
 	/** 巡查流转情况记录表 **/
@@ -222,7 +235,8 @@ public class XunchaController {
 			map.put("unitMeno", unit.getMeno());
 		}
 		xunchaService.addRd(map);
-		log.error("在线巡查流转新增成功,xunchaId:" + appXuncha.getId() + ",name:" + appXuncha.getUnitId() + ",账号ID:" + appXuncha.getUserId());
+		log.error("在线巡查流转新增成功,xunchaId:" + appXuncha.getId() + ",name:" + appXuncha.getUnitId() + ",账号ID:"
+				+ appXuncha.getUserId());
 	}
 
 }
