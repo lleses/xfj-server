@@ -21,6 +21,12 @@
 		delete from t_xuncha where townId = #{townId}
 	</delete>
 	
+	<update id="updateMeno" >
+		update t_xuncha set
+			meno= #{meno}
+		where id=#{id}
+	</update>
+	
 	<update id="updateRdImgs" parameterType="java.util.Map" >
 		update t_xunchard set
 			imgIds= #{imgIds}
