@@ -32,7 +32,6 @@
 			name= #{name},
 			area= #{area},
 			buildingsLayer= #{buildingsLayer},
-			starLevel= #{starLevel},
 			keyUnit= #{keyUnit},
 			iscg= #{iscg},
 			app_id= #{appUnitId}
