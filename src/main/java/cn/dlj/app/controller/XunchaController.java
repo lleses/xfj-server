@@ -113,6 +113,7 @@ public class XunchaController {
 			xc.setPxquantity(xuncha.getPxquantity());
 			xc.setTrainingA(xuncha.getTrainingA());
 			xc.setLiveThree(xuncha.getLiveThree());
+			xc.setRecommendDepartId(xuncha.getRecommendDepartId());
 			xunchaService.updateXc(xc);
 			xuncha = xc;
 		}
