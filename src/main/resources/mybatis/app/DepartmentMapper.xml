@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlj.app.dao.DepartmentDao">
+
+	<select id="getByTownId" resultType="cn.dlj.app.entity.Department">
+		select
+				id					as 	"id",
+				name			as	"name",
+				townId			as	"townId"
+		from t_department
+		<where>
+			townId=#{townId}
+		</where>
+	</select>
+	
+</mapper>
