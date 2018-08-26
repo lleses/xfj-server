@@ -112,6 +112,8 @@ public class Xuncha {
 	private Integer archiveNum;
 	/** 归档时间(用于t_xuncha_archive表) */
 	private Date archiveTime;
+	/** 推荐部门ID **/
+	private Integer recommendDepartId;
 	/** 图片basc64 **/
 	transient private String img64;
 	/** 完整图片地址 */
@@ -848,6 +850,20 @@ public class Xuncha {
 	 */
 	public void setArchiveTime(Date archiveTime) {
 		this.archiveTime = archiveTime;
+	}
+
+	/**
+	 * 推荐部门ID
+	 */
+	public Integer getRecommendDepartId() {
+		return recommendDepartId;
+	}
+
+	/**
+	 * 推荐部门ID
+	 */
+	public void setRecommendDepartId(Integer recommendDepartId) {
+		this.recommendDepartId = recommendDepartId;
 	}
 
 }

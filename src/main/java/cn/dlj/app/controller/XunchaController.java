@@ -14,9 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.dlj.app.entity.Department;
 import cn.dlj.app.entity.Unit;
 import cn.dlj.app.entity.Xuncha;
 import cn.dlj.app.entity.XunchaImg;
+import cn.dlj.app.service.DepartmentService;
 import cn.dlj.app.service.UnitService;
 import cn.dlj.app.service.XunchaImgService;
 import cn.dlj.app.service.XunchaService;
@@ -34,12 +36,16 @@ public class XunchaController {
 	private XunchaImgService xunchaImgService;
 	@Autowired
 	private UnitService unitService;
+	@Autowired
+	private DepartmentService departmentService;
 
 	@RequestMapping("get")
 	@ResponseBody
 	public String get(HttpServletRequest request, int id) {
+		Integer townId = ParamUtils.getInt(request, "townId");
 		Unit unit = unitService.getById(id);
 		Xuncha xuncha = xunchaService.find(id);
+		List<Department> departments = departmentService.getByTownId(townId);
 		if (xuncha != null) {
 			List<XunchaImg> list = xunchaImgService.getImgs(xuncha.getId());
 			String imgs = "";
@@ -55,6 +61,7 @@ public class XunchaController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("unit", unit);
 		map.put("xuncha", xuncha);
+		map.put("departments", departments);
 		String json = StringUtils.json(map);
 		return json;
 	}
