@@ -89,6 +89,7 @@ public class WxFlag {
 		log.error("结束定时任务-----");
 	}
 
+	/** 获取7天前的时间 **/
 	private String getLastSevenDay() {
 		Date lastSevenDay = DateUtils.nextDay(new Date(), -7);
 		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
